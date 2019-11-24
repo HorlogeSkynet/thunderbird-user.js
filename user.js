@@ -1,28 +1,24 @@
 /******
 * name: ghacks thunderbird user.js
-* date: 17 March 2019
-* version 60.5: Fork at ghacksuserjs/ghacks-user.js 2cff24f12e89d3592f8285875fed3a57c489a961 (HEAD, tag: 65.0)
+* date: 24 November 2019
+* version v68.0-beta: "Knock on Pants"
 * authors: v52+ github | v51- www.ghacks.net
-* url: https://github.com/ghacksuserjs/ghacks-thunderbird-user.js
-* license: MIT: https://github.com/ghacksuserjs/ghacks-thunderbird-user.js/blob/master/LICENSE.txt
-
-* releases: These are end-of-stable-life-cycle legacy archives.
-            *Always* use the master branch user.js for a current up-to-date version.
-       url: https://github.com/ghacksuserjs/ghacks-thunderbird-user.js/releases
+* url: https://github.com/HorlogeSkynet/thunderbird-user.js
+* license: MIT (https://github.com/HorlogeSkynet/thunderbird-user.js/blob/master/LICENSE)
+* releases: https://github.com/HorlogeSkynet/thunderbird-user.js/releases
 
 * README:
-
   0. Consider using Tor, use TorBirdy as well.
      * https://addons.thunderbird.net/addon/torbirdy
   1. READ the full README
-     * https://github.com/ghacksuserjs/ghacks-thunderbird-user.js/blob/master/README.md
+     * https://github.com/HorlogeSkynet/thunderbird-user.js/blob/master/README.md
   2. READ this
-     * https://github.com/ghacksuserjs/ghacks-thunderbird-user.js/wiki/1.3-Implementation
+     * https://github.com/HorlogeSkynet/thunderbird-user.js/wiki/1.3-Implementation
   3. If you skipped steps 1 and 2 above (shame on you), then here is the absolute minimum
      * Auto-installing updates for Thunderbird and extensions are disabled (section 0302's)
      * Browsing related technologies, and JavaScript disabled. Use your web browser for browsing.
   4. BACKUP your profile folder before implementing (and/or test in a new/cloned profile)
-  5. KEEP UP TO DATE: https://github.com/ghacksuserjs/ghacks-thunderbird-user.js/wiki#small_orange_diamond-maintenance
+  5. KEEP UP TO DATE: https://github.com/HorlogeSkynet/thunderbird-user.js/wiki#small_orange_diamond-maintenance
 
 * INDEX:
 
