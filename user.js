@@ -1566,6 +1566,29 @@ user_pref("browser.search.countryCode", "US"); // [HIDDEN PREF]
    // [-] https://bugzilla.mozilla.org/1420514
    // user_pref("app.update.enabled", false);
 // * * * /
+// FF66
+// 0380: disable Browser Error Reporter [FF60+]
+   // [1] https://support.mozilla.org/en-US/kb/firefox-nightly-error-collection
+   // [2] https://firefox-source-docs.mozilla.org/browser/browser/BrowserErrorReporter.html
+   // [-] https://bugzilla.mozilla.org/1509888
+user_pref("browser.chrome.errorReporter.enabled", false);
+user_pref("browser.chrome.errorReporter.submitUrl", "");
+// 0502: disable Mozilla permission to silently opt you into tests
+   // [-] https://bugzilla.mozilla.org/1415625
+user_pref("network.allow-experiments", false);
+// * * * /
+// FF68
+// 0307: disable auto updating of lightweight themes (LWT)
+   // Not to be confused with themes in 0301* + 0302*, which use the FF55+ Theme API
+   // Mozilla plan to convert existing LWTs and remove LWT support in the future, see [1]
+   // [1] https://blog.mozilla.org/addons/2018/09/20/future-themes-here/
+   // [-] (part3b) https://bugzilla.mozilla.org/1525762
+user_pref("lightweightThemes.update.enabled", false);
+// 2682: enable CSP 1.1 experimental hash-source directive [FF29+]
+   // [1] https://bugzilla.mozilla.org/buglist.cgi?bug_id=855326,883975
+   // [-] https://bugzilla.mozilla.org/1386214
+user_pref("security.csp.experimentalEnabled", true);
+// * * * /
 // ***/
 
 /* END: internal custom pref to test for syntax errors ***/
