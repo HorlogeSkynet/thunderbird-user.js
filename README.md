@@ -1,4 +1,4 @@
-# Thunderbird gHacks-User.JS
+# Thunderbird User.JS
 
 > An ongoing comprehensive user.js template for configuring and hardening Thunderbird privacy, security and anti-fingerprinting
 
