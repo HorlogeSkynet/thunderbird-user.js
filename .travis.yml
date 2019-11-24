@@ -5,4 +5,4 @@ node_js:
 before_script:
   - npm install -g acorn
 script:
-  - acorn user.js
+  - acorn --silent user.js
