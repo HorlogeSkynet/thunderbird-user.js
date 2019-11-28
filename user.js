@@ -1102,7 +1102,9 @@ user_pref("_user.js.parrot", "4500 syntax error: the parrot's popped 'is clogs")
  * This pref is the master switch for all other privacy.resist* prefs unless stated
  * [SETUP-WEB] RFP can cause the odd website to break in strange ways, and has a few side affects,
  * but is largely robust nowadays. Give it a try. Your choice. Also see 4504 (letterboxing).
- * [1] https://bugzilla.mozilla.org/418986 ***/
+ * [NOTE] This feature currently breaks Text & Background colors settings ("Fonts & Colors"), see [2].
+ * [1] https://bugzilla.mozilla.org/418986
+ * [2] https://bugzilla.mozilla.org/1600074 ***/
 user_pref("privacy.resistFingerprinting", true);
 /* 4502: set new window sizes to round to hundreds [FF55+] [SETUP-CHROME]
  * Width will round down to multiples of 200s and height to 100s, to fit your screen.
