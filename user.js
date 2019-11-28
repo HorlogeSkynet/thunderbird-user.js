@@ -533,6 +533,9 @@ user_pref("security.cert_pinning.enforcement_level", 2);
 user_pref("security.mixed_content.block_active_content", true); // [DEFAULT: true]
 /* 1241: disable insecure passive content (such as images) on https pages [SETUP-WEB] ***/
 user_pref("security.mixed_content.block_display_content", true);
+/* 1243: block unencrypted requests from Flash on encrypted pages to mitigate MitM attacks [FF59+]
+ * [1] https://bugzilla.mozilla.org/1190623 ***/
+user_pref("security.mixed_content.block_object_subrequest", true);
 
 /** CIPHERS [see the section 1200 intro] ***/
 /* 1261: disable 3DES (effective key size < 128)
@@ -569,6 +572,10 @@ user_pref("security.insecure_connection_icon.enabled", true); // [FF59+]
 user_pref("security.insecure_connection_text.enabled", true); // [FF60+]
    // user_pref("security.insecure_connection_icon.pbmode.enabled", true);
    // user_pref("security.insecure_connection_text.pbmode.enabled", true);
+/* 1280: display warnings when insecure HTTP connections are made ***/
+user_pref("security.warn_entering_weak", true);
+user_pref("security.warn_leaving_secure", true);
+user_pref("security.warn_viewing_mixed", true);
 
 /*** [SECTION 1400]: FONTS ***/
 user_pref("_user.js.parrot", "1400 syntax error: the parrot's bereft of life!");
@@ -849,6 +856,9 @@ user_pref("dom.webaudio.enabled", false);
 
 /*** [SECTION 2600]: MISCELLANEOUS ***/
 user_pref("_user.js.parrot", "2600 syntax error: the parrot's run down the curtain!");
+/* 2602: disable sending additional analytics to web servers
+ * [1] https://developer.mozilla.org/docs/Web/API/Navigator/sendBeacon ***/
+user_pref("beacon.enabled", false);
 /* 2607: disable various developer tools in browser context
  * [SETTING] Devtools>Advanced Settings>Enable browser chrome and add-on debugging toolboxes
  * [1] https://github.com/pyllyukko/user.js/issues/179#issuecomment-246468676 ***/
@@ -945,6 +955,10 @@ user_pref("_user.js.parrot", "2700 syntax error: the parrot's joined the bleedin
  * [NOTE] You can set exceptions under site permissions or use an extension
  * [SETTING] Privacy & Security>Content Blocking>Custom>Choose what to block>Cookies ***/
 user_pref("network.cookie.cookieBehavior", 2);
+/* 2710: disable DOM (Document Object Model) Storage
+ * [WARNING] This will break a LOT of sites' functionality AND extensions!
+ * You are better off using an extension for more granular control ***/
+   // user_pref("dom.storage.enabled", false);
 /* 2720: enforce IndexedDB (IDB) as enabled
  * IDB is required for extensions and Firefox internals (even before FF63 in [1])
  * To control *website* IDB data, control allowing cookies and service workers, or use
@@ -1229,6 +1243,8 @@ user_pref("_user.js.parrot", "4700 syntax error: the parrot's taken 'is last bow
    // user_pref("general.platform.override", ""); // [HIDDEN PREF]
 /* 4706: navigator.oscpu ***/
    // user_pref("general.oscpu.override", ""); // [HIDDEN PREF]
+/* 4707: Limit user-agent data by imitating Firefox's user-agent */
+   // user_pref("general.useragent.compatMode.firefox", true);
 
 /*** [SECTION 5000]: PERSONAL
      Non-project related but useful. If any of these interest you, add them to your overrides ***/
@@ -1288,6 +1304,10 @@ user_pref("mail.tabs.autoHide", true);
  * true=Show just the display name for people in the address book (default)
  * false=Show both the email address and display name. ***/
 user_pref("mail.showCondensedAddresses", false);
+/* 6010: Disable "Filelink for Large Attachments" feature
+ * [1] https://support.thunderbird.net/kb/filelink-large-attachments ***/
+user_pref("mail.cloud_files.enabled", false);
+user_pref("mail.cloud_files.inserted_urls.footer.link", "");
 
 /** HEADERS ***/
 /* 6004:
@@ -1305,7 +1325,6 @@ user_pref("mailnews.headers.showUserAgent", false);
  * If you don't set it to something in your SMTP server's domain it may increase your spam
  * score. ***/
 user_pref("mail.smtpserver.default.hello_argument", "[127.0.0.1]");
-
 /* 6007: Displayed dates and times
  * When your e-mail program displays the e-mail's date and time, it normally converts them to your
  * time zone. If your computer's time zone settings are wrong, then you will see the wrong time
@@ -1442,6 +1461,10 @@ user_pref("purple.logging.log_ims", false);
 user_pref("purple.logging.log_system", false);
 /* 6205: Disable typing notifications ***/
 user_pref("purple.conversations.im.send_typing", false);
+/* 6210: When chat is enabled, do not connect to accounts automatically
+ * 0=Do not connect / show the account manager,
+ * 1=Connect automatically. (Default) ***/
+   // user_pref("messenger.startup.action", 0);
 
 /** CALENDAR ***/
 /* 6206: Disable calendar integration ***/
