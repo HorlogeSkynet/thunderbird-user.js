@@ -1215,6 +1215,12 @@ user_pref("dom.w3c_pointer_events.enabled", false);
   // [1] https://bugzilla.mozilla.org/buglist.cgi?bug_id=232227,1330876
 user_pref("ui.use_standins_for_native_colors", true);
 // * * * /
+// FF41+
+// 4620: mitigate fingerprinting via canvas
+  // [NOTE] This setting has been removed from gHacks v67 (see [1]) but is still enabled by default.
+  // [1] https://github.com/ghacksuserjs/ghacks-user.js/commit/8b07fd57d0f8a31dab25661d51235fe1b0c6360c
+user_pref("canvas.capturestream.enabled", false);
+// * * * /
 // ***/
 
 /*** [SECTION 4700]: RFP ALTERNATIVES (NAVIGATOR / USER AGENT (UA) SPOOFING)
@@ -1308,6 +1314,10 @@ user_pref("mail.showCondensedAddresses", false);
  * [1] https://support.thunderbird.net/kb/filelink-large-attachments ***/
 user_pref("mail.cloud_files.enabled", false);
 user_pref("mail.cloud_files.inserted_urls.footer.link", "");
+/* 6020: Don't hide cookies and passwords related (advanced?) buttons ***/
+user_pref("pref.privacy.disable_button.view_cookies", false);
+user_pref("pref.privacy.disable_button.cookie_exceptions", false);
+user_pref("pref.privacy.disable_button.view_passwords", false);
 
 /** HEADERS ***/
 /* 6004:
