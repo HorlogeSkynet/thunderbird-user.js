@@ -18,6 +18,10 @@
     * Auto-installing updates for Thunderbird and extensions are disabled (section 0302's)
     * Real time binary checks with Google services are disabled (section 0414's)
     * Browsing related technologies, and JavaScript disabled. Use your web browser for browsing.
+    * You will need to make changes, and to troubleshoot at times (choose wisely, there is always a trade-off).
+       While not 100% definitive, search for "[SETUP". If required, add each pref to your overrides section at
+       default values (or comment them out and reset them in about:config). Here are the main ones:
+       [SETUP-INSTALL] if you experience any issue during Thunderbird setting up, read it
   4. BACKUP your profile folder before implementing (and/or test in a new/cloned profile)
   5. KEEP UP TO DATE: https://github.com/HorlogeSkynet/thunderbird-user.js/wiki#small_orange_diamond-maintenance
 
@@ -1290,10 +1294,10 @@ user_pref("mail.identity.id1.header.InReplyTo", "");
 user_pref("_user.js.parrot", "6000 syntax error: this parrot is blind!");
 
 /** AUTO CONFIG ***/
-/* 6001: Disable autoconfiguration
- * These options disable autoconfiguration of mail server settings in Thunderbird.
+/* 6001: Disable auto-configuration
+ * [SETUP-INSTALL] These options disable auto-configuration of mail servers in Thunderbird.
  * Such settings require a query to Mozilla which could have privacy implications
- * if the user wishes to keep the existance of the provider private
+ * if the user wishes to keep the existence of the mail provider private.
  * [1] https://developer.mozilla.org/en-US/docs/Mozilla/Thunderbird/Autoconfiguration ***/
 user_pref("mailnews.auto_config.guess.enabled", false);
 user_pref("mailnews.auto_config.fetchFromISP.enabled", false);
