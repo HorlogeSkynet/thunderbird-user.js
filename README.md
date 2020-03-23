@@ -16,10 +16,15 @@ The Thunderbird `user.js` is a **template** which aims to provide as much privac
 
 Also be aware that this `user.js` is made specifically for Thunderbird and has only been tested in the latest stable release.
 
-### :large_blue_diamond: acknowledgments
+### :large_blue_diamond: Acknowledgments
 
 * [tya99](https://github.com/tya99) most of the ground work and initial port from the Firefox version of [ghacks user.js](https://github.com/ghacksuserjs/ghacks-user.js)
 * [dngray](https://github.com/dngray) continual maintenance and Wiki
 * [HorlogeSkynet](https://github.com/HorlogeSkynet) continual maintenance
+
+### :large_blue_diamond: Related Projects
+
+* [CHEF-KOCH/TBCK](https://github.com/CHEF-KOCH/TBCK)
+* [Privacy Handbuch](https://www.privacy-handbuch.de/handbuch_31d.htm)
 
 ### :large_blue_diamond: [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
