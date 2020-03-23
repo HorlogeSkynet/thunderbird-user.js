@@ -21,8 +21,14 @@
     * You will need to make changes, and to troubleshoot at times (choose wisely, there is always a trade-off).
        While not 100% definitive, search for "[SETUP". If required, add each pref to your overrides section at
        default values (or comment them out and reset them in about:config). Here are the main ones:
-       [SETUP-INSTALL] if you experience any issue during Thunderbird setting up, read it
-       [SETUP-FEATURE] if you miss some (expected) Thunderbird features, read it
+        [SETUP-INSTALL] if you experience any issue during Thunderbird setting up, read it
+        [SETUP-FEATURE] if you miss some (expected) Thunderbird features, read it
+       [SETUP-SECURITY] it's one item, read it
+            [SETUP-WEB] can cause some websites to break
+         [SETUP-CHROME] changes how Thunderbird itself behaves (i.e. NOT directly website related)
+           [SETUP-PERF] may impact performance
+         [SETUP-HARDEN] maybe you should consider using the Tor Browser
+    * [WARNING] tags are extra special and used sparingly, so heed them
   4. BACKUP your profile folder before implementing (and/or test in a new/cloned profile)
   5. KEEP UP TO DATE: https://github.com/HorlogeSkynet/thunderbird-user.js/wiki#small_orange_diamond-maintenance
 
