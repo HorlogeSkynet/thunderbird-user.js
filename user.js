@@ -22,6 +22,7 @@
        While not 100% definitive, search for "[SETUP". If required, add each pref to your overrides section at
        default values (or comment them out and reset them in about:config). Here are the main ones:
        [SETUP-INSTALL] if you experience any issue during Thunderbird setting up, read it
+       [SETUP-FEATURE] if you miss some (expected) Thunderbird features, read it
   4. BACKUP your profile folder before implementing (and/or test in a new/cloned profile)
   5. KEEP UP TO DATE: https://github.com/HorlogeSkynet/thunderbird-user.js/wiki#small_orange_diamond-maintenance
 
@@ -122,7 +123,7 @@ user_pref("intl.regional_prefs.use_os_locales", false);
 user_pref("_user.js.parrot", "0300 syntax error: the parrot's not pinin' for the fjords!");
 /* 0301b: disable auto-CHECKING for extension and theme updates ***/
    // user_pref("extensions.update.enabled", false);
-/* 0302a: disable auto-INSTALLING Firefox updates [NON-WINDOWS FF65+]
+/* 0302a: disable auto-INSTALLING Thunderbird updates [SETUP-INSTALL] [NON-WINDOWS FF65+]
  * [NOTE] In FF65+ on Windows this SETTING (below) is now stored in a file and the pref was removed
  * [SETTING] General>Firefox Updates>Check for updates but let you choose... ***/
 user_pref("app.update.auto", false);
@@ -526,7 +527,7 @@ user_pref("security.family_safety.mode", 0);
    // user_pref("security.nocertdb", true); // [HIDDEN PREF]
 /* 1223: enforce strict pinning
  * PKP (Public Key Pinning) 0=disabled 1=allow user MiTM (such as your antivirus), 2=strict
- * [WARNING] If you rely on an AV (antivirus) to protect your web browsing
+ * [SETUP-INSTALL] If you rely on an AV (anti-virus) to protect your web browsing
  * by inspecting ALL your web traffic, then leave at current default=1
  * [1] https://trac.torproject.org/projects/tor/ticket/16206 ***/
 user_pref("security.cert_pinning.enforcement_level", 2);
@@ -1340,9 +1341,10 @@ user_pref("mailnews.headers.showUserAgent", false);
  * score. ***/
 user_pref("mail.smtpserver.default.hello_argument", "[127.0.0.1]");
 /* 6007: Displayed dates and times
- * When your e-mail program displays the e-mail's date and time, it normally converts them to your
- * time zone. If your computer's time zone settings are wrong, then you will see the wrong time
- * (and possibly the wrong date). To turn this conversion off, you can use a preference setting.
+ * [SETUP-INSTALL] When your e-mail program displays the e-mail's date and time, it normally
+ * converts them to your time zone. If your computer's time zone settings are wrong, then you will
+ * see the wrong time (and possibly the wrong date).
+ * To turn this conversion off, you can use a preference setting.
  * It affects the headers that you see in e-mails that you open or preview, but it does not affect
  * the Date column in folders.
  * [1] http://kb.mozillazine.org/Time_and_time_zone_settings
@@ -1360,7 +1362,7 @@ user_pref("mailnews.use_received_date", "true");
 
 /** ADDRESS BOOK ***/
 /* 6007: Address book collection
- * Disable address book email collection
+ * [SETUP-FEATURE] Disable address book email collection
  * Consider using https://addons.thunderbird.net/addon/cardbook instead ***/
 user_pref("mail.collect_addressbook", false);
 user_pref("mail.collect_email_address_outgoing", false);
@@ -1387,7 +1389,7 @@ user_pref("mailnews.send_default_charset", "UTF-8");
 user_pref("mailnews.reply_in_default_charset", true);
 
 /** COMPOSITION ***/
-/* 6105: Check spelling before sending
+/* 6105: Check spelling before sending [SETUP-FEATURE]
  * [1] https://bugzilla.mozilla.org/show_bug.cgi?id=667133 ***/
 user_pref("mail.SpellCheckBeforeSend", false);
 /* 6106: Never send HTML only emails. (0=Ask, 1=Send as plain text, 2=Send as HTML anyway,
@@ -1396,8 +1398,8 @@ user_pref("mail.SpellCheckBeforeSend", false);
  * [1] https://drewdevault.com/2016/04/11/Please-use-text-plain-for-emails.html
  * [SETTING] Edit > Preferences > Send Options > Send the message in both plain text and HTML ***/
 user_pref("mail.default_html_action", 3);
-/* 6107: Send email in plaintext unless expressly overidden.
- * Sometimes HTML is useful especially when used with Markdown Here
+/* 6107: Send email in plaintext unless expressly overridden.
+ * [SETUP-FEATURE] Sometimes HTML is useful especially when used with Markdown Here
  * [NOTE] Holding down shift when you click on "Write" will bypass
  * [1] http://kb.mozillazine.org/Plain_text_e-mail_%28Thunderbird%29
  * [2] https://support.mozilla.org/en-US/questions/1004181
@@ -1405,7 +1407,7 @@ user_pref("mail.default_html_action", 3);
 user_pref("mail.html_compose", false);
 user_pref("mail.identity.default.compose_html", false);
 /* 6108: Downgrade email to plaintext by default
- * Only use HTML email if you need it, see above
+ * [SETUP-FEATURE] Only use HTML email if you need it, see above
  * [SETTING] Edit > Preferences > Composition > Send Options > Send messages as plain-text if possible ***/
 user_pref("mailnews.sendformat.auto_downgrade", false);
 /* 6109: What classes can process incoming data.
@@ -1423,13 +1425,13 @@ user_pref("mailnews.display.disallow_mime_handlers", 0);
  * [2] https://hg.mozilla.org/comm-central/rev/c1ef44a22eb2
  * [3] https://www.bucksch.org/1/projects/mozilla/108153/ ***/
 user_pref("mailnews.display.html_as", 3);
-/* 6111: Prefer to view as plaintext or html
+/* 6111: Prefer to view as plaintext or html [SETUP-FEATURE]
  * true=Display a message as plain text when there is both a HTML and a plain
  * text version of a message body
  * false=Display a message as HTML when there is both a HTML and a plain text
  * version of a message body. (default) ***/
 user_pref("mailnews.display.prefer_plaintext", false);
-/* 6112: Inline attachments
+/* 6112: Inline attachments [SETUP-FEATURE]
  * true=Show inlinable attachments (text, images, messages) after the message.
  * false=Do not display any attachments with the message ***/
 user_pref("mail.inline_attachments", false);
