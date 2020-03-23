@@ -4,11 +4,13 @@
 
 ### :large_blue_diamond: user.js
 
-An `user.js` is a configuration file that can control hundreds of Thunderbird settings. For a more technical breakdown and explanation, you can read more on the [overview](https://github.com/HorlogeSkynet/thunderbird-user.js/wiki/1.1-Overview) wiki page.
+An `user.js` is a configuration file that can control hundreds of Thunderbird settings.  
+For a more technical breakdown and explanation, you can read more on the [overview](https://github.com/HorlogeSkynet/thunderbird-user.js/wiki/1.1-Overview) Wiki page.
 
 ### :large_blue_diamond: thunderbird user.js
 
-The Thunderbird `user.js` is a **template** which aims to provide as much privacy and enhanced security as possible. It differs from the `ghacks user.js` in that the focus is to keep Thunderbird as an **email client** and disable as many web browsing features as possible. We believe web browsing should be done in a web browser, and not an email client.
+The Thunderbird `user.js` is a **template** which aims to provide as much privacy and enhanced security as possible.  
+It differs from the `ghacks user.js` in that the focus is to keep Thunderbird as an **email client** and disable as many web browsing features as possible. We believe web browsing should be done in a web browser, and not an email client.
 
 - If you're using Thunderbird with Tor we suggest that you install the [TorBirdy](https://addons.thunderbird.net/addon/torbirdy) add-on. If you are using Tor, you should also consider using [Tails](https://tails.boum.org/) or [Whonix](https://www.whonix.org/).
 - If you're a **Gmail** user see [this article about OAuth2](https://github.com/HorlogeSkynet/thunderbird-user.js/wiki/3.1-OAuth2-Users).
