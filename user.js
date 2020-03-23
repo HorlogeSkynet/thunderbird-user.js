@@ -592,13 +592,13 @@ user_pref("browser.display.use_document_fonts", 0);
 /* 1403: disable icon fonts (glyphs) and local fallback rendering
  * [1] https://bugzilla.mozilla.org/789788
  * [2] https://trac.torproject.org/projects/tor/ticket/8455 ***/
-   // user_pref("gfx.downloadable_fonts.enabled", false); // [FF41+]
-   // user_pref("gfx.downloadable_fonts.fallback_delay", -1);
+user_pref("gfx.downloadable_fonts.enabled", false); // [FF41+]
+user_pref("gfx.downloadable_fonts.fallback_delay", -1);
 /* 1404: disable rendering of SVG OpenType fonts
  * [1] https://wiki.mozilla.org/SVGOpenTypeFonts - iSECPartnersReport recommends to disable this ***/
 user_pref("gfx.font_rendering.opentype_svg.enabled", false);
 /* 1405: disable WOFF2 (Web Open Font Format) [FF35+] ***/
-   // user_pref("gfx.downloadable_fonts.woff2.enabled", false);
+user_pref("gfx.downloadable_fonts.woff2.enabled", false);
 /* 1408: disable graphite which FF49 turned back on by default
  * In the past it had security issues. Update: This continues to be the case, see [1]
  * [1] https://www.mozilla.org/security/advisories/mfsa2017-15/#CVE-2017-7778 ***/
@@ -624,7 +624,7 @@ user_pref("gfx.font_rendering.graphite.enabled", false);
 user_pref("_user.js.parrot", "1600 syntax error: the parrot rests in peace!");
 /* 1601: ALL: control when images/links send a referer
  * 0=never, 1=send only when links are clicked, 2=for links and images (default) ***/
-   // user_pref("network.http.sendRefererHeader", 2); // [DEFAULT: 2]
+user_pref("network.http.sendRefererHeader", 0); // [DEFAULT: 2]
 /* 1602: ALL: control the amount of information to send
  * 0=send full URI (default), 1=scheme+host+port+path, 2=scheme+host+port ***/
    // user_pref("network.http.referer.trimmingPolicy", 0); // [DEFAULT: 0]
@@ -645,8 +645,8 @@ user_pref("network.http.referer.XOriginTrimmingPolicy", 0); // [DEFAULT: 0]
  * [1] https://www.w3.org/TR/referrer-policy/
  * [2] https://developer.mozilla.org/docs/Web/HTTP/Headers/Referrer-Policy
  * [3] https://blog.mozilla.org/security/2018/01/31/preventing-data-leaks-by-stripping-path-information-in-http-referrers/ ***/
-   // user_pref("network.http.referer.defaultPolicy", 3); // [DEFAULT: 3]
-   // user_pref("network.http.referer.defaultPolicy.pbmode", 2); // [DEFAULT: 2]
+user_pref("network.http.referer.defaultPolicy", 0); // [DEFAULT: 3]
+user_pref("network.http.referer.defaultPolicy.pbmode", 0); // [DEFAULT: 2]
 /* 1610: ALL: enable the DNT (Do Not Track) HTTP header
  * [NOTE] DNT is enforced with Tracking Protection regardless of this pref
  * [SETTING] Privacy & Security>Content Blocking>Send websites a "Do Not Track"... ***/
@@ -953,7 +953,7 @@ user_pref("security.dialog_enable_delay", 700);
      accessible to websites except shared/service workers where the cookie setting *must* be "Allow"
 ***/
 user_pref("_user.js.parrot", "2700 syntax error: the parrot's joined the bleedin' choir invisible!");
-/* 2701: disable 3rd-party cookies and site-data [SETUP-WEB]
+/* 2701: disable cookies and site-data [SETUP-WEB]
  * 0=Accept cookies and site data (default), 1=(Block) All third-party cookies, 2=(Block) All cookies,
  * 3=(Block) Cookies from unvisited sites, 4=(Block) Third-party trackers (FF63+)
  * [NOTE] Value 4 is tied to the Tracking Protection lists
@@ -963,7 +963,7 @@ user_pref("network.cookie.cookieBehavior", 2);
 /* 2710: disable DOM (Document Object Model) Storage
  * [WARNING] This will break a LOT of sites' functionality AND extensions!
  * You are better off using an extension for more granular control ***/
-   // user_pref("dom.storage.enabled", false);
+user_pref("dom.storage.enabled", false);
 /* 2720: enforce IndexedDB (IDB) as enabled
  * IDB is required for extensions and Firefox internals (even before FF63 in [1])
  * To control *website* IDB data, control allowing cookies and service workers, or use
@@ -989,7 +989,7 @@ user_pref("offline-apps.allow_by_default", false);
  * [1] https://developer.mozilla.org/docs/Web/API/StorageManager
  * [2] https://developer.mozilla.org/docs/Web/API/Storage_API
  * [3] https://blog.mozilla.org/l10n/2017/03/07/firefox-l10n-report-aurora-54/ ***/
-   // user_pref("dom.storageManager.enabled", false);
+user_pref("dom.storageManager.enabled", false);
 /* 2755: disable Storage Access API [FF65+]
  * [1] https://developer.mozilla.org/en-US/docs/Web/API/Storage_Access_API ***/
    // user_pref("dom.storage_access.enabled", false); // [DEFAULT: false]
@@ -1483,7 +1483,13 @@ user_pref("purple.conversations.im.send_typing", false);
    // user_pref("messenger.startup.action", 0);
 
 /** CALENDAR ***/
-/* 6206: Disable calendar integration ***/
+/* 6206: Disable calendar integration
+  * [SETUP-FEATURE] Lightning calendar add-on is integrated in Thunderbird 38 and later.
+  * Keeping this preference false allows us to properly show the opt-in/opt-out dialog
+  * on new profiles fresh start, see [3].
+  * [1] https://bugzilla.mozilla.org/show_bug.cgi?id=401779
+  * [2] https://bugzilla.mozilla.org/show_bug.cgi?id=1130854
+  * [3] https://bugzilla.mozilla.org/show_bug.cgi?id=1130852 ***/
 user_pref("mail.calendar-integration.opt-out", false);
 /* 6207: Set user agent for calendar ***/
 user_pref("calendar.useragent.extra", "");
