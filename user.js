@@ -1,7 +1,7 @@
 /******
 * name: ghacks thunderbird user.js
-* date: 24 November 2019
-* version v68.0-beta: "Knock on Pants"
+* date: 16 April 2020
+* version v68.0-beta4: "Knock on Pants"
 * authors: v52+ github | v51- www.ghacks.net
 * url: https://github.com/HorlogeSkynet/thunderbird-user.js
 * license: MIT (https://github.com/HorlogeSkynet/thunderbird-user.js/blob/master/LICENSE)
