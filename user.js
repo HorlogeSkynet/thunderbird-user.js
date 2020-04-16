@@ -151,16 +151,18 @@ user_pref("extensions.getAddons.showPane", false); // [HIDDEN PREF]
 user_pref("extensions.htmlaboutaddons.recommendations.enabled", false);
 user_pref("extensions.webservice.discoverURL", "");
 /* 0330: disable telemetry
- * the pref (.unified) affects the behaviour of the pref (.enabled)
+ * the pref (.unified) affects the behavior of the pref (.enabled)
  * IF unified=false then .enabled controls the telemetry module
  * IF unified=true then .enabled ONLY controls whether to record extended data
- * so make sure to have both set as false
+ * so make sure to have both set as false.
+ * Restoring prompted=0 would make TB ask you on fresh install.
  * [NOTE] FF58+ `toolkit.telemetry.enabled` is now LOCKED to reflect prerelease
- * or release builds (true and false respectively), see [2]
+ * or release builds (true and false respectively), see [2].
  * [1] https://firefox-source-docs.mozilla.org/toolkit/components/telemetry/telemetry/internals/preferences.html
  * [2] https://medium.com/georg-fritzsche/data-preference-changes-in-firefox-58-2d5df9c428b5 ***/
 user_pref("toolkit.telemetry.unified", false);
 user_pref("toolkit.telemetry.enabled", false); // see [NOTE] above FF58+
+user_pref("toolkit.telemetry.prompted", 2);
 user_pref("toolkit.telemetry.server", "data:,");
 user_pref("toolkit.telemetry.archive.enabled", false);
 user_pref("toolkit.telemetry.newProfilePing.enabled", false); // [FF55+]
