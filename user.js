@@ -534,7 +534,8 @@ user_pref("security.family_safety.mode", 0);
 /* 1223: enforce strict pinning
  * PKP (Public Key Pinning) 0=disabled 1=allow user MiTM (such as your antivirus), 2=strict
  * [SETUP-INSTALL] If you rely on an AV (anti-virus) to protect your web browsing
- * by inspecting ALL your web traffic, then leave at current default=1
+ * by inspecting ALL your web traffic, then leave at current 1 (default).
+ * [NOTE] It needs to be set to 1 when connecting to the ProtonMail's Bridge for the first time.
  * [1] https://trac.torproject.org/projects/tor/ticket/16206 ***/
 user_pref("security.cert_pinning.enforcement_level", 2);
 
