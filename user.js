@@ -1367,7 +1367,7 @@ user_pref("mailnews.display.date_senders_timezone", false);
  * to make Thunderbird show the time when the message arrived on your mail server, based on the
  * "Received" header. Set the following preference. New messages will show the time the message
  * was received, rather than when it was sent. ***/
-user_pref("mailnews.use_received_date", "true");
+   // user_pref("mailnews.use_received_date", true);
 
 /** ADDRESS BOOK ***/
 /* 6007: Address book collection
