@@ -10,7 +10,7 @@ For a more technical breakdown and explanation, you can read more on the [overvi
 ### :large_blue_diamond: thunderbird user.js
 
 The Thunderbird `user.js` is a **template** which aims to provide as much privacy and enhanced security as possible.  
-It differs from the `ghacks user.js` in that the focus is to keep Thunderbird as an **email client** and disable as many web browsing features as possible. We believe web browsing should be done in a web browser, and not an email client.
+It differs from the `arkenfox user.js` in that the focus is to keep Thunderbird as an **email client** and disable as many web browsing features as possible. We believe web browsing should be done in a web browser, and not an email client.
 
 - If you're using Thunderbird with Tor we suggest that you install the [TorBirdy](https://addons.thunderbird.net/addon/torbirdy) add-on. If you are using Tor, you should also consider using [Tails](https://tails.boum.org/) or [Whonix](https://www.whonix.org/).
 - If you're a **Gmail** user see [this article about OAuth2](https://github.com/HorlogeSkynet/thunderbird-user.js/wiki/3.1-OAuth2-Users).
@@ -20,7 +20,7 @@ Also be aware that this `user.js` is made specifically for Thunderbird and has o
 
 ### :large_blue_diamond: Acknowledgments
 
-* [tya99](https://github.com/tya99) most of the ground work and initial port from the Firefox version of [ghacks user.js](https://github.com/ghacksuserjs/ghacks-user.js)
+* [tya99](https://github.com/tya99) most of the ground work and initial port from the Firefox version of [arkenfox user.js](https://github.com/arkenfox/user.js)
 * [dngray](https://github.com/dngray) continual maintenance and Wiki
 * [HorlogeSkynet](https://github.com/HorlogeSkynet) continual maintenance
 

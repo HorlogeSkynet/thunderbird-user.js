@@ -1,5 +1,5 @@
 /******
-* name: ghacks thunderbird user.js
+* name: thunderbird user.js
 * date: 1 May 2020
 * version v68.0-beta5: "Knock on Pants"
 * authors: v52+ github | v51- www.ghacks.net
@@ -299,7 +299,7 @@ user_pref("_user.js.parrot", "0700 syntax error: the parrot's given up the ghost
  * OS/network level, and/or configured properly in VPN setups. If you are not masking your IP,
  * then this won't make much difference. If you are maksing your IP, then it can only help.
  * [TEST] http://ipv6leak.com/
- * [1] https://github.com/ghacksuserjs/ghacks-user.js/issues/437#issuecomment-403740626
+ * [1] https://github.com/arkenfox/user.js/issues/437#issuecomment-403740626
  * [2] https://www.internetsociety.org/tag/ipv6-security/ (see Myths 2,4,5,6) ***/
 user_pref("network.dns.disableIPv6", true);
 /* 0702: disable HTTP2
@@ -410,7 +410,7 @@ user_pref("places.history.enabled", false);
      [1] https://en.wikipedia.org/wiki/HTTP_ETag#Tracking_using_ETags
      [2] https://robertheaton.com/2014/01/20/cookieless-user-tracking-for-douchebags/
      [3] https://www.grepular.com/Preventing_Web_Tracking_via_the_Browser_Cache
-     [4] https://github.com/ghacksuserjs/ghacks-user.js/wiki/4.2.4-Header-Editor
+     [4] https://github.com/arkenfox/user.js/wiki/4.2.4-Header-Editor
      [5] https://medium.com/@stoically/enhance-your-privacy-in-firefox-with-temporary-containers-33925cd6cd21
 ***/
 user_pref("_user.js.parrot", "1000 syntax error: the parrot's gone to meet 'is maker!");
@@ -725,14 +725,14 @@ user_pref("dom.disable_window_move_resize", true);
 /* 2203: open links targeting new windows in a new tab instead
  * This stops malicious window sizes and some screen resolution leaks.
  * You can still right-click a link and open in a new window.
- * [TEST] https://ghacksuserjs.github.io/TorZillaPrint/TorZillaPrint.html#screen
+ * [TEST] https://arkenfox.github.io/TZP/tzp.html#screen
  * [1] https://trac.torproject.org/projects/tor/ticket/9881 ***/
   // user_pref("browser.link.open_newwindow", 3); // [DEFAULT: 3]
   // user_pref("browser.link.open_newwindow.restriction", 0); // [DEFAULT: 0]
 /* 2204: disable Fullscreen API (requires user interaction) to prevent screen-resolution leaks
  * [NOTE] You can still manually toggle the browser's fullscreen state (F11),
  * but this pref will disable embedded video/game fullscreen controls, e.g. youtube
- * [TEST] https://ghacksuserjs.github.io/TorZillaPrint/TorZillaPrint.html#screen ***/
+ * [TEST] https://arkenfox.github.io/TZP/tzp.html#screen ***/
    // user_pref("full-screen-api.enabled", false);  // [DEFAULT: false]
 /* 2210: block popup windows
  * [SETTING] Privacy & Security>Permissions>Block pop-up windows ***/
@@ -769,7 +769,7 @@ user_pref("_user.js.parrot", "2300 syntax error: the parrot's off the twig!");
   // user_pref("dom.serviceWorkers.enabled", false);  // [DEFAULT: false]
 /* 2304: disable Web Notifications
  * [NOTE] Web Notifications require service workers (2302) and are behind a prompt (2306)
- * [NOTE] Unlike ghacks-user.js, we explicitly disable them as they are enabled by default.
+ * [NOTE] Unlike arkenfox/user.js, we explicitly disable them as they are enabled by default.
  * [1] https://developer.mozilla.org/docs/Web/API/Notifications_API ***/
 user_pref("dom.webnotifications.enabled", false); // [FF22+]
 user_pref("dom.webnotifications.serviceworker.enabled", false); // [FF44+]
@@ -882,7 +882,7 @@ user_pref("devtools.chrome.enabled", false);
 user_pref("devtools.debugger.remote-enabled", false);
 user_pref("devtools.webide.enabled", false);
 /* 2609: disable MathML (Mathematical Markup Language) [FF51+] [SETUP-HARDEN]
- * [TEST] https://ghacksuserjs.github.io/TorZillaPrint/TorZillaPrint.html#misc
+ * [TEST] https://arkenfox.github.io/TZP/tzp.html#misc
  * [1] https://bugzilla.mozilla.org/1173199 ***/
    // user_pref("mathml.disabled", true);
 /* 2610: disable in-content SVG (Scalable Vector Graphics) [FF53+]
@@ -1073,7 +1073,7 @@ user_pref("privacy.firstparty.isolate.restrict_opener_access", true); // [DEFAUL
       [NOTE] Info only: To set a size, open a XUL (chrome) page (such as about:config) which is at
       100% zoom, hit Shift+F4 to open the scratchpad, type window.resizeTo(1366,768), hit Ctrl+R to run.
       Test your window size, do some math, resize to allow for all the non inner window elements
-      [TEST] https://ghacksuserjs.github.io/TorZillaPrint/TorZillaPrint.html#screen
+      [TEST] https://arkenfox.github.io/TZP/tzp.html#screen
  ** 1281949 - spoof screen orientation (FF50+)
  ** 1281963 - hide the contents of navigator.plugins and navigator.mimeTypes (FF50+)
       FF53: Fixes GetSupportedNames in nsMimeTypeArray and nsPluginArray (1324044)
@@ -1232,7 +1232,7 @@ user_pref("ui.use_standins_for_native_colors", true);
 // FF41+
 // 4620: mitigate fingerprinting via canvas
   // [NOTE] This setting has been removed from gHacks v67 (see [1]) but is still enabled by default.
-  // [1] https://github.com/ghacksuserjs/ghacks-user.js/commit/8b07fd57d0f8a31dab25661d51235fe1b0c6360c
+  // [1] https://github.com/arkenfox/user.js/commit/8b07fd57d0f8a31dab25661d51235fe1b0c6360c
 user_pref("canvas.capturestream.enabled", false);
 // * * * /
 // ***/
@@ -1592,7 +1592,7 @@ user_pref("mail.server.default.acPreferEncrypt", 0);
 /*** [SECTION 9999]: DEPRECATED / REMOVED / LEGACY / RENAMED
      Documentation denoted as [-]. Items deprecated prior to FF61 have been archived at [1], which
      also provides a link-clickable, viewer-friendly version of the deprecated bugzilla tickets
-     [1] https://github.com/ghacksuserjs/ghacks-user.js/issues/123
+     [1] https://github.com/arkenfox/user.js/issues/123
 ***/
 user_pref("_user.js.parrot", "9999 syntax error: the parrot's deprecated!");
 /* ESR60.x still uses all the following prefs
