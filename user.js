@@ -61,7 +61,7 @@
   6000: THUNDERBIRD (AUTO CONFIG / UI / HEADERS / ADDRESS BOOK)
   6100: EMAIL COMPOSITION (ENCODING / FORMAT / VIEW)
   6200: OTHER THUNDERBIRD COMPONENTS (CHAT / CALENDAR / RSS)
-  6300: THUNDERBIRD ENCRYPTION (ENIGMAIL / AUTOCRYPT)
+  6300: THUNDERBIRD ENCRYPTION (ENIGMAIL / AUTOCRYPT / GNUPG)
   9999: DEPRECATED / REMOVED / LEGACY / RENAMED
 
 ******/
@@ -154,8 +154,9 @@ user_pref("app.update.auto", false);
    // user_pref("extensions.update.autoUpdateDefault", false);
 /* 0306: disable extension metadata
  * used when installing/updating an extension, and in daily background update checks:
- * when false, extension detail tabs will have no description ***/
-   // user_pref("extensions.getAddons.cache.enabled", false);
+ * when false, extension detail tabs will have no description
+ * [NOTE] Unlike arkenfox/user.js, we explicitly disable it ***/
+user_pref("extensions.getAddons.cache.enabled", false);
 /* 0308: disable search engine updates (e.g. OpenSearch)
  * [NOTE] This does not affect Mozilla's built-in or Web Extension search engines
  * [SETTING] General>Thunderbird Updates>Automatically update search engines (FF72-) ***/
@@ -445,8 +446,9 @@ user_pref("_user.js.parrot", "1000 syntax error: the parrot's gone to meet 'is m
  * [NOTE] We also clear cache on exiting Firefox (see 2803) ***/
 user_pref("browser.cache.disk.enable", false);
 /* 1003: disable memory cache
-/* capacity: -1=determine dynamically (default), 0=none, n=memory capacity in kilobytes ***/
-   // user_pref("browser.cache.memory.enable", false);
+ * capacity: -1=determine dynamically (default), 0=none, n=memory capacity in kilobytes
+ * [NOTE] Unlike arkenfox/user.js, we explicitly disable it ***/
+user_pref("browser.cache.memory.enable", false);
    // user_pref("browser.cache.memory.capacity", 0); // [HIDDEN PREF ESR]
 /* 1006: disable permissions manager from writing to disk [RESTART]
  * [NOTE] This means any permission changes are session only
@@ -1398,8 +1400,8 @@ user_pref("mail.identity.id1.header.InReplyTo", "");
 user_pref("_user.js.parrot", "6000 syntax error: this parrot is blind!");
 
 /** AUTO CONFIG ***/
-/* 6001: Disable auto-configuration
- * [SETUP-INSTALL] These options disable auto-configuration of mail servers in Thunderbird.
+/* 6001: Disable auto-configuration [SETUP-INSTALL]
+ * These options disable auto-configuration of mail servers in Thunderbird.
  * Such settings require a query to Mozilla which could have privacy implications
  * if the user wishes to keep the existence of the mail provider private.
  * [1] https://developer.mozilla.org/en-US/docs/Mozilla/Thunderbird/Autoconfiguration ***/
@@ -1409,12 +1411,16 @@ user_pref("mailnews.auto_config.fetchFromISP.sendEmailAddress", false);
 user_pref("mailnews.auto_config.fetchFromExchange.enabled", false);
 user_pref("mailnews.auto_config_url", "");
 user_pref("mailnews.auto_config.addons_url","");
+/* 6001: Disable account provisioning [SETUP-INSTALL]
+ * This option allows users to create a new email account through partner providers.
+ * [1] https://developer.mozilla.org/en-US/docs/Mozilla/Thunderbird/Account_Provisioner ***/
+user_pref("mail.provider.enabled", false);
 
 /** UI (User Interface) ***/
-/* 6002: Hide tab bar
+/* 6003: Hide tab bar
  * false=Hides the tab bar if there is only one tab. (default) ***/
 user_pref("mail.tabs.autoHide", true);
-/* 6003: Show full email instead of just name from address book
+/* 6004: Show full email instead of just name from address book
  * true=Show just the display name for people in the address book (default)
  * false=Show both the email address and display name. ***/
 user_pref("mail.showCondensedAddresses", false);
@@ -1519,7 +1525,7 @@ user_pref("mailnews.sendformat.auto_downgrade", false);
  * In the past this has mitigated a vulnerability CVE-2008-0304 (rare)
  * [1] https://www.mozilla.org/en-US/security/advisories/mfsa2008-12/
  * [2] https://bugzilla.mozilla.org/show_bug.cgi?id=677905 ***/
-user_pref("mailnews.display.disallow_mime_handlers", 0);
+user_pref("mailnews.display.disallow_mime_handlers", 3);
 /* 6110: How to display HTML parts of a message body
  * (0=Display the HTML normally (default), 1=Convert it to text and then back again
  * 2=Display the HTML source, 3=Sanitize the HTML, 4=Display all body parts)
@@ -1636,10 +1642,12 @@ user_pref("rss.show.summary", 1);
  * 0=no action, 1=load web page in default browser, on select ***/
 user_pref("rss.message.loadWebPageOnSelect", 0);
 
-/*** [SECTION 6300]: THUNDERBIRD ENCRYPTION (ENIGMAIL / AUTOCRYPT)
-   Options that relate the Enigmail addon and AutoCrypt
+/*** [SECTION 6300]: THUNDERBIRD ENCRYPTION (ENIGMAIL / AUTOCRYPT / GNUPG)
+   Options that relate to Enigmail addon and AutoCrypt.
+   GnuPG (and RNP) specific options should also land there.
    [1] https://autocrypt.org
    [2] https://www.enigmail.net/index.php/en/user-manual/advanced-operations
+   [3] https://wiki.mozilla.org/Thunderbird:OpenPGP
 ***/
 user_pref("_user.js.parrot", "6300 syntax error: this parrot is talking in codes!");
 
@@ -1682,6 +1690,12 @@ user_pref("mail.server.default.enableAutocrypt", false);
  *           Prefer encrypted emails from the people you exchange email with
  *  [1] https://redmine.tails.boum.org/code/issues/15923 ***/
 user_pref("mail.server.default.acPreferEncrypt", 0);
+
+/** GNUPG ***/
+/* 6309: Allow the use of external GnuPG
+ * Whenever RNP fails to decrypt a message, Thunderbird will tray against system GnuPG
+ * [1] https://wiki.mozilla.org/Thunderbird:OpenPGP:Smartcards#Allow_the_use_of_external_GnuPG ***/
+user_pref("mail.openpgp.allow_external_gnupg", true);  // [HIDDEN PREF]
 
 /*** [SECTION 9999]: DEPRECATED / REMOVED / LEGACY / RENAMED
      Documentation denoted as [-]. Items deprecated in FF68 or earlier have been archived at [1],

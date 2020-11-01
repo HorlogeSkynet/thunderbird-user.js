@@ -35,4 +35,4 @@ Also be aware that this `user.js` is made specifically for Thunderbird and has o
 ### :blue_square: Related Projects
 
 * [CHEF-KOCH/TBCK](https://github.com/CHEF-KOCH/TBCK)
-* [Privacy Handbuch](https://www.privacy-handbuch.de/handbuch_31d.htm)
+* [Privacy Handbuch](https://www.privacy-handbuch.de/handbuch_31p.htm)
