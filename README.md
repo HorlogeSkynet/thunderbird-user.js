@@ -29,9 +29,9 @@ Also be aware that this `user.js` is made specifically for Thunderbird and has o
 
 ### :red_square: Acknowledgments
 
-* [tya99](https://github.com/tya99) most of the ground work and initial port from the Firefox version of [arkenfox user.js](https://github.com/arkenfox/user.js)
-* [dngray](https://github.com/dngray) continual maintenance and Wiki
-* [HorlogeSkynet](https://github.com/HorlogeSkynet) continual maintenance
+* @tya99 most of the ground work and initial port from the Firefox version of [arkenfox user.js](https://github.com/arkenfox/user.js)
+* [@dngray](https://github.com/dngray) continual maintenance and Wiki
+* [@HorlogeSkynet](https://github.com/HorlogeSkynet) continual maintenance
 
 ### :blue_square: Related Projects
 
