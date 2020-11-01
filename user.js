@@ -1501,12 +1501,13 @@ user_pref("mailnews.reply_in_default_charset", true);
 /* 6105: Check spelling before sending [SETUP-FEATURE]
  * [1] https://bugzilla.mozilla.org/show_bug.cgi?id=667133 ***/
 user_pref("mail.SpellCheckBeforeSend", false);
-/* 6106: Never send HTML only emails. (0=Ask, 1=Send as plain text, 2=Send as HTML anyway,
- *  3=Include both plain text and HTML message bodies in message)
+/* 6106: Behavior when sending HTML message [SETUP-FEATURE]
+ * (0=Ask, 1=Send as plain text, 2=Send as HTML anyway,
+ * 3=Include both plain text and HTML message bodies in message)
  * Email that is HTML should also have plaintext multipart for plain text users.
  * [1] https://drewdevault.com/2016/04/11/Please-use-text-plain-for-emails.html
  * [SETTING] Edit > Preferences > Send Options > Send the message in both plain text and HTML ***/
-user_pref("mail.default_html_action", 3);
+user_pref("mail.default_html_action", 1);
 /* 6107: Send email in plaintext unless expressly overridden.
  * [SETUP-FEATURE] Sometimes HTML is useful especially when used with Markdown Here
  * [NOTE] Holding down shift when you click on "Write" will bypass
