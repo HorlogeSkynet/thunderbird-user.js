@@ -1411,7 +1411,7 @@ user_pref("mailnews.auto_config.fetchFromISP.sendEmailAddress", false);
 user_pref("mailnews.auto_config.fetchFromExchange.enabled", false);
 user_pref("mailnews.auto_config_url", "");
 user_pref("mailnews.auto_config.addons_url","");
-/* 6001: Disable account provisioning [SETUP-INSTALL]
+/* 6002: Disable account provisioning [SETUP-INSTALL]
  * This option allows users to create a new email account through partner providers.
  * [1] https://developer.mozilla.org/en-US/docs/Mozilla/Thunderbird/Account_Provisioner ***/
 user_pref("mail.provider.enabled", false);
