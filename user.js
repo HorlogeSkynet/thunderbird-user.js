@@ -30,7 +30,7 @@
          [SETUP-HARDEN] maybe you should consider using the Tor Browser
     * [WARNING] tags are extra special and used sparingly, so heed them
   4. BACKUP your profile folder before implementing (and/or test in a new/cloned profile)
-  5. KEEP UP TO DATE: https://github.com/HorlogeSkynet/thunderbird-user.js/wiki#small_orange_diamond-maintenance
+  5. KEEP UP TO DATE: https://github.com/arkenfox/user.js/wiki#small_orange_diamond-maintenance
 
 * INDEX:
   0100: STARTUP
