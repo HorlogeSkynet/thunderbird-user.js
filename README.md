@@ -37,3 +37,4 @@ Also be aware that this `user.js` is made specifically for Thunderbird and has o
 
 * [~~CHEF-KOCH/TBCK~~](https://github.com/CHEF-KOCH/TBCK)
 * [Privacy Handbuch](https://www.privacy-handbuch.de/handbuch_31p.htm)
+* [Privacy Haters](http://r-36.net/scm/privacy-haters/file/README.md.html)
