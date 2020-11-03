@@ -1473,7 +1473,7 @@ user_pref("mailnews.display.date_senders_timezone", false);
 /* 6007: Address book collection
  * [SETUP-FEATURE] Disable address book email collection
  * Consider using https://addons.thunderbird.net/addon/cardbook instead ***/
-user_pref("mail.collect_addressbook", false);
+user_pref("mail.collect_addressbook", "");  // [DEFAULT: "jsaddrbook://history.sqlite"]
 user_pref("mail.collect_email_address_outgoing", false);
 
 /*** [SECTION 6100]: EMAIL COMPOSITION (ENCODING / FORMAT / VIEW)
