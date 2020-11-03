@@ -188,27 +188,34 @@ user_pref("toolkit.telemetry.updatePing.enabled", false); // [FF56+]
 user_pref("toolkit.telemetry.bhrPing.enabled", false); // [FF57+] Background Hang Reporter
 user_pref("toolkit.telemetry.firstShutdownPing.enabled", false); // [FF57+]
 /* 0340: disable Health Reports
- * [SETTING] Privacy & Security>Thunderbird Data Collection & Use>Allow Firefox to send technical... data ***/
+ * [SETTING] Privacy & Security>Thunderbird Data Collection & Use>Allow Thunderbird to send technical... data ***/
 user_pref("datareporting.healthreport.uploadEnabled", false);
 /* 0341: disable new data submission, master kill switch [FF41+]
  * If disabled, no policy is shown or upload takes place, ever
  * [1] https://bugzilla.mozilla.org/1195552 ***/
 user_pref("datareporting.policy.dataSubmissionEnabled", false);
 /* 0342: disable Studies (see 0503)
- * [SETTING] Privacy & Security>Thunderbird Data Collection & Use>Allow Firefox to install and run studies ***/
+ * [NOTE] This option is missing from Thunderbird's preferences panel (hidden?) ***/
 user_pref("app.shield.optoutstudies.enabled", false);
 /* 0350: disable Crash Reports ***/
 user_pref("breakpad.reportURL", "");
 user_pref("browser.tabs.crashReporting.sendReport", false); // [FF44+]
 user_pref("browser.crashReports.unsubmittedCheck.enabled", false); // [FF51+]
 /* 0351: disable backlogged Crash Reports
- * [SETTING] Privacy & Security>Thunderbird Data Collection & Use>Allow Firefox to send backlogged crash reports  ***/
+ * [SETTING] Privacy & Security>Thunderbird Data Collection & Use>Allow Thunderbird to send backlogged crash reports  ***/
 user_pref("browser.crashReports.unsubmittedCheck.autoSubmit2", false); // [FF58+]
+/* 0370: disable UI instrumentation ***/
+user_pref("mail.instrumentation.postUrl", "")
+user_pref("mail.instrumentation.askUser", false)
+user_pref("mail.instrumentation.userOptedIn", false)
 /* 0390: disable Captive Portal detection
  * [1] https://www.eff.org/deeplinks/2017/08/how-captive-portals-interfere-wireless-security-and-privacy
  * [2] https://wiki.mozilla.org/Necko/CaptivePortal ***/
 user_pref("captivedetect.canonicalURL", "");
 user_pref("network.captive-portal-service.enabled", false); // [FF52+]
+/* 0391: disable Network Connectivity checks [FF65+]
+ * [1] https://bugzilla.mozilla.org/1460537 ***/
+user_pref("network.connectivity-service.enabled", false);
 
 /*** [SECTION 0400]: BLOCKLISTS / SAFE BROWSING (SB) ***/
 user_pref("_user.js.parrot", "0400 syntax error: the parrot's passed on!");
@@ -333,6 +340,7 @@ user_pref("_user.js.parrot", "0700 syntax error: the parrot's given up the ghost
  * [1] https://github.com/arkenfox/user.js/issues/437#issuecomment-403740626
  * [2] https://www.internetsociety.org/tag/ipv6-security/ (see Myths 2,4,5,6) ***/
 user_pref("network.dns.disableIPv6", true);
+user_pref("network.notify.IPv6", false);
 /* 0702: disable HTTP2
  * HTTP2 raises concerns with "multiplexing" and "server push", does nothing to
  * enhance privacy, and opens up a number of server-side fingerprinting opportunities.
@@ -942,6 +950,10 @@ user_pref("permissions.default.xr", 2);
 
 /*** [SECTION 2600]: MISCELLANEOUS ***/
 user_pref("_user.js.parrot", "2600 syntax error: the parrot's run down the curtain!");
+/* 2601: prevent accessibility services from accessing your browser [RESTART] [SETUP-FEATURE]
+ * [SETTING] Privacy & Security>Permissions>Prevent accessibility services from accessing your browser (FF80 or lower)
+ * [1] https://support.mozilla.org/kb/accessibility-services ***/
+user_pref("accessibility.force_disabled", 1);
 /* 2602: disable sending additional analytics to web servers
  * [1] https://developer.mozilla.org/docs/Web/API/Navigator/sendBeacon ***/
 user_pref("beacon.enabled", false);
@@ -953,9 +965,10 @@ user_pref("devtools.chrome.enabled", false);
  * [1] https://gitlab.torproject.org/tpo/applications/tor-browser/-/issues/16222 ***/
 user_pref("devtools.debugger.remote-enabled", false); // [DEFAULT: false]
 /* 2609: disable MathML (Mathematical Markup Language) [FF51+] [SETUP-HARDEN]
+ * [NOTE] Unlike arkenfox/user.js, we explicitly disable it
  * [TEST] https://arkenfox.github.io/TZP/tzp.html#misc
  * [1] https://bugzilla.mozilla.org/1173199 ***/
-   // user_pref("mathml.disabled", true);
+user_pref("mathml.disabled", true);
 /* 2610: disable in-content SVG (Scalable Vector Graphics) [FF53+]
  * [NOTE] In FF70+ and ESR68.1.0+ this no longer affects extensions (1564208)
  * [WARNING] Expect breakage incl. youtube player controls. Best left for a "hardened" profile.
@@ -967,7 +980,7 @@ user_pref("middlemouse.contentLoadURL", false);
 /* 2614: limit HTTP redirects (this does not control redirects with HTML meta tags or JS)
  * [NOTE] A low setting of 5 or under will probably break some sites (e.g. gmail logins)
  * To control HTML Meta tag and JS redirects, use an extension. Default is 20 ***/
-user_pref("network.http.redirection-limit", 10);
+user_pref("network.http.redirection-limit", 8);
 /* 2619: enforce Punycode for Internationalized Domain Names to eliminate possible spoofing
  * Firefox has *some* protections, but it is better to be safe than sorry
  * [SETUP-WEB] Might be undesirable for non-latin alphabet users since legitimate IDN's are also punycoded
@@ -1007,7 +1020,7 @@ user_pref("browser.download.hide_plugins_without_extensions", false);
  * XPI files which are installed outside of profile and application directories
  * [1] https://mike.kaply.com/2012/02/21/understanding-add-on-scopes/
  * [1] archived: https://archive.is/DYjAM ***/
-user_pref("extensions.enabledScopes", 5); // [HIDDEN PREF]
+user_pref("extensions.enabledScopes", 1); // [HIDDEN PREF]
 user_pref("extensions.autoDisableScopes", 15); // [DEFAULT: 15]
 /* 2662: disable webextension restrictions on certain mozilla domains (you also need 4503) [FF60+]
  * [1] https://bugzilla.mozilla.org/buglist.cgi?bug_id=1384330,1406795,1415644,1453988 ***/
@@ -1087,6 +1100,21 @@ user_pref("dom.storageManager.enabled", false);
        Firefox interface as "Browsing & Download History" and their values will be synced
 ***/
 user_pref("_user.js.parrot", "2800 syntax error: the parrot's bleedin' demised!");
+/* 2802: enable Thunderbird to clear items on shutdown (see 2803)
+user_pref("privacy.sanitize.sanitizeOnShutdown", true);
+/* 2803: set what items to clear on shutdown (if 2802 is true) [SETUP-CHROME]
+ * [NOTE] If 'history' is true, downloads will also be cleared regardless of the value
+ * but if 'history' is false, downloads can still be cleared independently
+ * However, this may not always be the case. The interface combines and syncs these
+ * prefs when set from there, and the sanitize code may change at any time ***/
+user_pref("privacy.clearOnShutdown.cache", true);
+user_pref("privacy.clearOnShutdown.cookies", true);
+user_pref("privacy.clearOnShutdown.downloads", true); // see note above
+user_pref("privacy.clearOnShutdown.formdata", true); // Form & Search History
+user_pref("privacy.clearOnShutdown.history", true); // Browsing & Download History
+user_pref("privacy.clearOnShutdown.offlineApps", true); // Offline Website Data
+user_pref("privacy.clearOnShutdown.sessions", true); // Active Logins
+user_pref("privacy.clearOnShutdown.siteSettings", false); // Site Preferences
 /* 2804: reset default items to clear with Ctrl-Shift-Del (to match 2803) [SETUP-CHROME]
  * This dialog can also be accessed from the menu History>Clear Recent History
  * Firefox remembers your last choices. This will reset them when you start Firefox.
@@ -1572,7 +1600,7 @@ user_pref("media.hardware-video-decoding.enabled", false);
 user_pref("permissions.default.image", 2);
 
 /*** [SECTION 6200]: OTHER THUNDERBIRD COMPONENTS (CHAT / CALENDAR / RSS)
-   Options that relate to other Thunderbird components such as the chat client, calendar and rss)
+   Options that relate to other Thunderbird components such as the chat client, calendar and RSS)
 ***/
 user_pref("_user.js.parrot", "6200 syntax error: this parrot is not tweeting!");
 
@@ -1587,33 +1615,38 @@ user_pref("purple.logging.log_ims", false);
 user_pref("purple.logging.log_system", false);
 /* 6205: Disable typing notifications ***/
 user_pref("purple.conversations.im.send_typing", false);
-/* 6210: When chat is enabled, do not connect to accounts automatically
+/* 6206: When chat is enabled, do not connect to accounts automatically
  * 0=Do not connect / show the account manager,
  * 1=Connect automatically. (Default) ***/
    // user_pref("messenger.startup.action", 0);
 
 /** CALENDAR ***/
-/* 6206: Disable calendar integration
-  * [SETUP-FEATURE] Lightning calendar add-on is integrated in Thunderbird 38 and later.
-  * Keeping this preference false allows us to properly show the opt-in/opt-out dialog
-  * on new profiles fresh start, see [3].
-  * [1] https://bugzilla.mozilla.org/show_bug.cgi?id=401779
-  * [2] https://bugzilla.mozilla.org/show_bug.cgi?id=1130854
-  * [3] https://bugzilla.mozilla.org/show_bug.cgi?id=1130852 ***/
+/* 6210: Disable calendar integration
+ * [SETUP-FEATURE] Lightning calendar add-on is integrated in Thunderbird 38 and later.
+ * Keeping this preference false allows us to properly show the opt-in/opt-out dialog
+ * on new profiles fresh start, see [3].
+ * [1] https://bugzilla.mozilla.org/show_bug.cgi?id=401779
+ * [2] https://bugzilla.mozilla.org/show_bug.cgi?id=1130854
+ * [3] https://bugzilla.mozilla.org/show_bug.cgi?id=1130852 ***/
 user_pref("mail.calendar-integration.opt-out", false);
-/* 6207: Set user agent for calendar ***/
+/* 6211: Set user agent for calendar ***/
 user_pref("calendar.useragent.extra", "");
+/* 6212: Set calendar timezone to avoid system detection [SETUP-INSTALL]
+ * By default, extensive system detection would be performed to find user's current timezone.
+ * Setting this preference to "UTC" should disable it.
+ * You may also directly set it to your timezone, i.e. "Pacific/Fakaofo" ***/
+user_pref("calendar.timezone.local", "UTC");  // [DEFAULT: ""]
 
 /** RSS ***/
 /* These features used not to do anything as they weren't implemented.
  * [1] https://dxr.mozilla.org/comm-release/source/mail/base/content/mailWindowOverlay.js#649
  * [2] https://bugzilla.mozilla.org/show_bug.cgi?id=458606#c9 ***/
-/* 6208: What classes can process incoming data.
+/* 6220: What classes can process incoming data.
  * (0=All classes (default), 1=Don't display HTML, 2=Don't display HTML and inline images,
  * 3=Don't display HTML, inline images and some other uncommon types, 100=Use a hard coded list)
  * [1] https://www.privacy-handbuch.de/handbuch_31j.htm ***/
 user_pref("rss.display.disallow_mime_handlers", 3);
-/* 6209: How to display HTML parts of a message body
+/* 6221: How to display HTML parts of a message body
  * (0=Display the HTML normally (default), 1=Convert it to text and then back again
  * 2=Display the HTML source, 3=Sanitize the HTML, 4=Display all body parts)
  * (in trunk builds later than 2011-07-23)
@@ -1621,24 +1654,24 @@ user_pref("rss.display.disallow_mime_handlers", 3);
  * [2] https://hg.mozilla.org/comm-central/rev/c1ef44a22eb2
  * [3] https://www.bucksch.org/1/projects/mozilla/108153/ ***/
 user_pref("rss.display.html_as", 1);
-/* 6210: Prefer to view as plaintext or html
+/* 6222: Prefer to view as plaintext or html
  * true=Display a message as plain text when there is both a HTML and a plain
  * text version of a message body
  * false=Display a message as HTML when there is both a HTML and a plain text
  * version of a message body. (default) ***/
 user_pref("rss.display.prefer_plaintext", true);
-/* 6211: Feed message display (summary or web page), on open.
+/* 6223: Feed message display (summary or web page), on open.
  * Action on double click or enter in threadpane for a feed message.
  * 0=open content-base url in new window, 1=open summary in new window,
  * 2=toggle load summary and content-base url in message pane,
  * 3=load content-base url in browser
  * [1] http://forums.mozillazine.org/viewtopic.php?f=39&t=2502335 ***/
 user_pref("rss.show.content-base", 3);
-/* 6212: Feed message display (summary or web page), on select.
+/* 6224: Feed message display (summary or web page), on select.
  * 0=global override, load web page, 1=global override, load summary,
  * 2=use default feed folder setting from Subscribe dialog; if no setting default to 1 ***/
 user_pref("rss.show.summary", 1);
-/* 6213: Feed message additional web page display.
+/* 6225: Feed message additional web page display.
  * 0=no action, 1=load web page in default browser, on select ***/
 user_pref("rss.message.loadWebPageOnSelect", 0);
 
