@@ -83,7 +83,7 @@ user_pref("browser.aboutConfig.showWarning", false); // HTML version [FF71+]
 user_pref("_user.js.parrot", "0100 syntax error: the parrot's dead!");
 /* 0101: disable default browser check
  * [SETTING] Edit>Preferences>Advanced>Always check to see if Thunderbird is the default mail client on startup ***/
-user_pref("mail.shell.checkDefaultMail", false);
+user_pref("mail.shell.checkDefaultClient", false);
 /* 0102: set START page
  * [SETTING] Edit>Preferences>General>Thunderbird Start Page ***/
 user_pref("mailnews.start_page.enabled", false);
