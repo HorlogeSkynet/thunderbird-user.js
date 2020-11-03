@@ -1402,6 +1402,8 @@ user_pref("_user.js.parrot", "5000 syntax error: this is an ex-parrot!");
 /* CONTENT BEHAVIOR ***/
    // user_pref("accessibility.typeaheadfind", true); // enable "Find As You Type"
    // user_pref("clipboard.autocopy", false); // disable autocopy default [LINUX]
+/* RETURN RECEIPT BEHAVIOR ***/
+   // user_pref("mail.mdn.report.enabled", false); // disable return receipt sending unconditionally
 /* UX BEHAVIOR ***/
    // user_pref("general.autoScroll", false); // middle-click enabling auto-scrolling [DEFAULT: false on Linux]
    // user_pref("ui.key.menuAccessKey", 0); // disable alt key toggling the menu bar [RESTART]
