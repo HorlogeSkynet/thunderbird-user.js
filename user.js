@@ -1447,39 +1447,39 @@ user_pref("mailnews.auto_config.addons_url","");
 user_pref("mail.provider.enabled", false);
 
 /** UI (User Interface) ***/
-/* 6003: Hide tab bar
+/* 6010: Hide tab bar
  * false=Hides the tab bar if there is only one tab. (default) ***/
 user_pref("mail.tabs.autoHide", true);
-/* 6004: Show full email instead of just name from address book
+/* 6011: Show full email instead of just name from address book
  * true=Show just the display name for people in the address book (default)
  * false=Show both the email address and display name. ***/
 user_pref("mail.showCondensedAddresses", false);
-/* 6010: Disable "Filelink for Large Attachments" feature
+/* 6012: Disable "Filelink for Large Attachments" feature
  * [1] https://support.thunderbird.net/kb/filelink-large-attachments ***/
 user_pref("mail.cloud_files.enabled", false);
 user_pref("mail.cloud_files.inserted_urls.footer.link", "");
-/* 6020: Don't hide cookies and passwords related (advanced?) buttons ***/
+/* 6013: Don't hide cookies and passwords related (advanced?) buttons ***/
 user_pref("pref.privacy.disable_button.view_cookies", false);
 user_pref("pref.privacy.disable_button.cookie_exceptions", false);
 user_pref("pref.privacy.disable_button.view_passwords", false);
 
 /** HEADERS ***/
-/* 6004:
+/* 6020:
  * true=Show Sender header in message pane.
  * false=Does nothing. (default) ***/
 user_pref("mailnews.headers.showSender", true);
-/* 6005:
+/* 6021:
  * true=Show User Agent header in message pane
  * false=Does nothing. (default) ***/
 user_pref("mailnews.headers.showUserAgent", false);
-/* 6006: Hello argument
+/* 6022: Hello argument
  * Lets you replace your IP address with the specified string in Received: headers when your
  * IP address is not a "fully qualified domain name" (FQDN). Typically you only need to do this
  * when you have a NAT box to prevent it from using the NAT boxes IP address.
  * If you don't set it to something in your SMTP server's domain it may increase your spam
  * score. ***/
 user_pref("mail.smtpserver.default.hello_argument", "[127.0.0.1]");
-/* 6007: Displayed dates and times
+/* 6023: Displayed dates and times
  * [SETUP-INSTALL] When your e-mail program displays the e-mail's date and time, it normally
  * converts them to your time zone. If your computer's time zone settings are wrong, then you will
  * see the wrong time (and possibly the wrong date).
@@ -1490,9 +1490,9 @@ user_pref("mail.smtpserver.default.hello_argument", "[127.0.0.1]");
  * [2] http://wiki.cacert.org/ThunderBirdAdvancedConfig
  * ***/
 user_pref("mailnews.display.original_date", false);
-/* 6008: Display the sender's Timezone when set to true ***/
+/* 6024: Display the sender's Timezone when set to true ***/
 user_pref("mailnews.display.date_senders_timezone", false);
-/* 6009: Display Time Date based on Received Header
+/* 6025: Display Time Date based on Received Header
  * Thunderbird shows the time when the message was sent, according to the sender. It is possible
  * to make Thunderbird show the time when the message arrived on your mail server, based on the
  * "Received" header. Set the following preference. New messages will show the time the message
@@ -1500,7 +1500,7 @@ user_pref("mailnews.display.date_senders_timezone", false);
    // user_pref("mailnews.use_received_date", true);
 
 /** ADDRESS BOOK ***/
-/* 6007: Address book collection
+/* 6030: Address book collection
  * [SETUP-FEATURE] Disable address book email collection
  * Consider using https://addons.thunderbird.net/addon/cardbook instead ***/
 user_pref("mail.collect_addressbook", "");  // [DEFAULT: "jsaddrbook://history.sqlite"]
@@ -1528,17 +1528,17 @@ user_pref("mailnews.send_default_charset", "UTF-8");
 user_pref("mailnews.reply_in_default_charset", true);
 
 /** COMPOSITION ***/
-/* 6105: Check spelling before sending [SETUP-FEATURE]
+/* 6110: Check spelling before sending [SETUP-FEATURE]
  * [1] https://bugzilla.mozilla.org/show_bug.cgi?id=667133 ***/
 user_pref("mail.SpellCheckBeforeSend", false);
-/* 6106: Behavior when sending HTML message [SETUP-FEATURE]
+/* 6111: Behavior when sending HTML message [SETUP-FEATURE]
  * (0=Ask, 1=Send as plain text, 2=Send as HTML anyway,
  * 3=Include both plain text and HTML message bodies in message)
  * Email that is HTML should also have plaintext multipart for plain text users.
  * [1] https://drewdevault.com/2016/04/11/Please-use-text-plain-for-emails.html
  * [SETTING] Edit > Preferences > Send Options > Send the message in both plain text and HTML ***/
 user_pref("mail.default_html_action", 1);
-/* 6107: Send email in plaintext unless expressly overridden.
+/* 6112: Send email in plaintext unless expressly overridden.
  * [SETUP-FEATURE] Sometimes HTML is useful especially when used with Markdown Here
  * [NOTE] Holding down shift when you click on "Write" will bypass
  * [1] http://kb.mozillazine.org/Plain_text_e-mail_%28Thunderbird%29
@@ -1546,18 +1546,18 @@ user_pref("mail.default_html_action", 1);
  * [3] https://markdown-here.com ***/
 user_pref("mail.html_compose", false);
 user_pref("mail.identity.default.compose_html", false);
-/* 6108: Downgrade email to plaintext by default
+/* 6113: Downgrade email to plaintext by default
  * [SETUP-FEATURE] Only use HTML email if you need it, see above
  * [SETTING] Edit > Preferences > Composition > Send Options > Send messages as plain-text if possible ***/
 user_pref("mailnews.sendformat.auto_downgrade", false);
-/* 6109: What classes can process incoming data.
+/* 6114: What classes can process incoming data.
  * (0=All classes (default), 1=Don't display HTML, 2=Don't display HTML and inline images,
  * 3=Don't display HTML, inline images and some other uncommon types, 100=Use a hard coded list)
  * In the past this has mitigated a vulnerability CVE-2008-0304 (rare)
  * [1] https://www.mozilla.org/en-US/security/advisories/mfsa2008-12/
  * [2] https://bugzilla.mozilla.org/show_bug.cgi?id=677905 ***/
 user_pref("mailnews.display.disallow_mime_handlers", 3);
-/* 6110: How to display HTML parts of a message body
+/* 6115: How to display HTML parts of a message body
  * (0=Display the HTML normally (default), 1=Convert it to text and then back again
  * 2=Display the HTML source, 3=Sanitize the HTML, 4=Display all body parts)
  * (in trunk builds later than 2011-07-23)
@@ -1565,36 +1565,36 @@ user_pref("mailnews.display.disallow_mime_handlers", 3);
  * [2] https://hg.mozilla.org/comm-central/rev/c1ef44a22eb2
  * [3] https://www.bucksch.org/1/projects/mozilla/108153/ ***/
 user_pref("mailnews.display.html_as", 3);
-/* 6111: Prefer to view as plaintext or html [SETUP-FEATURE]
+/* 6116: Prefer to view as plaintext or html [SETUP-FEATURE]
  * true=Display a message as plain text when there is both a HTML and a plain
  * text version of a message body
  * false=Display a message as HTML when there is both a HTML and a plain text
  * version of a message body. (default) ***/
 user_pref("mailnews.display.prefer_plaintext", false);
-/* 6112: Inline attachments [SETUP-FEATURE]
+/* 6117: Inline attachments [SETUP-FEATURE]
  * true=Show inlinable attachments (text, images, messages) after the message.
  * false=Do not display any attachments with the message ***/
 user_pref("mail.inline_attachments", false);
-/* 6113: Big attachment warning
+/* 6118: Big attachment warning
  * [1] https://support.mozilla.org/en-US/questions/1081046
  * [2] http://forums.mozillazine.org/viewtopic.php?f=39&t=2949521 */
 user_pref("mail.compose.big_attachments.notify", true); // [DEFAULT: true]
-/* 6114: Set big attachment size to warn at */
+/* 6119: Set big attachment size to warn at */
    // user_pref("mailnews.message_warning_size", 20971520); // DEFAULT size
 
 /** VIEW ***/
-/* 6115: Disable JavaScript
+/* 6130: Disable JavaScript
  * [NOTE] JavaScript is already disabled in message content.
  * [1] https://developer.mozilla.org/en-US/docs/Mozilla/Thunderbird/Releases/3
  * [2] https://stackoverflow.com/questions/3054315/is-javascript-supported-in-an-email-message
  * ***/
 user_pref("javascript.enabled", false);
-/* 6116: Disable media source extensions
+/* 6131: Disable media source extensions
  * [1] https://www.ghacks.net/2014/05/10/enable-media-source-extensions-firefox ***/
 user_pref("media.mediasource.enabled", false);
-/* 6117: Disable hardware decoding support ***/
+/* 6132: Disable hardware decoding support ***/
 user_pref("media.hardware-video-decoding.enabled", false);
-/* 6118: Default image permissions
+/* 6133: Default image permissions
  * 1=Allow all images to load, regardless of origin. (Default),
  * 2=Block all images from loading.
  * 3=Prevent third-party images from loading
