@@ -205,9 +205,9 @@ user_pref("browser.crashReports.unsubmittedCheck.enabled", false); // [FF51+]
  * [SETTING] Privacy & Security>Thunderbird Data Collection & Use>Allow Thunderbird to send backlogged crash reports  ***/
 user_pref("browser.crashReports.unsubmittedCheck.autoSubmit2", false); // [FF58+]
 /* 0370: disable UI instrumentation ***/
-user_pref("mail.instrumentation.postUrl", "")
-user_pref("mail.instrumentation.askUser", false)
-user_pref("mail.instrumentation.userOptedIn", false)
+user_pref("mail.instrumentation.postUrl", "");
+user_pref("mail.instrumentation.askUser", false);
+user_pref("mail.instrumentation.userOptedIn", false);
 /* 0390: disable Captive Portal detection
  * [1] https://www.eff.org/deeplinks/2017/08/how-captive-portals-interfere-wireless-security-and-privacy
  * [2] https://wiki.mozilla.org/Necko/CaptivePortal ***/
