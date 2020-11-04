@@ -1526,6 +1526,17 @@ user_pref("mailnews.send_default_charset", "UTF-8");
 /* 6104: Forces encoding in reply to be the default charset
  * [1] https://bugzilla.mozilla.org/show_bug.cgi?id=234958#c2 ***/
 user_pref("mailnews.reply_in_default_charset", true);
+/* 6105: Avoid information leakage in reply header
+ * Reply header may contain sensitive information about system locale (date and/or language)
+ * 0=no header
+ * 1="<author> wrote:" (see `reply_header_authorwrotesingle` below)
+ * 2="On <date> <author> wrote:" (see `reply_header_ondateauthorwrote` below [DEFAULT])
+ * 3="<author> wrote On <date>:" (see `reply_header_authorwroteondate` below`)
+ * 4=user specified (you may use below tokens to forge your own format [DISCOURAGED]) ***/
+user_pref("mailnews.reply_header_type", 1);
+user_pref("mailnews.reply_header_authorwrotesingle", "#1 wrote:");
+   // user_pref("mailnews.reply_header_ondateauthorwrote", "On #2 #3, #1 wrote:");
+   // user_pref("mailnews.reply_header_authorwroteondate", "#1 wrote on #2 #3:");
 
 /** COMPOSITION ***/
 /* 6110: Check spelling before sending [SETUP-FEATURE]
