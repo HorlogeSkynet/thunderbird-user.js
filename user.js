@@ -1407,9 +1407,6 @@ user_pref("_user.js.parrot", "5000 syntax error: this is an ex-parrot!");
 /* UX BEHAVIOR ***/
    // user_pref("general.autoScroll", false); // middle-click enabling auto-scrolling [DEFAULT: false on Linux]
    // user_pref("ui.key.menuAccessKey", 0); // disable alt key toggling the menu bar [RESTART]
-/* UX FEATURES: disable and hide the icons and menus ***/
-   // user_pref("browser.messaging-system.whatsNewPanel.enabled", false); // What's New [FF69+]
-   // user_pref("extensions.pocket.enabled", false); // Pocket Account [FF46+]
 /* OTHER ***/
    // user_pref("network.manage-offline-status", false); // see bugzilla 620472
    // user_pref("xpinstall.signatures.required", false); // enforced extension signing (Nightly/ESR)
