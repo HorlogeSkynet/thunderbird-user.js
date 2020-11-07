@@ -1519,6 +1519,11 @@ user_pref("mail.collect_email_address_outgoing", false);
  * This could leak sensitive information to all recipients.
  * [SETTING][CARDBOOK] CardBook>Preferences>Email>Sending Emails>Only use email addresses... ***/
 user_pref("extensions.cardbook.useOnlyEmail", true);
+/* 6032: Encrypt locally cached cards [CARDBOOK]
+ * CardBook uses a regular IndexDB to locally cache cards (unencrypted by default).
+ * [SETTING][CARDBOOK] CardBook>Preferences>Advanced>Encryption>Encrypt locally cached cards
+ * [1] https://cardbook.icu/forum/forums/topic/clear-and-easy-storage-and-backup-of-cardbook/#post-2079 ***/
+user_pref("extensions.cardbook.localDataEncryption", true);
 
 /*** [SECTION 6100]: EMAIL COMPOSITION (ENCODING / FORMAT / VIEW)
    Options that relate to composition, formatting and viewing email
