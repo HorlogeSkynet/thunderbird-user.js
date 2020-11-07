@@ -8,8 +8,7 @@
 * releases: https://github.com/HorlogeSkynet/thunderbird-user.js/releases
 
 * README:
-  0. Consider using Tor, use TorBirdy as well.
-    * https://addons.thunderbird.net/addon/torbirdy
+  0. Consider using Tor
   1. READ the full README
     * https://github.com/HorlogeSkynet/thunderbird-user.js/blob/master/README.md
   2. READ this
