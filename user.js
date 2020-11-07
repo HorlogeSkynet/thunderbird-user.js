@@ -326,6 +326,9 @@ user_pref("network.http.speculative-parallel-limit", 0);
  * [1] https://www.bleepingcomputer.com/news/software/major-browsers-to-prevent-disabling-of-click-tracking-privacy-risk/ ***/
 user_pref("browser.send_pings", false); // [DEFAULT: false]
 user_pref("browser.send_pings.require_same_host", true);
+/* 0610: don't refresh nor reload pages when tab/window is not active or in idle state
+ * [1] https://bugzilla.mozilla.org/show_bug.cgi?id=518805 ***/
+user_pref("browser.meta_refresh_when_inactive.disabled", true);
 
 /*** [SECTION 0700]: HTTP* / TCP/IP / DNS / PROXY / SOCKS etc ***/
 user_pref("_user.js.parrot", "0700 syntax error: the parrot's given up the ghost!");
