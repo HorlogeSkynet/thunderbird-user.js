@@ -1500,15 +1500,16 @@ user_pref("mailnews.display.date_senders_timezone", false);
    // user_pref("mailnews.use_received_date", true);
 
 /** ADDRESS BOOK ***/
-/* 6030: Address book collection
- * [SETUP-FEATURE] Disable address book email collection
- * Consider using https://addons.thunderbird.net/addon/cardbook instead ***/
+/* 6030: Address book collection [SETUP-FEATURE]
+ * Disable Thunderbird internal address book email collection
+ * Consider using CardBook extension instead (https://addons.thunderbird.net/addon/cardbook/)
+ * [SETTING][CARDBOOK] CardBook>Preferences>Email>Collect Outgoing Email ***/
 user_pref("mail.collect_addressbook", "");  // [DEFAULT: "jsaddrbook://history.sqlite"]
 user_pref("mail.collect_email_address_outgoing", false);
 /* 6031: Only use email addresses, without their Display Names [CARDBOOK] [SETUP-FEATURE]
  * By default, CardBook extension incorporates contacts display names in addresses fields.
  * This could leak sensitive information to all recipients.
- * [SETTING] CardBook>Preferences>Email>Sending Emails>Only use email addresses, ... ***/
+ * [SETTING][CARDBOOK] CardBook>Preferences>Email>Sending Emails>Only use email addresses... ***/
 user_pref("extensions.cardbook.useOnlyEmail", true);
 
 /*** [SECTION 6100]: EMAIL COMPOSITION (ENCODING / FORMAT / VIEW)
