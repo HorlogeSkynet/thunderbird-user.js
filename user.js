@@ -1505,6 +1505,11 @@ user_pref("mailnews.display.date_senders_timezone", false);
  * Consider using https://addons.thunderbird.net/addon/cardbook instead ***/
 user_pref("mail.collect_addressbook", "");  // [DEFAULT: "jsaddrbook://history.sqlite"]
 user_pref("mail.collect_email_address_outgoing", false);
+/* 6031: Only use email addresses, without their Display Names [CARDBOOK] [SETUP-FEATURE]
+ * By default, CardBook extension incorporates contacts display names in addresses fields.
+ * This could leak sensitive information to all recipients.
+ * [SETTING] CardBook>Preferences>Email>Sending Emails>Only use email addresses, ... ***/
+user_pref("extensions.cardbook.useOnlyEmail", true);
 
 /*** [SECTION 6100]: EMAIL COMPOSITION (ENCODING / FORMAT / VIEW)
    Options that relate to composition, formatting and viewing email
