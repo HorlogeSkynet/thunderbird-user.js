@@ -1653,7 +1653,8 @@ user_pref("calendar.useragent.extra", "");
 /* 6212: Set calendar timezone to avoid system detection [SETUP-INSTALL]
  * By default, extensive system detection would be performed to find user's current timezone.
  * Setting this preference to "UTC" should disable it.
- * You may also directly set it to your timezone, i.e. "Pacific/Fakaofo" ***/
+ * You may also directly set it to your timezone, i.e. "Pacific/Fakaofo"
+ * [SETTING] Edit>Preferences>Calendar>Calendar>Timezone ***/
 user_pref("calendar.timezone.local", "UTC");  // [DEFAULT: ""]
 
 /** RSS ***/
