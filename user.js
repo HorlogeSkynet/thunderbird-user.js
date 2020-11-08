@@ -1634,7 +1634,7 @@ user_pref("permissions.default.image", 2);
 user_pref("_user.js.parrot", "6200 syntax error: this parrot is not tweeting!");
 
 /** CHAT ***/
-/* 6201: Disable chat functionality ***/
+/* 6201: Disable chat functionality [SETUP-FEATURE] ***/
 user_pref("mail.chat.enabled", false);
 /* 6202: Disable logging of group chats ***/
 user_pref("purple.logging.log_chats", false);
