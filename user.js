@@ -1597,7 +1597,7 @@ user_pref("mail.inline_attachments", false);
  * [2] http://forums.mozillazine.org/viewtopic.php?f=39&t=2949521 */
 user_pref("mail.compose.big_attachments.notify", true); // [DEFAULT: true]
 /* 6119: Set big attachment size to warn at */
-   // user_pref("mailnews.message_warning_size", 20971520); // DEFAULT size
+   // user_pref("mailnews.message_warning_size", 20971520); // [DEFAULT: 20971520]
 
 /** VIEW ***/
 /* 6130: Disable JavaScript
@@ -1708,9 +1708,9 @@ user_pref("_user.js.parrot", "6300 syntax error: this parrot is talking in codes
 /* These used to be inversed, however it seems upstream has changed this behavior
  * [1] https://www.privacy-handbuch.de/handbuch_31f.htm ***/
 /* 6301: Silence the Enigmail version header ***/
-user_pref("extensions.enigmail.addHeaders", false); // Default
+user_pref("extensions.enigmail.addHeaders", false); // [DEFAULT: false]
 /* 6302: Silence the Enigmail comment ***/
-user_pref("extensions.enigmail.useDefaultComment", true); // Default
+user_pref("extensions.enigmail.useDefaultComment", true); // [DEFAULT: true]
 /* 6303: Silence the version ***/
 user_pref("extensions.enigmail.agentAdditionalParam", "--no-emit-version --no-comments");
 /* 6304: Specifies the hash algorithm used by GnuPG for its cryptographic operations:
@@ -1730,7 +1730,7 @@ user_pref("extensions.enigmail.protectedHeaders", 2);
 /* 6306: Text to use as replacement for the subject, following the Memory Hole
  * standard. If nothing is defined, then "Encrypted Message" is used.
  ***/
-user_pref("extensions.enigmail.protectedSubjectText", "Encrypted Message"); // Default
+user_pref("extensions.enigmail.protectedSubjectText", "Encrypted Message"); // [DEFAULT: "Encrypted Message"]
 
 /** AUTOCRYPT ***/
 /* 6307: Choose whether to enable AutoCrypt
