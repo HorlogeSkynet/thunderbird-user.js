@@ -1080,8 +1080,9 @@ user_pref("dom.storage.enabled", false);
 user_pref("browser.cache.offline.enable", false);
 /* 2740: disable service worker cache and cache storage
  * [NOTE] We clear service worker cache on exiting Firefox (see 2803)
+ * [NOTE] Unlike arkenfox/user.js, we explicitly disable it
  * [1] https://w3c.github.io/ServiceWorker/#privacy ***/
-    // user_pref("dom.caches.enabled", false);
+user_pref("dom.caches.enabled", false);
 /* 2750: disable Storage API [FF51+]
  * The API gives sites the ability to find out how much space they can use, how much
  * they are already using, and even control whether or not they need to be alerted
@@ -1160,14 +1161,15 @@ user_pref("_user.js.parrot", "4000 syntax error: the parrot's pegged out");
 user_pref("privacy.firstparty.isolate", true);
 /* 4002: enforce FPI restriction for window.opener [FF54+]
  * [NOTE] Setting this to false may reduce the breakage in 4001
+ * [NOTE] Unlike arkenfox/user.js, we explicitly set them
  * FF65+ blocks postMessage with targetOrigin "*" if originAttributes don't match. But
  * to reduce breakage it ignores the 1st-party domain (FPD) originAttribute. (see [2],[3])
  * The 2nd pref removes that limitation and will only allow communication if FPDs also match.
  * [1] https://bugzilla.mozilla.org/1319773#c22
  * [2] https://bugzilla.mozilla.org/1492607
  * [3] https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage ***/
-   // user_pref("privacy.firstparty.isolate.restrict_opener_access", true); // [DEFAULT: true]
-   // user_pref("privacy.firstparty.isolate.block_post_message", true); // [HIDDEN PREF ESR]
+user_pref("privacy.firstparty.isolate.restrict_opener_access", true); // [DEFAULT: true]
+user_pref("privacy.firstparty.isolate.block_post_message", true); // [HIDDEN PREF ESR]
 
 /*** [SECTION 4500]: RFP (RESIST FINGERPRINTING)
    This master switch will be used for a wide range of items, many of which will
@@ -1646,6 +1648,8 @@ user_pref("purple.conversations.im.send_typing", false);
  * 0=Do not connect / show the account manager,
  * 1=Connect automatically. (Default) ***/
    // user_pref("messenger.startup.action", 0);
+/* 6207: When chat is enabled, do not report idle status ***/
+   // user_pref("messenger.status.reportIdle", false);
 
 /** CALENDAR ***/
 /* 6210: Disable calendar integration
