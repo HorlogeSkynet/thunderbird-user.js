@@ -1461,6 +1461,14 @@ user_pref("mail.cloud_files.inserted_urls.footer.link", "");
 user_pref("pref.privacy.disable_button.view_cookies", false);
 user_pref("pref.privacy.disable_button.cookie_exceptions", false);
 user_pref("pref.privacy.disable_button.view_passwords", false);
+/* 6014: Prevent access to emails until the master password is entered
+ * If a master password has been set, Thunderbird will prevent access to locally available emails
+ * until the secret is provided.
+ * This preference MAY mitigate risk due to intimate relationship threat in some cases (see [2])...
+ * [WARNING] This DOES NOT encrypt locally cached emails anyhow (poor man's application security)
+ * [1] https://support.mozilla.org/en-US/kb/protect-your-thunderbird-passwords-master-password
+ * [2] https://www.schneier.com/wp-content/uploads/2020/06/Privacy_Threats_in_Intimate_Relationships-1.pdf ***/
+user_pref("mail.password_protect_local_cache", true);  // [HIDDEN PREF]
 
 /** HEADERS ***/
 /* 6020:
