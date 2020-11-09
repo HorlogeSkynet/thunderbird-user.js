@@ -2,7 +2,6 @@
 * name: thunderbird user.js
 * date: 1 November 2020
 * version: v78-beta4
-* authors: v52+ github | v51- www.ghacks.net
 * url: https://github.com/HorlogeSkynet/thunderbird-user.js
 * license: MIT (https://github.com/HorlogeSkynet/thunderbird-user.js/blob/master/LICENSE)
 * releases: https://github.com/HorlogeSkynet/thunderbird-user.js/releases
