@@ -1679,13 +1679,13 @@ user_pref("calendar.useragent.extra", "");
 user_pref("calendar.timezone.local", "UTC");  // [DEFAULT: ""]
 
 /** RSS ***/
-/* These features used not to do anything as they weren't implemented.
- * [1] https://dxr.mozilla.org/comm-release/source/mail/base/content/mailWindowOverlay.js#649
- * [2] https://bugzilla.mozilla.org/show_bug.cgi?id=458606#c9 ***/
+/** These features don't actually do anything as they aren't implemented
+ * [1] https://searchfox.org/comm-esr78/rev/384830b0570096c48770398060f87fbe556f6f01/mail/base/content/mailWindowOverlay.js#925
+ * [2] https://bugzilla.mozilla.org/show_bug.cgi?id=458606#c9
 /* 6220: What classes can process incoming data.
  * (0=All classes (default), 1=Don't display HTML, 2=Don't display HTML and inline images,
  * 3=Don't display HTML, inline images and some other uncommon types, 100=Use a hard coded list)
- * [1] https://www.privacy-handbuch.de/handbuch_31j.htm ***/
+ * [1] https://www.privacy-handbuch.de/handbuch_31j.htm
 user_pref("rss.display.disallow_mime_handlers", 3);
 /* 6221: How to display HTML parts of a message body
  * (0=Display the HTML normally (default), 1=Convert it to text and then back again
@@ -1693,14 +1693,15 @@ user_pref("rss.display.disallow_mime_handlers", 3);
  * (in trunk builds later than 2011-07-23)
  * [1] https://bugzilla.mozilla.org/show_bug.cgi?id=602718
  * [2] https://hg.mozilla.org/comm-central/rev/c1ef44a22eb2
- * [3] https://www.bucksch.org/1/projects/mozilla/108153/ ***/
+ * [3] https://www.bucksch.org/1/projects/mozilla/108153/
 user_pref("rss.display.html_as", 1);
 /* 6222: Prefer to view as plaintext or html
  * true=Display a message as plain text when there is both a HTML and a plain
  * text version of a message body
  * false=Display a message as HTML when there is both a HTML and a plain text
- * version of a message body. (default) ***/
+ * version of a message body. (default)
 user_pref("rss.display.prefer_plaintext", true);
+**/
 /* 6223: Feed message display (summary or web page), on open.
  * Action on double click or enter in threadpane for a feed message.
  * 0=open content-base url in new window, 1=open summary in new window,
