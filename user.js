@@ -284,7 +284,7 @@ user_pref("browser.safebrowsing.downloads.remote.url", "");
      * Linux: "/usr/lib/firefox/browser/features" (or similar)
 
      [1] https://firefox-source-docs.mozilla.org/toolkit/mozapps/extensions/addon-manager/SystemAddons.html
-     [2] https://dxr.mozilla.org/mozilla-central/source/browser/extensions
+     [2] https://searchfox.org/mozilla-central/source/browser/extensions
 ***/
 user_pref("_user.js.parrot", "0500 syntax error: the parrot's cashed in 'is chips!");
 /* 0503: disable Normandy/Shield [FF60+]
@@ -1434,7 +1434,7 @@ user_pref("mail.identity.id1.header.InReplyTo", "");
 /*** [SECTION 6000]: THUNDERBIRD (AUTO CONFIG / UI / HEADERS / ADDRESS BOOK)
    Options general to Thunderbird's mail configuration and user interface
 
-   [1] https://dxr.mozilla.org/comm-release/
+   [1] https://searchfox.org/comm-esr78/source/
    [2] http://kb.mozillazine.org/Mail_and_news_settings
 ***/
 user_pref("_user.js.parrot", "6000 syntax error: this parrot is blind!");
