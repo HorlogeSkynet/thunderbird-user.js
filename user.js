@@ -206,6 +206,16 @@ user_pref("browser.crashReports.unsubmittedCheck.autoSubmit2", false); // [FF58+
 user_pref("mail.instrumentation.postUrl", "");
 user_pref("mail.instrumentation.askUser", false);
 user_pref("mail.instrumentation.userOptedIn", false);
+/* 0371: disable about:rights notification on fresh profiles
+ * When a profile is loaded for the first time, a bottom notification appears with a button
+ * showing "Know your rights...". If clicked, the _special_ page about:rights appears.
+ * When `mail.rights.override` is unset (default), Thunderbird falls-back on `mail.rights.version`
+ * value. If it's unset (default too) or lower than the current version, notification is displayed.
+ * false=always show the notification
+ * true=never show the notification
+ * [1] https://searchfox.org/comm-esr78/rev/384830b0570096c48770398060f87fbe556f6f01/mail/base/content/specialTabs.js#1218 ***/
+user_pref("mail.rights.override", true);  // [DEFAULT: unset]
+   // user_pref("mail.rights.version", 1)  // [DEFAULT: unset]
 /* 0390: disable Captive Portal detection
  * [1] https://www.eff.org/deeplinks/2017/08/how-captive-portals-interfere-wireless-security-and-privacy
  * [2] https://wiki.mozilla.org/Necko/CaptivePortal ***/
