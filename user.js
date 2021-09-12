@@ -1,182 +1,175 @@
 /******
 * name: thunderbird user.js
-* date: 28 August 2021
-* version: v78.0
+* date: 12 September 2021
+* version: v91-beta
 * url: https://github.com/HorlogeSkynet/thunderbird-user.js
 * license: MIT (https://github.com/HorlogeSkynet/thunderbird-user.js/blob/master/LICENSE)
 * releases: https://github.com/HorlogeSkynet/thunderbird-user.js/releases
 
 * README:
-  0. Consider using Tor
-  1. READ the full README
-    * https://github.com/HorlogeSkynet/thunderbird-user.js/blob/master/README.md
-  2. READ this
-    * https://github.com/HorlogeSkynet/thunderbird-user.js/wiki/1.3-Implementation
-  3. If you skipped steps 1 and 2 above (shame on you), then here is the absolute minimum
-    * Auto-installing updates for Thunderbird and extensions are disabled (section 0302)
-    * Real time binary checks with Google services are disabled (section 0412)
-    * Browsing related technologies, and JavaScript disabled. Use your web browser for browsing.
-    * You will need to make changes, and to troubleshoot at times (choose wisely, there is always a trade-off).
-       While not 100% definitive, search for "[SETUP". If required, add each pref to your overrides section at
-       default values (or comment them out and reset them in about:config). Here are the main ones:
+
+  1. Consider using Tor if it meets your needs or fits your threat model
+       * https://www.torproject.org/about/torusers.html.en
+  2. Required reading: Overview, Backing Up, and Implementation entries
+       * https://github.com/HorlogeSkynet/thunderbird-user.js/wiki
+  3. If you skipped step 2, return to step 2
+  4. Make changes
+       * There are often trade-offs and conflicts between security vs privacy vs anti-fingerprinting
+         and these need to be balanced against functionality & convenience & breakage
+       * Some site breakage and unintended consequences will happen. Everyone's experience will differ
+         e.g. some user data is erased on close (section 2800), change this to suit your needs
+       * While not 100% definitive, search for "[SETUP" tags
+         e.g. wanna re-enable account auto configuration? check 9101 & 9102
+       * Take the wiki link in step 2 and read the Troubleshooting entry
+  5. Some tag info
         [SETUP-INSTALL] if you experience any issue during Thunderbird setting up, read it
         [SETUP-FEATURE] if you miss some (expected) Thunderbird features, read it
        [SETUP-SECURITY] it's one item, read it
             [SETUP-WEB] can cause some websites to break
-         [SETUP-CHROME] changes how Thunderbird itself behaves (i.e. NOT directly website related)
-           [SETUP-PERF] may impact performance
-         [SETUP-HARDEN] maybe you should consider using the Tor Browser
-    * [WARNING] tags are extra special and used sparingly, so heed them
-  4. BACKUP your profile folder before implementing (and/or test in a new/cloned profile)
-  5. KEEP UP TO DATE: https://github.com/arkenfox/user.js/wiki#small_orange_diamond-maintenance
+         [SETUP-CHROME] changes how Thunderbird itself behaves (i.e. not directly website related)
 
 * INDEX:
+
   0100: STARTUP
   0200: GEOLOCATION / LANGUAGE / LOCALE
-  0300: QUIET BIRD
-  0400: BLOCKLISTS / SAFE BROWSING
-  0500: SYSTEM ADD-ONS / EXPERIMENTS
+  0300: QUIETER BIRD
+  0400: SAFE BROWSING
   0600: BLOCK IMPLICIT OUTBOUND
-  0700: HTTP* / TCP/IP / DNS / PROXY / SOCKS etc
-  0800: HISTORY / FORMS
-  1000: CACHE / FAVICONS
-  1200: HTTPS (SSL/TLS / OCSP / CERTS / HPKP / CIPHERS)
+  0700: DNS / DoH / PROXY / SOCKS / IPv6
+  0800: LOCATION BAR / SEARCH BAR / SUGGESTIONS / HISTORY / FORMS
+  0900: PASSWORDS
+  1000: DISK AVOIDANCE
+  1200: HTTPS (SSL/TLS / OCSP / CERTS / HPKP)
   1400: FONTS
   1600: HEADERS / REFERERS
-  1800: PLUGINS
-  2000: MEDIA / CAMERA / MIC
-  2200: WINDOW MEDDLING & LEAKS / POPUPS
+  1700: CONTAINERS
+  2000: PLUGINS / MEDIA / WEBRTC
   2300: WEB WORKERS
-  2400: DOM (DOCUMENT OBJECT MODEL) & JAVASCRIPT
+  2400: DOM (DOCUMENT OBJECT MODEL)
+  2500: FINGERPRINTING
   2600: MISCELLANEOUS
   2700: PERSISTENT STORAGE
   2800: SHUTDOWN
   4000: FPI (FIRST PARTY ISOLATION)
   4500: RFP (RESIST FINGERPRINTING)
-  4600: RFP ALTERNATIVES
-  4700: RFP ALTERNATIVES (NAVIGATOR / USER AGENT (UA) SPOOFING)
-  5000: PERSONAL
-  6000: THUNDERBIRD (AUTO CONFIG / UI / HEADERS / ADDRESS BOOK)
-  6100: EMAIL COMPOSITION (ENCODING / FORMAT / VIEW)
-  6200: OTHER THUNDERBIRD COMPONENTS (CHAT / CALENDAR / RSS)
-  6300: THUNDERBIRD ENCRYPTION (ENIGMAIL / AUTOCRYPT / GNUPG)
+  5000: OPTIONAL OPSEC
+  5500: OPTIONAL HARDENING
+  6000: DON'T TOUCH
+  7000: DON'T BOTHER
+  8000: DON'T BOTHER: NON-RFP
+  9000: PERSONAL
+  9100: THUNDERBIRD (AUTO CONFIG / UI / HEADERS / ADDRESS BOOK)
+  9200: EMAIL COMPOSITION (ENCODING / FORMAT / VIEW)
+  9300: OTHER THUNDERBIRD COMPONENTS (CHAT / CALENDAR / RSS)
+  9400: THUNDERBIRD ENCRYPTION (ENIGMAIL / AUTOCRYPT / GNUPG)
   9999: DEPRECATED / REMOVED / LEGACY / RENAMED
 
 ******/
 
 /* START: internal custom pref to test for syntax errors
- * [NOTE] In FF60+, not all syntax errors cause parsing to abort i.e. reaching the last debug
- * pref no longer necessarily means that all prefs have been applied. Check the console right
+ * [NOTE] Not all syntax errors cause parsing to abort i.e. reaching the last debug pref
+ * no longer necessarily means that all prefs have been applied. Check the console right
  * after startup for any warnings/error messages related to non-applied prefs
  * [1] https://blog.mozilla.org/nnethercote/2018/03/09/a-new-preferences-parser-for-firefox/ ***/
 user_pref("_user.js.parrot", "START: Oh yes, the Norwegian Blue... what's wrong with it?");
 
-/* 0000: disable about:config warning
- * FF71-72: chrome://global/content/config.xul
- * FF73+: chrome://global/content/config.xhtml ***/
-user_pref("general.warnOnAboutConfig", false); // XUL/XHTML version
-user_pref("browser.aboutConfig.showWarning", false); // HTML version [FF71+]
+/* 0000: disable about:config warning ***/
+user_pref("browser.aboutConfig.showWarning", false);
 
 /*** [SECTION 0100]: STARTUP ***/
 user_pref("_user.js.parrot", "0100 syntax error: the parrot's dead!");
 /* 0101: disable default browser check
  * [SETTING] Edit>Preferences>Advanced>Always check to see if Thunderbird is the default mail client on startup ***/
 user_pref("mail.shell.checkDefaultClient", false);
-/* 0102: set START page
+/* 0102: set START page [SETUP-CHROME]
  * [SETTING] Edit>Preferences>General>Thunderbird Start Page ***/
 user_pref("mailnews.start_page.enabled", false);
 
 /*** [SECTION 0200]: GEOLOCATION / LANGUAGE / LOCALE ***/
 user_pref("_user.js.parrot", "0200 syntax error: the parrot's definitely deceased!");
-/** GEOLOCATION ***/
-/* 0201: disable Location-Aware Browsing
- * [NOTE] Best left at default "true", fingerprintable, is already behind a prompt (see 0202)
- * [1] https://www.mozilla.org/firefox/geolocation/ ***/
-user_pref("geo.enabled", false);
-/* 0202: set a default permission for Location (see 0201) [FF58+]
- * 0=always ask (default), 1=allow, 2=block
- * [NOTE] Best left at default "always ask", fingerprintable via Permissions API
- * [SETTING] to add site exceptions: Page Info>Permissions>Access Your Location
- * [SETTING] to manage site exceptions: Options>Privacy & Security>Permissions>Location>Settings ***/
-   // user_pref("permissions.default.geo", 2);
-/* 0203: use Mozilla geolocation service instead of Google when geolocation is enabled [FF74+]
+/* 0201: use Mozilla geolocation service instead of Google if permission is granted [FF74+]
  * Optionally enable logging to the console (defaults to false) ***/
 user_pref("geo.provider.network.url", "https://location.services.mozilla.com/v1/geolocate?key=%MOZILLA_API_KEY%");
    // user_pref("geo.provider.network.logging.enabled", true); // [HIDDEN PREF]
-/* 0204: disable using the OS's geolocation service ***/
+/* 0202: disable using the OS's geolocation service ***/
 user_pref("geo.provider.ms-windows-location", false); // [WINDOWS]
 user_pref("geo.provider.use_corelocation", false); // [MAC]
 user_pref("geo.provider.use_gpsd", false); // [LINUX]
-/* 0206: disable geographically specific results/search engines e.g. "browser.search.*.US"
- * i.e. ignore all of Mozilla's various search engines in multiple locales ***/
-user_pref("browser.search.geoSpecificDefaults", false);
-user_pref("browser.search.geoSpecificDefaults.url", "");
-
-/** LANGUAGE / LOCALE ***/
+/* 0203: disable region updates
+ * [1] https://firefox-source-docs.mozilla.org/toolkit/modules/toolkit_modules/Region.html ***/
+user_pref("browser.region.network.url", ""); // [FF78+]
+user_pref("browser.region.update.enabled", false); // [[FF79+]
+/* 0204: set search region
+ * [NOTE] May not be hidden if Thunderbird has changed your settings due to your region (0203) ***/
+   // user_pref("browser.search.region", "US"); // [HIDDEN PREF]
 /* 0210: set preferred language for displaying web pages
  * [TEST] https://addons.mozilla.org/about ***/
 user_pref("intl.accept_languages", "en-US, en");
 /* 0210b: Set dictionary to US ***/
 user_pref("spellchecker.dictionary", "en-US");
-/* 0211: enforce US English locale regardless of the system locale
- * [SETUP-WEB] May break some input methods e.g xim/ibus for CJK languages, see [2]
- * [1] https://bugzilla.mozilla.org/867501
- * [2] https://bugzilla.mozilla.org/1629630 ***/
+/* 0211: use US English locale regardless of the system locale
+ * [SETUP-WEB] May break some input methods e.g xim/ibus for CJK languages [1]
+ * [1] https://bugzilla.mozilla.org/buglist.cgi?bug_id=867501,1629630 ***/
 user_pref("javascript.use_us_english_locale", true); // [HIDDEN PREF]
-/* 0212: enforce fallback text encoding to match en-US
- * When the content or server doesn't declare a charset the browser will
- * fallback to the "Current locale" based on your application language
- * [SETTING] General>Language and Appearance>Fonts and Colors>Advanced>Text Encoding for Legacy Content (FF72-)
- * [TEST] https://hsivonen.com/test/moz/check-charset.htm
- * [1] https://gitlab.torproject.org/tpo/applications/tor-browser/-/issues/20025 ***/
-user_pref("intl.charset.fallback.override", "windows-1252");
 
 /*** [SECTION 0300]: QUIET BIRD
      Starting in user.js v68, we only disable the auto-INSTALL of Thunderbird.
      You still get prompts to update, in one click.
      We have NEVER disabled auto-CHECKING, and highly discourage that.
-     Previously we also disabled auto-INSTALLING of extensions (0302b).
      There are many legitimate reasons to turn off auto-INSTALLS, including hijacked or monetized
      extensions, time constraints, legacy issues, dev/testing, and fear of breakage/bugs. It is
      still important to do updates for security reasons, please do so manually if you make changes.
 ***/
 user_pref("_user.js.parrot", "0300 syntax error: the parrot's not pinin' for the fjords!");
-/* 0301b: disable auto-CHECKING for extension and theme updates ***/
-   // user_pref("extensions.update.enabled", false);
-/* 0302a: disable auto-INSTALLING Thunderbird updates [SETUP-INSTALL] [NON-WINDOWS FF65+]
- * [NOTE] In FF65+ on Windows this SETTING (below) is now stored in a file and the pref was removed
+/** UPDATES ***/
+/* 0301: disable auto-INSTALLING Thunderbird updates [NON-WINDOWS]
+ * [NOTE] You will still get prompts to update, and should do so in a timely manner
  * [SETTING] General>Thunderbird Updates>Check for updates but let you choose to install them... ***/
 user_pref("app.update.auto", false);
-/* 0302b: disable auto-INSTALLING extension and theme updates (after the check in 0301b)
+/* 0302: disable auto-INSTALLING Thunderbird updates via a background service [FF90+] [WINDOWS]
+ * [SETTING] General>Thunderbird Updates>Automatically install updates>Use a background service to install updates
+ * [1] https://support.mozilla.org/kb/enable-background-updates-firefox-windows ***/
+user_pref("app.update.background.scheduling.enabled", false);
+/* 0303: disable auto-CHECKING for extension and theme updates ***/
+   // user_pref("extensions.update.enabled", false);
+/* 0304: disable auto-INSTALLING extension and theme updates (after the check in 0303)
  * [SETTING] about:addons>Extensions>[cog-wheel-icon]>Update Add-ons Automatically (toggle) ***/
    // user_pref("extensions.update.autoUpdateDefault", false);
-/* 0306: disable extension metadata
+/* 0305: disable extension metadata
  * used when installing/updating an extension, and in daily background update checks:
  * when false, extension detail tabs will have no description
  * [NOTE] Unlike arkenfox/user.js, we explicitly disable it ***/
 user_pref("extensions.getAddons.cache.enabled", false);
-/* 0308: disable search engine updates (e.g. OpenSearch)
- * [NOTE] This does not affect Mozilla's built-in or Web Extension search engines
- * [SETTING] General>Thunderbird Updates>Automatically update search engines (FF72-) ***/
+/* 0306: disable search engine updates (e.g. OpenSearch)
+ * [NOTE] This does not affect Mozilla's built-in or Web Extension search engines ***/
 user_pref("browser.search.update", false);
-/* 0310: disable sending the URL of the website where a plugin crashed ***/
-user_pref("dom.ipc.plugins.reportCrashURL", false);
-/* 0320: disable about:addons' Recommendations pane (uses Google Analytics) ***/
+/* 0307: disable System Add-on updates ***/
+user_pref("extensions.systemAddon.update.enabled", false); // [FF62+]
+user_pref("extensions.systemAddon.update.url", ""); // [FF44+]
+
+/** RECOMMENDATIONS ***/
+/* 0320: disable recommendation pane in about:addons (uses Google Analytics) ***/
 user_pref("extensions.getAddons.showPane", false); // [HIDDEN PREF]
 /* 0321: disable recommendations in about:addons' Extensions and Themes panes [FF68+] ***/
 user_pref("extensions.htmlaboutaddons.recommendations.enabled", false);
-/* 0330: disable telemetry
- * the pref (.unified) affects the behavior of the pref (.enabled)
- * IF unified=false then .enabled controls the telemetry module
- * IF unified=true then .enabled ONLY controls whether to record extended data
- * so make sure to have both set as false.
- * Restoring prompted=0 would make TB ask you on fresh install.
- * [NOTE] FF58+ 'toolkit.telemetry.enabled' is now LOCKED to reflect prerelease
- * or release builds (true and false respectively), see [2].
+
+/** TELEMETRY ***/
+/* 0330: disable new data submission [FF41+]
+ * If disabled, no policy is shown or upload takes place, ever
+ * [1] https://bugzilla.mozilla.org/1195552 ***/
+user_pref("datareporting.policy.dataSubmissionEnabled", false);
+/* 0331: disable Health Reports
+ * [SETTING] Privacy & Security>Thunderbird Data Collection & Use>Allow Thunderbird to send technical... data ***/
+user_pref("datareporting.healthreport.uploadEnabled", false);
+/* 0332: disable telemetry
+ * The "unified" pref affects the behaviour of the "enabled" pref
+ * - If "unified" is false then "enabled" controls the telemetry module
+ * - If "unified" is true then "enabled" only controls whether to record extended data
+ * [NOTE] "toolkit.telemetry.enabled" is now LOCKED to reflect prerelease (true) or release builds (false) [2]
  * [1] https://firefox-source-docs.mozilla.org/toolkit/components/telemetry/telemetry/internals/preferences.html
  * [2] https://medium.com/georg-fritzsche/data-preference-changes-in-firefox-58-2d5df9c428b5 ***/
 user_pref("toolkit.telemetry.unified", false);
-user_pref("toolkit.telemetry.enabled", false); // see [NOTE] above FF58+
+user_pref("toolkit.telemetry.enabled", false); // see [NOTE]
 user_pref("toolkit.telemetry.prompted", 2);
 user_pref("toolkit.telemetry.server", "data:,");
 user_pref("toolkit.telemetry.archive.enabled", false);
@@ -185,23 +178,45 @@ user_pref("toolkit.telemetry.shutdownPingSender.enabled", false); // [FF55+]
 user_pref("toolkit.telemetry.updatePing.enabled", false); // [FF56+]
 user_pref("toolkit.telemetry.bhrPing.enabled", false); // [FF57+] Background Hang Reporter
 user_pref("toolkit.telemetry.firstShutdownPing.enabled", false); // [FF57+]
-/* 0340: disable Health Reports
- * [SETTING] Privacy & Security>Thunderbird Data Collection & Use>Allow Thunderbird to send technical... data ***/
-user_pref("datareporting.healthreport.uploadEnabled", false);
-/* 0341: disable new data submission, master kill switch [FF41+]
- * If disabled, no policy is shown or upload takes place, ever
- * [1] https://bugzilla.mozilla.org/1195552 ***/
-user_pref("datareporting.policy.dataSubmissionEnabled", false);
-/* 0342: disable Studies (see 0503)
+/* 0333: disable Telemetry Coverage
+  * [1] https://blog.mozilla.org/data/2018/08/20/effectively-measuring-search-in-firefox/ ***/
+ user_pref("toolkit.telemetry.coverage.opt-out", true); // [HIDDEN PREF]
+ user_pref("toolkit.coverage.opt-out", true); // [FF64+] [HIDDEN PREF]
+ user_pref("toolkit.coverage.endpoint.base", "");
+/* 0334: disable PingCentre telemetry (used in several System Add-ons) [FF57+]
+ * Defense-in-depth: currently covered by 0331 ***/
+user_pref("browser.ping-centre.telemetry", false);
+
+/** STUDIES ***/
+/* 0340: disable Studies
  * [NOTE] This option is missing from Thunderbird's preferences panel (hidden?) ***/
 user_pref("app.shield.optoutstudies.enabled", false);
+/* 0341: disable Normandy/Shield [FF60+]
+ * Shield is a telemetry system that can push and test "recipes"
+ * [1] https://mozilla.github.io/normandy/ ***/
+user_pref("app.normandy.enabled", false);
+user_pref("app.normandy.api_url", "");
+
+/** CRASH REPORTS ***/
 /* 0350: disable Crash Reports ***/
 user_pref("breakpad.reportURL", "");
 user_pref("browser.tabs.crashReporting.sendReport", false); // [FF44+]
-user_pref("browser.crashReports.unsubmittedCheck.enabled", false); // [FF51+]
-/* 0351: disable backlogged Crash Reports
+   // user_pref("browser.crashReports.unsubmittedCheck.enabled", false); // [FF51+] [DEFAULT: false]
+/* 0351: enforce no submission of backlogged Crash Reports [FF58+]
  * [SETTING] Privacy & Security>Thunderbird Data Collection & Use>Allow Thunderbird to send backlogged crash reports  ***/
-user_pref("browser.crashReports.unsubmittedCheck.autoSubmit2", false); // [FF58+]
+user_pref("browser.crashReports.unsubmittedCheck.autoSubmit2", false); // [DEFAULT: false]
+
+/** OTHER ***/
+/* 0360: disable Captive Portal detection
+ * [1] https://www.eff.org/deeplinks/2017/08/how-captive-portals-interfere-wireless-security-and-privacy ***/
+user_pref("captivedetect.canonicalURL", "");
+user_pref("network.captive-portal-service.enabled", false); // [FF52+]
+/* 0361: disable Network Connectivity checks [FF65+]
+ * [1] https://bugzilla.mozilla.org/1460537 ***/
+user_pref("network.connectivity-service.enabled", false);
+/* 0362: enforce disabling of Web Compatibility Reporter [FF56+]
+ * Web Compatibility Reporter adds a "Report Site Issue" button to send data to Mozilla ***/
+user_pref("extensions.webcompat-reporter.enabled", false); // [DEFAULT: false]
 /* 0370: disable UI instrumentation ***/
 user_pref("mail.instrumentation.postUrl", "");
 user_pref("mail.instrumentation.askUser", false);
@@ -216,102 +231,44 @@ user_pref("mail.instrumentation.userOptedIn", false);
  * [1] https://searchfox.org/comm-esr78/rev/384830b0570096c48770398060f87fbe556f6f01/mail/base/content/specialTabs.js#1218 ***/
 user_pref("mail.rights.override", true);  // [DEFAULT: unset]
    // user_pref("mail.rights.version", 1)  // [DEFAULT: unset]
-/* 0390: disable Captive Portal detection
- * [1] https://www.eff.org/deeplinks/2017/08/how-captive-portals-interfere-wireless-security-and-privacy
- * [2] https://wiki.mozilla.org/Necko/CaptivePortal ***/
-user_pref("captivedetect.canonicalURL", "");
-user_pref("network.captive-portal-service.enabled", false); // [FF52+]
-/* 0391: disable Network Connectivity checks [FF65+]
- * [1] https://bugzilla.mozilla.org/1460537 ***/
-user_pref("network.connectivity-service.enabled", false);
 
-/*** [SECTION 0400]: BLOCKLISTS / SAFE BROWSING (SB) ***/
-user_pref("_user.js.parrot", "0400 syntax error: the parrot's passed on!");
-/** BLOCKLISTS ***/
-/* 0401: enforce Firefox blocklist
- * [NOTE] It includes updates for "revoked certificates"
- * [1] https://blog.mozilla.org/security/2015/03/03/revoking-intermediate-certificates-introducing-onecrl/ ***/
-user_pref("extensions.blocklist.enabled", true); // [DEFAULT: true]
+/*** [SECTION 0400]: SAFE BROWSING (SB)
+   SB has taken many steps to preserve privacy. If required, a full url is never sent
+   to Google, only a part-hash of the prefix, hidden with noise of other real part-hashes.
+   Firefox takes measures such as stripping out identifying parameters and since SBv4 (FF57+)
+   doesn't even use cookies. (#Turn on browser.safebrowsing.debug to monitor this activity)
+   FWIW, Google also swear it is anonymized and only used to flag malicious sites.
 
-/** SAFE BROWSING (SB)
-    Safe Browsing has taken many steps to preserve privacy. *IF* required, a full url is never
-    sent to Google, only a PART-hash of the prefix, and this is hidden with noise of other real
-    PART-hashes. Google also swear it is anonymized and only used to flag malicious sites.
-    Firefox also takes measures such as striping out identifying parameters and since SBv4 (FF57+)
-    doesn't even use cookies. (#Turn on browser.safebrowsing.debug to monitor this activity)
-
-    #Required reading [#] https://feeding.cloud.geek.nz/posts/how-safe-browsing-works-in-firefox/
-    [1] https://wiki.mozilla.org/Security/Safe_Browsing
-    [2] https://support.mozilla.org/en-US/kb/how-does-phishing-and-malware-protection-work
+   [1] https://feeding.cloud.geek.nz/posts/how-safe-browsing-works-in-firefox/
+   [2] https://wiki.mozilla.org/Security/Safe_Browsing
+   [3] https://support.mozilla.org/kb/how-does-phishing-and-malware-protection-work
 ***/
-/* 0410: disable SB (Safe Browsing)
- * [WARNING] Do this at your own risk! These are the master switches.
- * [SETTING] Privacy & Security>Security>... "Block dangerous and deceptive content" ***/
+user_pref("_user.js.parrot", "0400 syntax error: the parrot's passed on!");
+/* 0401: disable SB (Safe Browsing)
+ * [WARNING] Do this at your own risk! These are the master switches
+ * [SETTING] Privacy & Security>Security>... Block dangerous and deceptive content ***/
    // user_pref("browser.safebrowsing.malware.enabled", false);
    // user_pref("browser.safebrowsing.phishing.enabled", false);
-/* 0411: disable SB checks for downloads (both local lookups + remote)
- * This is the master switch for the safebrowsing.downloads* prefs (0412, 0413)
+/* 0402: disable SB checks for downloads (both local lookups + remote)
+ * This is the master switch for the safebrowsing.downloads* prefs (0403, 0404)
  * [SETTING] Privacy & Security>Security>... "Block dangerous downloads" ***/
    // user_pref("browser.safebrowsing.downloads.enabled", false);
-/* 0412: disable SB checks for downloads (remote)
- * To verify the safety of certain executable files, Firefox may submit some information about the
+/* 0403: disable SB checks for downloads (remote)
+ * To verify the safety of certain executable files, Thunderbird may submit some information about the
  * file, including the name, origin, size and a cryptographic hash of the contents, to the Google
- * Safe Browsing service which helps Firefox determine whether or not the file should be blocked
+ * Safe Browsing service which helps Thunderbird determine whether or not the file should be blocked
  * [SETUP-SECURITY] If you do not understand this, or you want this protection, then override it ***/
 user_pref("browser.safebrowsing.downloads.remote.enabled", false);
 user_pref("browser.safebrowsing.downloads.remote.url", "");
-/* 0413: disable SB checks for unwanted software
+/* 0404: disable SB checks for unwanted software
  * [SETTING] Privacy & Security>Security>... "Warn you about unwanted and uncommon software" ***/
    // user_pref("browser.safebrowsing.downloads.remote.block_potentially_unwanted", false);
    // user_pref("browser.safebrowsing.downloads.remote.block_uncommon", false);
-/* 0419: disable 'ignore this warning' on SB warnings
+/* 0405: disable "ignore this warning" on SB warnings [FF45+]
  * If clicked, it bypasses the block for that session. This is a means for admins to enforce SB
  * [TEST] see github wiki APPENDIX A: Test Sites: Section 5
  * [1] https://bugzilla.mozilla.org/1226490 ***/
    // user_pref("browser.safebrowsing.allowOverride", false);
-
-/*** [SECTION 0500]: SYSTEM ADD-ONS / EXPERIMENTS
-     System Add-ons are a method for shipping extensions, considered to be
-     built-in features to Firefox, that are hidden from the about:addons UI.
-     To view your System Add-ons go to about:support, they are listed under "Firefox Features"
-
-     Some System Add-ons have no on-off prefs. Instead you can manually remove them. Note that app
-     updates will restore them. They may also be updated and possibly restored automatically (see 0505)
-     * Portable: "...\App\Firefox64\browser\features\" (or "App\Firefox\etc" for 32bit)
-     * Windows: "...\Program Files\Mozilla\browser\features" (or "Program Files (X86)\etc" for 32bit)
-     * Mac: "...\Applications\Firefox\Contents\Resources\browser\features\"
-            [NOTE] On Mac you can right-click on the application and select "Show Package Contents"
-     * Linux: "/usr/lib/firefox/browser/features" (or similar)
-
-     [1] https://firefox-source-docs.mozilla.org/toolkit/mozapps/extensions/addon-manager/SystemAddons.html
-     [2] https://searchfox.org/mozilla-central/source/browser/extensions
-***/
-user_pref("_user.js.parrot", "0500 syntax error: the parrot's cashed in 'is chips!");
-/* 0503: disable Normandy/Shield [FF60+]
- * Shield is an telemetry system (including Heartbeat) that can also push and test "recipes"
- * [1] https://wiki.mozilla.org/Firefox/Shield
- * [2] https://github.com/mozilla/normandy ***/
-user_pref("app.normandy.enabled", false);
-user_pref("app.normandy.api_url", "");
-/* 0505: disable System Add-on updates ***/
-user_pref("extensions.systemAddon.update.enabled", false); // [FF62+]
-user_pref("extensions.systemAddon.update.url", ""); // [FF44+]
-/* 0506: disable PingCentre telemetry (used in several System Add-ons) [FF57+]
- * Currently blocked by 'datareporting.healthreport.uploadEnabled' (see 0340) ***/
-user_pref("browser.ping-centre.telemetry", false);
-/* 0517: disable Form Autofill
- * [NOTE] Stored data is NOT secure (uses a JSON file)
- * [NOTE] Heuristics controls Form Autofill on forms without @autocomplete attributes
- * [SETTING] Privacy & Security>Forms and Autofill>Autofill addresses (FF74+)
- * [1] https://wiki.mozilla.org/Firefox/Features/Form_Autofill
- * [2] https://www.ghacks.net/2017/05/24/firefoxs-new-form-autofill-is-awesome/ ***/
-user_pref("extensions.formautofill.addresses.enabled", false); // [FF55+]
-user_pref("extensions.formautofill.available", "off"); // [FF56+]
-user_pref("extensions.formautofill.creditCards.enabled", false); // [FF56+]
-user_pref("extensions.formautofill.heuristics.enabled", false); // [FF55+]
-/* 0518: disable Web Compatibility Reporter [FF56+]
- * Web Compatibility Reporter adds a "Report Site Issue" button to send data to Mozilla ***/
-user_pref("extensions.webcompat-reporter.enabled", false);
 
 /*** [SECTION 0600]: BLOCK IMPLICIT OUTBOUND [not explicitly asked for - e.g. clicked on] ***/
 user_pref("_user.js.parrot", "0600 syntax error: the parrot's no more!");
@@ -319,74 +276,46 @@ user_pref("_user.js.parrot", "0600 syntax error: the parrot's no more!");
  * [1] https://developer.mozilla.org/docs/Web/HTTP/Link_prefetching_FAQ ***/
 user_pref("network.prefetch-next", false);
 /* 0602: disable DNS prefetching
- * [1] https://www.ghacks.net/2013/04/27/firefox-prefetching-what-you-need-to-know/
- * [2] https://developer.mozilla.org/docs/Web/HTTP/Headers/X-DNS-Prefetch-Control ***/
+ * [1] https://developer.mozilla.org/docs/Web/HTTP/Headers/X-DNS-Prefetch-Control ***/
 user_pref("network.dns.disablePrefetch", true);
-user_pref("network.dns.disablePrefetchFromHTTPS", true); // [HIDDEN PREF ESR] [DEFAULT: true FF70+]
+   // user_pref("network.dns.disablePrefetchFromHTTPS", true); // [DEFAULT: true]
 /* 0603: disable predictor / prefetching ***/
 user_pref("network.predictor.enabled", false);
-user_pref("network.predictor.enable-prefetch", false); // [FF48+]
-/* 0605: disable link-mouseover opening connection to linked server
- * [1] https://news.slashdot.org/story/15/08/14/2321202/how-to-quash-firefoxs-silent-requests
- * [2] https://www.ghacks.net/2015/08/16/block-firefox-from-connecting-to-sites-when-you-hover-over-links/ ***/
+   // user_pref("network.predictor.enable-prefetch", false); // [FF48+] [DEFAULT: false]
+/* 0604: disable link-mouseover opening connection to linked server
+ * [1] https://news.slashdot.org/story/15/08/14/2321202/how-to-quash-firefoxs-silent-requests ***/
 user_pref("network.http.speculative-parallel-limit", 0);
-/* 0606: disable "Hyperlink Auditing" (click tracking) and enforce same host in case
+/* 0605: enforce no "Hyperlink Auditing" (click tracking)
  * [1] https://www.bleepingcomputer.com/news/software/major-browsers-to-prevent-disabling-of-click-tracking-privacy-risk/ ***/
-user_pref("browser.send_pings", false); // [DEFAULT: false]
-user_pref("browser.send_pings.require_same_host", true);
+   // user_pref("browser.send_pings", false); // [DEFAULT: false]
 /* 0610: don't refresh nor reload pages when tab/window is not active or in idle state
  * [1] https://bugzilla.mozilla.org/show_bug.cgi?id=518805 ***/
 user_pref("browser.meta_refresh_when_inactive.disabled", true);
 
-/*** [SECTION 0700]: HTTP* / TCP/IP / DNS / PROXY / SOCKS etc ***/
+/*** [SECTION 0700]: DNS / DoH / PROXY / SOCKS / IPv6 ***/
 user_pref("_user.js.parrot", "0700 syntax error: the parrot's given up the ghost!");
 /* 0701: disable IPv6
- * IPv6 can be abused, especially regarding MAC addresses. They also do not play nice
- * with VPNs. That's even assuming your ISP and/or router and/or website can handle it.
- * [STATS] Firefox telemetry (June 2020) shows only 5% of all connections are IPv6.
- * [NOTE] This is just an application level fallback. Disabling IPv6 is best done at an
+ * IPv6 can be abused, especially with MAC addresses, and can leak with VPNs: assuming
+ * your ISP and/or router and/or website is IPv6 capable. Most sites will fall back to IPv4
+ * [STATS] Firefox telemetry (July 2021) shows ~10% of all connections are IPv6
+ * [NOTE] This is an application level fallback. Disabling IPv6 is best done at an
  * OS/network level, and/or configured properly in VPN setups. If you are not masking your IP,
  * then this won't make much difference. If you are masking your IP, then it can only help.
+ * [NOTE] PHP defaults to IPv6 with "localhost". Use "php -S 127.0.0.1:PORT"
  * [TEST] https://ipleak.org/
- * [1] https://github.com/arkenfox/user.js/issues/437#issuecomment-403740626
- * [2] https://www.internetsociety.org/tag/ipv6-security/ (see Myths 2,4,5,6) ***/
+ * [1] https://www.internetsociety.org/tag/ipv6-security/ (Myths 2,4,5,6) ***/
 user_pref("network.dns.disableIPv6", true);
 user_pref("network.notify.IPv6", false);
-/* 0702: disable HTTP2
- * HTTP2 raises concerns with "multiplexing" and "server push", does nothing to
- * enhance privacy, and opens up a number of server-side fingerprinting opportunities.
- * [WARNING] Disabling this made sense in the past, and doesn't break anything, but HTTP2 is
- * at 40% (December 2019) and growing [5]. Don't be that one person using HTTP1.1 on HTTP2 sites
- * [1] https://http2.github.io/faq/
- * [2] https://blog.scottlogic.com/2014/11/07/http-2-a-quick-look.html
- * [3] https://http2.github.io/http2-spec/#rfc.section.10.8
- * [4] https://queue.acm.org/detail.cfm?id=2716278
- * [5] https://w3techs.com/technologies/details/ce-http2/all/all ***/
-   // user_pref("network.http.spdy.enabled", false);
-   // user_pref("network.http.spdy.enabled.deps", false);
-   // user_pref("network.http.spdy.enabled.http2", false);
-   // user_pref("network.http.spdy.websockets", false); // [FF65+]
-/* 0703: disable HTTP Alternative Services [FF37+]
- * [SETUP-PERF] Relax this if you have FPI enabled (see 4000) *AND* you understand the
- * consequences. FPI isolates these, but it was designed with the Tor protocol in mind,
- * and the Tor Browser has extra protection, including enhanced sanitizing per Identity.
- * [1] https://tools.ietf.org/html/rfc7838#section-9
- * [2] https://www.mnot.net/blog/2016/03/09/alt-svc ***/
-user_pref("network.http.altsvc.enabled", false);
-user_pref("network.http.altsvc.oe", false);
-/* 0704: enforce the proxy server to do any DNS lookups when using SOCKS
+/* 0702: set the proxy server to do any DNS lookups when using SOCKS
  * e.g. in Tor, this stops your local DNS server from knowing your Tor destination
  * as a remote Tor node will handle the DNS request
  * [1] https://trac.torproject.org/projects/tor/wiki/doc/TorifyHOWTO/WebBrowsers ***/
 user_pref("network.proxy.socks_remote_dns", true);
-/* 0708: disable FTP [FF60+]
- * [1] https://www.ghacks.net/2018/02/20/firefox-60-with-new-preference-to-disable-ftp/ ***/
-user_pref("network.ftp.enabled", false);
-/* 0709: disable using UNC (Uniform Naming Convention) paths [FF61+]
+/* 0703: disable using UNC (Uniform Naming Convention) paths [FF61+]
  * [SETUP-CHROME] Can break extensions for profiles on network shares
  * [1] https://gitlab.torproject.org/tpo/applications/tor-browser/-/issues/26424 ***/
 user_pref("network.file.disable_unc_paths", true); // [HIDDEN PREF]
-/* 0710: disable GIO as a potential proxy bypass vector
+/* 0704: disable GIO as a potential proxy bypass vector
  * Gvfs/GIO has a set of supported protocols like obex, network, archive, computer, dav, cdda,
  * gphoto2, trash, etc. By default only smb and sftp protocols are accepted so far (as of FF64)
  * [1] https://bugzilla.mozilla.org/1433507
@@ -394,17 +323,24 @@ user_pref("network.file.disable_unc_paths", true); // [HIDDEN PREF]
  * [3] https://en.wikipedia.org/wiki/GVfs
  * [4] https://en.wikipedia.org/wiki/GIO_(software) ***/
 user_pref("network.gio.supported-protocols", ""); // [HIDDEN PREF]
+/* 0705: disable DNS-over-HTTPS (DoH) rollout [FF60+]
+ * 0=off by default, 2=TRR (Trusted Recursive Resolver) first, 3=TRR only, 5=explicitly off
+ * see "doh-rollout.home-region": USA Feb 2020, Canada July 2021 [3]
+ * [1] https://hacks.mozilla.org/2018/05/a-cartoon-intro-to-dns-over-https/
+ * [2] https://wiki.mozilla.org/Security/DOH-resolver-policy
+ * [3] https://blog.mozilla.org/mozilla/news/firefox-by-default-dns-over-https-rollout-in-canada/
+ * [4] https://www.eff.org/deeplinks/2020/12/dns-doh-and-odoh-oh-my-year-review-2020 ***/
+   // user_pref("network.trr.mode", 5);
+/* 0706: disable proxy direct failover for system requests [FF91+] ***/
+user_pref("network.proxy.failover_direct", false);
 
-/*** [SECTION 0800]: HISTORY / FORMS
-     Consider your environment (no unwanted eyeballs), your device (restricted access),
-     your device's unattended state (locked, encrypted, forensic hardened).
-***/
+/*** [SECTION 0800]: LOCATION BAR / SEARCH BAR / SUGGESTIONS / HISTORY / FORMS ***/
 user_pref("_user.js.parrot", "0800 syntax error: the parrot's ceased to be!");
 /* 0801: disable location bar using search
- * Don't leak URL typos to a search engine, give an error message instead.
+ * Don't leak URL typos to a search engine, give an error message instead
  * Examples: "secretplace,com", "secretplace/com", "secretplace com", "secret place.com"
- * [NOTE] This does **not** affect explicit user action such as using search buttons in the
- * dropdown, or using keyword search shortcuts you configure in options (e.g. 'd' for DuckDuckGo)
+ * [NOTE] This does not affect explicit user action such as using search buttons in the
+ * dropdown, or using keyword search shortcuts you configure in options (e.g. "d" for DuckDuckGo)
  * [SETUP-CHROME] If you don't, or rarely, type URLs, or you use a default search
  * engine that respects privacy, then you probably don't need this ***/
 user_pref("keyword.enabled", false);  // [DEFAULT: false]
@@ -416,30 +352,39 @@ user_pref("keyword.enabled", false);  // [DEFAULT: false]
  * intend to), can leak sensitive data (e.g. query strings: e.g. Princeton attack),
  * and is a security risk (e.g. common typos & malicious sites set up to exploit this) ***/
 user_pref("browser.fixup.alternate.enabled", false);
-/* 0805: disable coloring of visited links - CSS history leak
- * [NOTE] This has NEVER been fully "resolved": in Mozilla/docs it is stated it's
- * only in 'certain circumstances', also see latest comments in [2]
- * [TEST] https://earthlng.github.io/testpages/visited_links.html (see github wiki APPENDIX A on how to use)
- * [1] https://dbaron.org/mozilla/visited-privacy
- * [2] https://bugzilla.mozilla.org/147777
- * [3] https://developer.mozilla.org/docs/Web/CSS/Privacy_and_the_:visited_selector ***/
-user_pref("layout.css.visited_links_enabled", false);
-/* 0807: disable live search suggestions
-/* [NOTE] Both must be true for the location bar to work
+/* 0804: disable live search suggestions
+ * [NOTE] Both must be true for the location bar to work
  * [SETUP-CHROME] Change these if you trust and use a privacy respecting search engine
  * [SETTING] Search>Provide search suggestions | Show search suggestions in address bar results ***/
 user_pref("browser.search.suggest.enabled", false);
-/* 0860: disable search and form history
- * [SETUP-WEB] Be aware thet autocomplete form data can be read by third parties, see [1] [2]
- * [NOTE] We also clear formdata on exit (see 2803)
+/* 0808: disable search and form history
+ * [SETUP-WEB] Be aware that autocomplete form data can be read by third parties [1][2]
+ * [NOTE] We also clear formdata on exit (2803)
  * [SETTING] Privacy & Security>History>Custom Settings>Remember search and form history
  * [1] https://blog.mindedsecurity.com/2011/10/autocompleteagain.html
  * [2] https://bugzilla.mozilla.org/381681 ***/
 user_pref("browser.formfill.enable", false);
-/* 0862: disable browsing and download history
- * [NOTE] We also clear history and downloads on exiting Firefox (see 2803)
- * [SETTING] Privacy & Security>History>Custom Settings>Remember browsing and download history ***/
-user_pref("places.history.enabled", false);
+/* 0809: disable Form Autofill
+ * [NOTE] Stored data is NOT secure (uses a JSON file)
+ * [NOTE] Heuristics controls Form Autofill on forms without @autocomplete attributes
+ * [SETTING] Privacy & Security>Forms and Autofill>Autofill addresses
+ * [1] https://wiki.mozilla.org/Firefox/Features/Form_Autofill ***/
+user_pref("extensions.formautofill.addresses.enabled", false); // [FF55+]
+user_pref("extensions.formautofill.available", "off"); // [FF56+]
+user_pref("extensions.formautofill.creditCards.available", false); // [FF57+]
+user_pref("extensions.formautofill.creditCards.enabled", false); // [FF56+]
+user_pref("extensions.formautofill.heuristics.enabled", false); // [FF55+]
+/* 0810: disable coloring of visited links
+ * Bulk rapid history sniffing was mitigated in 2010 [1][2]. Slower and more expensive
+ * redraw timing attacks were largely mitigated in FF77+ [3]. Using RFP (4501) further hampers timing
+ * attacks. Don't forget clearing history on close (2803). However, social engineering [2#limits][4][5]
+ * and advanced targeted timing attacks could still produce usable results
+ * [1] https://developer.mozilla.org/docs/Web/CSS/Privacy_and_the_:visited_selector
+ * [2] https://dbaron.org/mozilla/visited-privacy
+ * [3] https://bugzilla.mozilla.org/1632765
+ * [4] https://earthlng.github.io/testpages/visited_links.html (see github wiki APPENDIX A on how to use)
+ * [5] https://lcamtuf.blogspot.com/2016/08/css-mix-blend-mode-is-bad-for-keeping.html ***/
+user_pref("layout.css.visited_links_enabled", false);
 
 /*** [SECTION 1000]: CACHE / FAVICONS
      Cache tracking/fingerprinting techniques [1][2][3] require a cache. Disabling disk (1001)
@@ -1402,9 +1347,9 @@ user_pref("_user.js.parrot", "4700 syntax error: the parrot's taken 'is last bow
 /* 4707: Limit user-agent data by imitating Firefox's user-agent */
    // user_pref("general.useragent.compatMode.firefox", true);
 
-/*** [SECTION 5000]: PERSONAL
+/*** [SECTION 9000]: PERSONAL
      Non-project related but useful. If any of these interest you, add them to your overrides ***/
-user_pref("_user.js.parrot", "5000 syntax error: this is an ex-parrot!");
+user_pref("_user.js.parrot", "9000 syntax error: this is an ex-parrot!");
 /* WELCOME & WHAT's NEW NOTICES ***/
    //user_pref("mailnews.start_page_override.mstone", "ignore"); // master switch
 /* WARNINGS ***/
@@ -1431,16 +1376,16 @@ user_pref("mail.identity.id1.headers", "");
 user_pref("mail.identity.id1.header.References", "");
 user_pref("mail.identity.id1.header.InReplyTo", "");
 
-/*** [SECTION 6000]: THUNDERBIRD (AUTO CONFIG / UI / HEADERS / ADDRESS BOOK)
+/*** [SECTION 9100]: THUNDERBIRD (AUTO CONFIG / UI / HEADERS / ADDRESS BOOK)
    Options general to Thunderbird's mail configuration and user interface
 
-   [1] https://searchfox.org/comm-esr78/source/
+   [1] https://searchfox.org/comm-esr91/source/
    [2] http://kb.mozillazine.org/Mail_and_news_settings
 ***/
-user_pref("_user.js.parrot", "6000 syntax error: this parrot is blind!");
+user_pref("_user.js.parrot", "9100 syntax error: this parrot is blind!");
 
 /** AUTO CONFIG ***/
-/* 6001: Disable auto-configuration [SETUP-INSTALL]
+/* 9101: Disable auto-configuration [SETUP-INSTALL]
  * These options disable auto-configuration of mail servers in Thunderbird.
  * Such settings require a query to Mozilla which could have privacy implications
  * if the user wishes to keep the existence of the mail provider private.
@@ -1451,28 +1396,28 @@ user_pref("mailnews.auto_config.fetchFromISP.sendEmailAddress", false);
 user_pref("mailnews.auto_config.fetchFromExchange.enabled", false);
 user_pref("mailnews.auto_config_url", "");
 user_pref("mailnews.auto_config.addons_url","");
-/* 6002: Disable account provisioning [SETUP-INSTALL]
+/* 9102: Disable account provisioning [SETUP-INSTALL]
  * This option allows users to create a new email account through partner providers.
  * [1] https://developer.mozilla.org/en-US/docs/Mozilla/Thunderbird/Account_Provisioner ***/
 user_pref("mail.provider.enabled", false);
 
 /** UI (User Interface) ***/
-/* 6010: Hide tab bar
+/* 9110: Hide tab bar
  * false=Hides the tab bar if there is only one tab. (default) ***/
 user_pref("mail.tabs.autoHide", true);
-/* 6011: Show full email instead of just name from address book
+/* 9111: Show full email instead of just name from address book
  * true=Show just the display name for people in the address book (default)
  * false=Show both the email address and display name. ***/
 user_pref("mail.showCondensedAddresses", false);
-/* 6012: Disable "Filelink for Large Attachments" feature
+/* 9112: Disable "Filelink for Large Attachments" feature
  * [1] https://support.thunderbird.net/kb/filelink-large-attachments ***/
 user_pref("mail.cloud_files.enabled", false);
 user_pref("mail.cloud_files.inserted_urls.footer.link", "");
-/* 6013: Don't hide cookies and passwords related (advanced?) buttons ***/
+/* 9113: Don't hide cookies and passwords related (advanced?) buttons ***/
 user_pref("pref.privacy.disable_button.view_cookies", false);
 user_pref("pref.privacy.disable_button.cookie_exceptions", false);
 user_pref("pref.privacy.disable_button.view_passwords", false);
-/* 6014: Prevent access to emails until the master password is entered
+/* 9114: Prevent access to emails until the master password is entered
  * If a master password has been set, Thunderbird will prevent access to locally available emails
  * until the secret is provided.
  * This preference MAY mitigate risk due to intimate relationship threat in some cases (see [2])...
@@ -1482,22 +1427,22 @@ user_pref("pref.privacy.disable_button.view_passwords", false);
 user_pref("mail.password_protect_local_cache", true);  // [HIDDEN PREF]
 
 /** HEADERS ***/
-/* 6020:
+/* 9120:
  * true=Show Sender header in message pane.
  * false=Does nothing. (default) ***/
 user_pref("mailnews.headers.showSender", true);
-/* 6021:
+/* 9121:
  * true=Show User Agent header in message pane
  * false=Does nothing. (default) ***/
 user_pref("mailnews.headers.showUserAgent", false);
-/* 6022: Hello argument
+/* 9122: Hello argument
  * Lets you replace your IP address with the specified string in Received: headers when your
  * IP address is not a "fully qualified domain name" (FQDN). Typically you only need to do this
  * when you have a NAT box to prevent it from using the NAT boxes IP address.
  * If you don't set it to something in your SMTP server's domain it may increase your spam
  * score. ***/
 user_pref("mail.smtpserver.default.hello_argument", "[127.0.0.1]");
-/* 6023: Displayed dates and times
+/* 9123: Displayed dates and times
  * [SETUP-INSTALL] When your e-mail program displays the e-mail's date and time, it normally
  * converts them to your time zone. If your computer's time zone settings are wrong, then you will
  * see the wrong time (and possibly the wrong date).
@@ -1508,9 +1453,9 @@ user_pref("mail.smtpserver.default.hello_argument", "[127.0.0.1]");
  * [2] http://wiki.cacert.org/ThunderBirdAdvancedConfig
  * ***/
 user_pref("mailnews.display.original_date", false);
-/* 6024: Display the sender's Timezone when set to true ***/
+/* 9124: Display the sender's Timezone when set to true ***/
 user_pref("mailnews.display.date_senders_timezone", false);
-/* 6025: Display Time Date based on Received Header
+/* 9125: Display Time Date based on Received Header
  * Thunderbird shows the time when the message was sent, according to the sender. It is possible
  * to make Thunderbird show the time when the message arrived on your mail server, based on the
  * "Received" header. Set the following preference. New messages will show the time the message
@@ -1518,40 +1463,40 @@ user_pref("mailnews.display.date_senders_timezone", false);
    // user_pref("mailnews.use_received_date", true);
 
 /** ADDRESS BOOK ***/
-/* 6030: Address book collection [SETUP-FEATURE]
+/* 9130: Address book collection [SETUP-FEATURE]
  * Disable Thunderbird internal address book email collection
  * Consider using CardBook extension instead (https://addons.thunderbird.net/addon/cardbook/)
  * [SETTING] Preferences>Composition>Addressing>Automatically add outgoing e-mail addresses...
  * [SETTING][CARDBOOK] CardBook>Preferences>Email>Collect Outgoing Email ***/
 user_pref("mail.collect_addressbook", "");  // [DEFAULT: "jsaddrbook://history.sqlite"]
 user_pref("mail.collect_email_address_outgoing", false);
-/* 6031: Only use email addresses, without their Display Names [CARDBOOK] [SETUP-FEATURE]
+/* 9131: Only use email addresses, without their Display Names [CARDBOOK] [SETUP-FEATURE]
  * By default, CardBook extension incorporates contacts display names in addresses fields.
  * This could leak sensitive information to all recipients.
  * [SETTING][CARDBOOK] CardBook>Preferences>Email>Sending Emails>Only use email addresses... ***/
 user_pref("extensions.cardbook.useOnlyEmail", true);
 
-/*** [SECTION 6100]: EMAIL COMPOSITION (ENCODING / FORMAT / VIEW)
+/*** [SECTION 9200]: EMAIL COMPOSITION (ENCODING / FORMAT / VIEW)
    Options that relate to composition, formatting and viewing email
 ***/
-user_pref("_user.js.parrot", "6100 syntax error: this parrot has got no mail!");
+user_pref("_user.js.parrot", "9200 syntax error: this parrot has got no mail!");
 
 /** ENCODING ***/
-/* 6101: Prevent fallback encoding to windows-1252, prefer 7bit or 8bit UTF-8
+/* 9201: Prevent fallback encoding to windows-1252, prefer 7bit or 8bit UTF-8
  * [1] http://forums.mozillazine.org/viewtopic.php?f=28&t=267341
  * [2] https://bugzilla.mozilla.org/show_bug.cgi?id=214729
  * [3] https://stackoverflow.com/a/28531705 ***/
 user_pref("intl.fallbackCharsetList.ISO-8859-1", "UTF-8");
-/* 6102: Set encoding of incoming mail
+/* 9202: Set encoding of incoming mail
  * [SETTING] Display > Advanced > Fonts & Encodings > Incoming Mail ***/
 user_pref("mailnews.view_default_charset", "UTF-8");
-/* 6103: Set encoding of outgoing mail
+/* 9203: Set encoding of outgoing mail
  * [SETTING] Display > Advanced > Fonts & Encodings > Outgoing Mail ***/
 user_pref("mailnews.send_default_charset", "UTF-8");
-/* 6104: Forces encoding in reply to be the default charset
+/* 9204: Forces encoding in reply to be the default charset
  * [1] https://bugzilla.mozilla.org/show_bug.cgi?id=234958#c2 ***/
 user_pref("mailnews.reply_in_default_charset", true);
-/* 6105: Avoid information leakage in reply header
+/* 9205: Avoid information leakage in reply header
  * Reply header may contain sensitive information about system locale (date and/or language)
  * 0=no header
  * 1="<author> wrote:" (see `reply_header_authorwrotesingle` below)
@@ -1564,17 +1509,17 @@ user_pref("mailnews.reply_header_authorwrotesingle", "#1 wrote:");
    // user_pref("mailnews.reply_header_authorwroteondate", "#1 wrote on #2 #3:");
 
 /** COMPOSITION ***/
-/* 6110: Check spelling before sending [SETUP-FEATURE]
+/* 9210: Check spelling before sending [SETUP-FEATURE]
  * [1] https://bugzilla.mozilla.org/show_bug.cgi?id=667133 ***/
 user_pref("mail.SpellCheckBeforeSend", false);
-/* 6111: Behavior when sending HTML message [SETUP-FEATURE]
+/* 9211: Behavior when sending HTML message [SETUP-FEATURE]
  * (0=Ask, 1=Send as plain text, 2=Send as HTML anyway,
  * 3=Include both plain text and HTML message bodies in message)
  * Email that is HTML should also have plaintext multipart for plain text users.
  * [1] https://drewdevault.com/2016/04/11/Please-use-text-plain-for-emails.html
  * [SETTING] Edit > Preferences > Send Options > Send the message in both plain text and HTML ***/
 user_pref("mail.default_html_action", 1);
-/* 6112: Send email in plaintext unless expressly overridden.
+/* 9212: Send email in plaintext unless expressly overridden.
  * [SETUP-FEATURE] Sometimes HTML is useful especially when used with Markdown Here
  * [NOTE] Holding down shift when you click on "Write" will bypass
  * [1] http://kb.mozillazine.org/Plain_text_e-mail_%28Thunderbird%29
@@ -1582,18 +1527,18 @@ user_pref("mail.default_html_action", 1);
  * [3] https://markdown-here.com ***/
 user_pref("mail.html_compose", false);
 user_pref("mail.identity.default.compose_html", false);
-/* 6113: Downgrade email to plaintext by default
+/* 9213: Downgrade email to plaintext by default
  * [SETUP-FEATURE] Only use HTML email if you need it, see above
  * [SETTING] Edit > Preferences > Composition > Send Options > Send messages as plain-text if possible ***/
 user_pref("mailnews.sendformat.auto_downgrade", false);
-/* 6114: What classes can process incoming data.
+/* 9214: What classes can process incoming data.
  * (0=All classes (default), 1=Don't display HTML, 2=Don't display HTML and inline images,
  * 3=Don't display HTML, inline images and some other uncommon types, 100=Use a hard coded list)
  * In the past this has mitigated a vulnerability CVE-2008-0304 (rare)
  * [1] https://www.mozilla.org/en-US/security/advisories/mfsa2008-12/
  * [2] https://bugzilla.mozilla.org/show_bug.cgi?id=677905 ***/
 user_pref("mailnews.display.disallow_mime_handlers", 3);
-/* 6115: How to display HTML parts of a message body
+/* 9215: How to display HTML parts of a message body
  * (0=Display the HTML normally (default), 1=Convert it to text and then back again
  * 2=Display the HTML source, 3=Sanitize the HTML, 4=Display all body parts)
  * (in trunk builds later than 2011-07-23)
@@ -1601,67 +1546,67 @@ user_pref("mailnews.display.disallow_mime_handlers", 3);
  * [2] https://hg.mozilla.org/comm-central/rev/c1ef44a22eb2
  * [3] https://www.bucksch.org/1/projects/mozilla/108153/ ***/
 user_pref("mailnews.display.html_as", 3);
-/* 6116: Prefer to view as plaintext or html [SETUP-FEATURE]
+/* 9216: Prefer to view as plaintext or html [SETUP-FEATURE]
  * true=Display a message as plain text when there is both a HTML and a plain
  * text version of a message body
  * false=Display a message as HTML when there is both a HTML and a plain text
  * version of a message body. (default) ***/
 user_pref("mailnews.display.prefer_plaintext", false);
-/* 6117: Inline attachments [SETUP-FEATURE]
+/* 9217: Inline attachments [SETUP-FEATURE]
  * true=Show inlinable attachments (text, images, messages) after the message.
  * false=Do not display any attachments with the message ***/
 user_pref("mail.inline_attachments", false);
-/* 6118: Big attachment warning
+/* 9218: Big attachment warning
  * [1] https://support.mozilla.org/en-US/questions/1081046
  * [2] http://forums.mozillazine.org/viewtopic.php?f=39&t=2949521 */
 user_pref("mail.compose.big_attachments.notify", true); // [DEFAULT: true]
-/* 6119: Set big attachment size to warn at */
+/* 9219: Set big attachment size to warn at */
    // user_pref("mailnews.message_warning_size", 20971520); // [DEFAULT: 20971520]
 
 /** VIEW ***/
-/* 6130: Disable JavaScript
+/* 9230: Disable JavaScript
  * [NOTE] JavaScript is already disabled in message content.
  * [1] https://developer.mozilla.org/en-US/docs/Mozilla/Thunderbird/Releases/3
  * [2] https://stackoverflow.com/questions/3054315/is-javascript-supported-in-an-email-message
  * ***/
 user_pref("javascript.enabled", false);
-/* 6131: Disable media source extensions
+/* 9231: Disable media source extensions
  * [1] https://www.ghacks.net/2014/05/10/enable-media-source-extensions-firefox ***/
 user_pref("media.mediasource.enabled", false);
-/* 6132: Disable hardware decoding support ***/
+/* 9232: Disable hardware decoding support ***/
 user_pref("media.hardware-video-decoding.enabled", false);
-/* 6133: Default image permissions
+/* 9233: Default image permissions
  * 1=Allow all images to load, regardless of origin. (Default),
  * 2=Block all images from loading.
  * 3=Prevent third-party images from loading
  * [1] http://kb.mozillazine.org/Permissions.default.image ***/
 user_pref("permissions.default.image", 2);
 
-/*** [SECTION 6200]: OTHER THUNDERBIRD COMPONENTS (CHAT / CALENDAR / RSS)
+/*** [SECTION 9300]: OTHER THUNDERBIRD COMPONENTS (CHAT / CALENDAR / RSS)
    Options that relate to other Thunderbird components such as the chat client, calendar and RSS)
 ***/
-user_pref("_user.js.parrot", "6200 syntax error: this parrot is not tweeting!");
+user_pref("_user.js.parrot", "9300 syntax error: this parrot is not tweeting!");
 
 /** CHAT ***/
-/* 6201: Disable chat functionality [SETUP-FEATURE] ***/
+/* 9301: Disable chat functionality [SETUP-FEATURE] ***/
 user_pref("mail.chat.enabled", false);
-/* 6202: Disable logging of group chats ***/
+/* 9302: Disable logging of group chats ***/
 user_pref("purple.logging.log_chats", false);
-/* 6203: Disable logging of 1 to 1 conversations ***/
+/* 9303: Disable logging of 1 to 1 conversations ***/
 user_pref("purple.logging.log_ims", false);
-/* 6204: Disable logging of system messages ***/
+/* 9304: Disable logging of system messages ***/
 user_pref("purple.logging.log_system", false);
-/* 6205: Disable typing notifications ***/
+/* 9305: Disable typing notifications ***/
 user_pref("purple.conversations.im.send_typing", false);
-/* 6206: When chat is enabled, do not connect to accounts automatically
+/* 9306: When chat is enabled, do not connect to accounts automatically
  * 0=Do not connect / show the account manager,
  * 1=Connect automatically. (Default) ***/
    // user_pref("messenger.startup.action", 0);
-/* 6207: When chat is enabled, do not report idle status ***/
+/* 9307: When chat is enabled, do not report idle status ***/
    // user_pref("messenger.status.reportIdle", false);
 
 /** CALENDAR ***/
-/* 6210: Disable calendar integration
+/* 9310: Disable calendar integration
  * [SETUP-FEATURE] Lightning calendar add-on is integrated in Thunderbird 38 and later.
  * Keeping this preference false allows us to properly show the opt-in/opt-out dialog
  * on new profiles fresh start, see [3].
@@ -1669,9 +1614,9 @@ user_pref("purple.conversations.im.send_typing", false);
  * [2] https://bugzilla.mozilla.org/show_bug.cgi?id=1130854
  * [3] https://bugzilla.mozilla.org/show_bug.cgi?id=1130852 ***/
 user_pref("mail.calendar-integration.opt-out", false);
-/* 6211: Set user agent for calendar ***/
+/* 9311: Set user agent for calendar ***/
 user_pref("calendar.useragent.extra", "");
-/* 6212: Set calendar timezone to avoid system detection [SETUP-INSTALL]
+/* 9312: Set calendar timezone to avoid system detection [SETUP-INSTALL]
  * By default, extensive system detection would be performed to find user's current timezone.
  * Setting this preference to "UTC" should disable it.
  * You may also directly set it to your timezone, i.e. "Pacific/Fakaofo"
@@ -1682,12 +1627,12 @@ user_pref("calendar.timezone.local", "UTC");  // [DEFAULT: ""]
 /** These features don't actually do anything as they aren't implemented
  * [1] https://searchfox.org/comm-esr78/rev/384830b0570096c48770398060f87fbe556f6f01/mail/base/content/mailWindowOverlay.js#925
  * [2] https://bugzilla.mozilla.org/show_bug.cgi?id=458606#c9
-/* 6220: What classes can process incoming data.
+/* 9320: What classes can process incoming data.
  * (0=All classes (default), 1=Don't display HTML, 2=Don't display HTML and inline images,
  * 3=Don't display HTML, inline images and some other uncommon types, 100=Use a hard coded list)
  * [1] https://www.privacy-handbuch.de/handbuch_31j.htm
 user_pref("rss.display.disallow_mime_handlers", 3);
-/* 6221: How to display HTML parts of a message body
+/* 9321: How to display HTML parts of a message body
  * (0=Display the HTML normally (default), 1=Convert it to text and then back again
  * 2=Display the HTML source, 3=Sanitize the HTML, 4=Display all body parts)
  * (in trunk builds later than 2011-07-23)
@@ -1695,47 +1640,47 @@ user_pref("rss.display.disallow_mime_handlers", 3);
  * [2] https://hg.mozilla.org/comm-central/rev/c1ef44a22eb2
  * [3] https://www.bucksch.org/1/projects/mozilla/108153/
 user_pref("rss.display.html_as", 1);
-/* 6222: Prefer to view as plaintext or html
+/* 9322: Prefer to view as plaintext or html
  * true=Display a message as plain text when there is both a HTML and a plain
  * text version of a message body
  * false=Display a message as HTML when there is both a HTML and a plain text
  * version of a message body. (default)
 user_pref("rss.display.prefer_plaintext", true);
 **/
-/* 6223: Feed message display (summary or web page), on open.
+/* 9323: Feed message display (summary or web page), on open.
  * Action on double click or enter in threadpane for a feed message.
  * 0=open content-base url in new window, 1=open summary in new window,
  * 2=toggle load summary and content-base url in message pane,
  * 3=load content-base url in browser
  * [1] http://forums.mozillazine.org/viewtopic.php?f=39&t=2502335 ***/
 user_pref("rss.show.content-base", 3);
-/* 6224: Feed message display (summary or web page), on select.
+/* 9324: Feed message display (summary or web page), on select.
  * 0=global override, load web page, 1=global override, load summary,
  * 2=use default feed folder setting from Subscribe dialog; if no setting default to 1 ***/
 user_pref("rss.show.summary", 1);
-/* 6225: Feed message additional web page display.
+/* 9325: Feed message additional web page display.
  * 0=no action, 1=load web page in default browser, on select ***/
 user_pref("rss.message.loadWebPageOnSelect", 0);
 
-/*** [SECTION 6300]: THUNDERBIRD ENCRYPTION (ENIGMAIL / AUTOCRYPT / GNUPG)
+/*** [SECTION 9400]: THUNDERBIRD ENCRYPTION (ENIGMAIL / AUTOCRYPT / GNUPG)
    Options that relate to Enigmail addon and AutoCrypt.
    GnuPG (and RNP) specific options should also land there.
    [1] https://autocrypt.org
    [2] https://www.enigmail.net/index.php/en/user-manual/advanced-operations
    [3] https://wiki.mozilla.org/Thunderbird:OpenPGP
 ***/
-user_pref("_user.js.parrot", "6300 syntax error: this parrot is talking in codes!");
+user_pref("_user.js.parrot", "9400 syntax error: this parrot is talking in codes!");
 
 /** ENIGMAIL ***/
 /* These used to be inversed, however it seems upstream has changed this behavior
  * [1] https://www.privacy-handbuch.de/handbuch_31f.htm ***/
-/* 6301: Silence the Enigmail version header ***/
+/* 9401: Silence the Enigmail version header ***/
 user_pref("extensions.enigmail.addHeaders", false); // [DEFAULT: false]
-/* 6302: Silence the Enigmail comment ***/
+/* 9402: Silence the Enigmail comment ***/
 user_pref("extensions.enigmail.useDefaultComment", true); // [DEFAULT: true]
-/* 6303: Silence the version ***/
+/* 9403: Silence the version ***/
 user_pref("extensions.enigmail.agentAdditionalParam", "--no-emit-version --no-comments");
-/* 6304: Specifies the hash algorithm used by GnuPG for its cryptographic operations:
+/* 9404: Specifies the hash algorithm used by GnuPG for its cryptographic operations:
  * 0=automatic selection, let GnuPG choose (default, recommended), 1=SHA1, 2=RIPEMD160
  * 3=SHA256, 4=SHA384, 5=SHA512
  * [NOTE] You should probably have a decent gpg.conf with things set. Examples
@@ -1743,31 +1688,31 @@ user_pref("extensions.enigmail.agentAdditionalParam", "--no-emit-version --no-co
  * [2] https://github.com/ioerror/torbirdy/blob/master/gpg.conf
  * ***/
 user_pref("extensions.enigmail.mimeHashAlgorithm", 5);
-/* 6305: Protect subject line
+/* 9405: Protect subject line
  * 0=Leave subject unprotected,
  * 1=Show dialog with "Leave subject unprotected" (changes value to 0)
  *                     or "Protect subject" (changes value to 2,
  * 2=Protect subject***/
 user_pref("extensions.enigmail.protectedHeaders", 2);
-/* 6306: Text to use as replacement for the subject, following the Memory Hole
+/* 9406: Text to use as replacement for the subject, following the Memory Hole
  * standard. If nothing is defined, then "Encrypted Message" is used.
  ***/
 user_pref("extensions.enigmail.protectedSubjectText", "Encrypted Message"); // [DEFAULT: "Encrypted Message"]
 
 /** AUTOCRYPT ***/
-/* 6307: Choose whether to enable AutoCrypt
+/* 9407: Choose whether to enable AutoCrypt
  * [1] https://autocrypt.org/level1.html
  * [2] https://redmine.tails.boum.org/code/issues/16186
  * [SETTING] Edit > Account Settings > OpenPGP Security > Autocrypt > Enable Autocrypt ***/
 user_pref("mail.server.default.enableAutocrypt", false);
-/* 6308: Prefer email encryption with known contacts
+/* 9408: Prefer email encryption with known contacts
  * [SETTING] Edit > Account Settings > OpenPGP Security > Autocrypt >
  *           Prefer encrypted emails from the people you exchange email with
  *  [1] https://redmine.tails.boum.org/code/issues/15923 ***/
 user_pref("mail.server.default.acPreferEncrypt", 0);
 
 /** GNUPG ***/
-/* 6309: Allow the use of external GnuPG
+/* 9409: Allow the use of external GnuPG
  * Whenever RNP fails to decrypt a message, Thunderbird will tray against system GnuPG
  * [1] https://wiki.mozilla.org/Thunderbird:OpenPGP:Smartcards#Allow_the_use_of_external_GnuPG ***/
 user_pref("mail.openpgp.allow_external_gnupg", true);  // [HIDDEN PREF]

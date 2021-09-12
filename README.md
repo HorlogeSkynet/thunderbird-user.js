@@ -11,8 +11,11 @@ For a more technical breakdown and explanation, you can read more on the [overvi
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-The `thunderbird user.js` is a **template** which aims to provide as much privacy and enhanced security as possible.  
-It differs from the `arkenfox user.js` in that the focus is to keep Thunderbird as an **email client** and disable as many web browsing features as possible. We believe web browsing should be done in a web browser, and not an email client.
+The `thunderbird user.js` is a **template** which aims to provide as much privacy and enhanced security as possible, and to reduce tracking and fingerprinting as much as possible - while minimizing any loss of functionality and breakage (but it will happen).
+
+Everyone, experts included, should at least read the [implementation](https://github.com/HorlogeSkynet/thunderbird-user.js/wiki/1.3-Implementation) wiki page.
+
+It differs from the `arkenfox user.js` in that the focus is to keep Thunderbird as an **e-mail client** and disable as many web browsing features as possible. We believe web browsing should be done in a web browser, and not an email client.
 
 - If you're using Thunderbird (< 68) with Tor we suggest that you install the [TorBirdy](https://addons.thunderbird.net/addon/torbirdy) add-on. If you are using Tor, you should also consider using [Tails](https://tails.boum.org/) or [Whonix](https://www.whonix.org/).
 - If you're using **Gmail**, please check [this article about OAuth2](https://github.com/HorlogeSkynet/thunderbird-user.js/wiki/3.1-OAuth2-Users).
