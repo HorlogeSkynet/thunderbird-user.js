@@ -386,55 +386,66 @@ user_pref("extensions.formautofill.heuristics.enabled", false); // [FF55+]
  * [5] https://lcamtuf.blogspot.com/2016/08/css-mix-blend-mode-is-bad-for-keeping.html ***/
 user_pref("layout.css.visited_links_enabled", false);
 
-/*** [SECTION 1000]: CACHE / FAVICONS
-     Cache tracking/fingerprinting techniques [1][2][3] require a cache. Disabling disk (1001)
-     *and* memory (1003) caches is one solution; but that's extreme and fingerprintable. A hardened
-     Temporary Containers configuration can effectively do the same thing, by isolating every tab [4].
-
-     We consider avoiding disk cache (1001) so cache is session/memory only (like Private Browsing
-     mode), and isolating cache to first party (4001) is sufficient and a good balance between
-     risk and performance. ETAGs can also be neutralized by modifying response headers [5], and
-     you can clear the cache manually or on a regular basis with an extension.
-
-     [1] https://en.wikipedia.org/wiki/HTTP_ETag#Tracking_using_ETags
-     [2] https://robertheaton.com/2014/01/20/cookieless-user-tracking-for-douchebags/
-     [3] https://www.grepular.com/Preventing_Web_Tracking_via_the_Browser_Cache
-     [4] https://medium.com/@stoically/enhance-your-privacy-in-firefox-with-temporary-containers-33925cd6cd21
-     [5] https://github.com/ghacksuserjs/ghacks-user.js/wiki/4.2.4-Header-Editor
+/*** [SECTION 0900]: PASSWORDS
+   [1] https://support.mozilla.org/kb/use-primary-password-protect-stored-logins-and-pas
 ***/
-user_pref("_user.js.parrot", "1000 syntax error: the parrot's gone to meet 'is maker!");
-/** CACHE ***/
-/* 1001: disable disk cache
- * [SETUP-PERF] If you think disk cache may help (heavy tab user, high-res video),
- * or you use a hardened Temporary Containers, then feel free to override this
- * [NOTE] We also clear cache on exiting Firefox (see 2803) ***/
-user_pref("browser.cache.disk.enable", false);
-/* 1003: disable memory cache
- * capacity: -1=determine dynamically (default), 0=none, n=memory capacity in kilobytes
- * [NOTE] Unlike arkenfox/user.js, we explicitly disable it ***/
-user_pref("browser.cache.memory.enable", false);
-   // user_pref("browser.cache.memory.capacity", 0); // [HIDDEN PREF ESR]
-/* 1006: disable permissions manager from writing to disk [RESTART]
- * [NOTE] This means any permission changes are session only
- * [1] https://bugzilla.mozilla.org/967812 ***/
-   // user_pref("permissions.memory_only", true); // [HIDDEN PREF]
+user_pref("_user.js.parrot", "0900 syntax error: the parrot's expired!");
+/* 0901: set when Thunderbird should prompt for the primary password
+ * 0=once per session (default), 1=every time it's needed, 2=after n minutes (0902) ***/
+user_pref("security.ask_for_password", 2);
+/* 0902: set how long in minutes Thunderbird should remember the primary password (0901) ***/
+   // user_pref("security.password_lifetime", 30); // [DEFAULT: 30]
+/* 0903: disable auto-filling username & password form fields
+ * can leak in cross-site forms *and* be spoofed
+ * [NOTE] Username & password is still available when you enter the field
+ * [1] https://freedom-to-tinker.com/2017/12/27/no-boundaries-for-user-identities-web-trackers-exploit-browser-login-managers/ ***/
+user_pref("signon.autofillForms", false);
+/* 0904: disable formless login capture for Password Manager [FF51+] ***/
+user_pref("signon.formlessCapture.enabled", false);
+/* 0905: limit (or disable) HTTP authentication credentials dialogs triggered by sub-resources [FF41+]
+ * hardens against potential credentials phishing
+ * 0 = don't allow sub-resources to open HTTP authentication credentials dialogs
+ * 1 = don't allow cross-origin sub-resources to open HTTP authentication credentials dialogs
+ * 2 = allow sub-resources to open HTTP authentication credentials dialogs (default) ***/
+user_pref("network.auth.subresource-http-auth-allow", 1);
+/* 0906: enforce no automatic authentication on Microsoft sites [FF91+] [WINDOWS 10+]
+ * [1] https://support.mozilla.org/kb/windows-sso ***/
+user_pref("network.http.windows-sso.enabled", false); // [DEFAULT: false]
+/* 0910: prevent access to emails until the master password is entered
+ * If a master password has been set, Thunderbird will prevent access to locally available emails
+ * until the secret is provided.
+ * This preference MAY mitigate risk due to intimate relationship threat in some cases (see [2])...
+ * [WARNING] This DOES NOT encrypt locally cached emails anyhow (poor man's application security)
+ * [1] https://support.mozilla.org/en-US/kb/protect-your-thunderbird-passwords-master-password
+ * [2] https://www.schneier.com/wp-content/uploads/2020/06/Privacy_Threats_in_Intimate_Relationships-1.pdf ***/
+user_pref("mail.password_protect_local_cache", true);  // [HIDDEN PREF]
 
-/** FAVICONS ***/
-/* 1030: disable favicons in shortcuts
+/*** [SECTION 1000]: DISK AVOIDANCE ***/
+user_pref("_user.js.parrot", "1000 syntax error: the parrot's gone to meet 'is maker!");
+/* 1001: disable disk cache
+ * [SETUP-CHROME] If you think disk cache helps perf, then feel free to override this
+ * [NOTE] We also clear cache on exit (2803) ***/
+user_pref("browser.cache.disk.enable", false);
+/* 1002: disable media cache from writing to disk in Private Browsing
+ * [NOTE] MSE (Media Source Extensions) are already stored in-memory in PB
+ * [SETUP-WEB] ESR78: playback might break on subsequent loading (1650281) ***/
+user_pref("browser.privatebrowsing.forceMediaMemoryCache", true); // [FF75+]
+user_pref("media.memory_cache_max_size", 65536);
+/* 1003: disable storing extra session data [SETUP-CHROME]
+ * define on which sites to save extra session data such as form content, cookies and POST data
+ * 0=everywhere, 1=unencrypted sites, 2=nowhere ***/
+user_pref("browser.sessionstore.privacy_level", 2);
+/* 1004: set the minimum interval between session save operations
+ * Increasing this can help on older machines and some websites, as well as reducing writes [1]
+ * [1] https://bugzilla.mozilla.org/1304389 ***/
+user_pref("browser.sessionstore.interval", 30000); // [DEFAULT: 15000]
+/* 1006: disable favicons in shortcuts
  * URL shortcuts use a cached randomly named .ico file which is stored in your
- * profile/shortcutCache directory. The .ico remains after the shortcut is deleted.
+ * profile/shortcutCache directory. The .ico remains after the shortcut is deleted
  * If set to false then the shortcuts use a generic Firefox icon ***/
 user_pref("browser.shell.shortcutFavicons", false);
-/* 1031: disable favicons in history and bookmarks
- * Stored as data blobs in favicons.sqlite, these don't reveal anything that your
- * actual history (and bookmarks) already do. Your history is more detailed, so
- * control that instead; e.g. disable history, clear history on close, use PB mode
- * [NOTE] favicons.sqlite is sanitized on Firefox close, not in-session ***/
-user_pref("browser.chrome.site_icons", false);
-/* 1032: disable favicons in web notifications ***/
-   // user_pref("alerts.showFavicons", false); // [DEFAULT: false]
 
-/*** [SECTION 1200]: HTTPS (SSL/TLS / OCSP / CERTS / HPKP / CIPHERS)
+/*** [SECTION 1200]: HTTPS (SSL/TLS / OCSP / CERTS / HPKP)
    Your cipher and other settings can be used in server side fingerprinting
    [TEST] https://www.ssllabs.com/ssltest/viewMyClient.html
    [TEST] https://browserleaks.com/ssl
@@ -444,53 +455,35 @@ user_pref("browser.chrome.site_icons", false);
 user_pref("_user.js.parrot", "1200 syntax error: the parrot's a stiff!");
 /** SSL (Secure Sockets Layer) / TLS (Transport Layer Security) ***/
 /* 1201: require safe negotiation
- * Blocks connections to servers that don't support RFC 5746 [2] as they're potentially
- * vulnerable to a MiTM attack [3]. A server *without* RFC 5746 can be safe from the attack
- * if it disables renegotiations but the problem is that the browser can't know that.
- * Setting this pref to true is the only way for the browser to ensure there will be
+ * Blocks connections (SSL_ERROR_UNSAFE_NEGOTIATION) to servers that don't support RFC 5746 [2]
+ * as they're potentially vulnerable to a MiTM attack [3]. A server without RFC 5746 can be
+ * safe from the attack if it disables renegotiations but the problem is that the browser can't
+ * know that. Setting this pref to true is the only way for the browser to ensure there will be
  * no unsafe renegotiations on the channel between the browser and the server.
+ * [STATS] SSL Labs (July 2021) reports over 99% of sites have secure renegotiation [4]
  * [1] https://wiki.mozilla.org/Security:Renegotiation
  * [2] https://tools.ietf.org/html/rfc5746
- * [3] https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2009-3555 ***/
+ * [3] https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2009-3555
+ * [4] https://www.ssllabs.com/ssl-pulse/ ***/
 user_pref("security.ssl.require_safe_negotiation", true);
-/* 1202: control TLS versions with min and max
- * 1=TLS 1.0, 2=TLS 1.1, 3=TLS 1.2, 4=TLS 1.3
- * [STATS] Firefox telemetry (June 2020) shows only 0.16% of SSL handshakes use 1.0 or 1.1
- * [WARNING] Leave these at default, otherwise you alter your TLS fingerprint.
- * [1] https://www.ssllabs.com/ssl-pulse/ ***/
-   // user_pref("security.tls.version.min", 3); // [DEFAULT: 3 FF78+]
-   // user_pref("security.tls.version.max", 4);
-/* 1204: disable SSL session tracking [FF36+]
- * SSL Session IDs are unique, last up to 24hrs in Firefox, and can be used for tracking
- * [SETUP-PERF] Relax this if you have FPI enabled (see 4000) *AND* you understand the
- * consequences. FPI isolates these, but it was designed with the Tor protocol in mind,
- * and the Tor Browser has extra protection, including enhanced sanitizing per Identity.
- * [1] https://tools.ietf.org/html/rfc5077
- * [2] https://bugzilla.mozilla.org/967977
- * [3] https://arxiv.org/abs/1810.07304 ***/
-user_pref("security.ssl.disable_session_identifiers", true); // [HIDDEN PREF]
+/* 1203: reset TLS 1.0 and 1.1 downgrades i.e. session only ***/
+user_pref("security.tls.version.enable-deprecated", false); // [DEFAULT: false]
 /* 1206: disable TLS1.3 0-RTT (round-trip time) [FF51+]
- * [1] https://firefox-source-docs.mozilla.org/browser/base/sslerrorreport/preferences.html ***/
-user_pref("security.ssl.errorReporting.automatic", false);
-user_pref("security.ssl.errorReporting.enabled", false);
-user_pref("security.ssl.errorReporting.url", "");
-/* 1205: disable TLS1.3 0-RTT (round-trip time) [FF51+]
  * [1] https://github.com/tlswg/tls13-spec/issues/1001
  * [2] https://blog.cloudflare.com/tls-1-3-overview-and-q-and-a/ ***/
 user_pref("security.tls.enable_0rtt_data", false);
 
 /** OCSP (Online Certificate Status Protocol)
-    #Required reading [#] https://scotthelme.co.uk/revocation-is-broken/ ***/
-/* 1210: enable OCSP Stapling
- * [1] https://blog.mozilla.org/security/2013/07/29/ocsp-stapling-in-firefox/ ***/
-user_pref("security.ssl.enable_ocsp_stapling", true);
+   [1] https://scotthelme.co.uk/revocation-is-broken/
+   [2] https://blog.mozilla.org/security/2013/07/29/ocsp-stapling-in-firefox/
+***/
 /* 1211: control when to use OCSP fetching (to confirm current validity of certificates)
  * 0=disabled, 1=enabled (default), 2=enabled for EV certificates only
  * OCSP (non-stapled) leaks information about the sites you visit to the CA (cert authority)
  * It's a trade-off between security (checking) and privacy (leaking info to the CA)
  * [NOTE] This pref only controls OCSP fetching and does not affect OCSP stapling
  * [1] https://en.wikipedia.org/wiki/Ocsp ***/
-user_pref("security.OCSP.enabled", 0);
+user_pref("security.OCSP.enabled", 1);
 /* 1212: set OCSP fetch failures (non-stapled, see 1211) to hard-fail [SETUP-WEB]
  * When a CA cannot be reached to validate a cert, Firefox just continues the connection (=soft-fail)
  * Setting this pref to true tells Firefox to instead terminate the connection (=hard-fail)
@@ -502,13 +495,11 @@ user_pref("security.OCSP.require", true);
 
 /** CERTS / HPKP (HTTP Public Key Pinning) ***/
 /* 1220: disable or limit SHA-1 certificates
- * 0=all SHA1 certs are allowed
- * 1=all SHA1 certs are blocked
- * 2=deprecated option that now maps to 1
- * 3=only allowed for locally-added roots (e.g. anti-virus)
- * 4=only allowed for locally-added roots or for certs in 2015 and earlier
- * [SETUP-CHROME] When disabled, some man-in-the-middle devices (e.g. security scanners and
- * antivirus products, may fail to connect to HTTPS sites. SHA-1 is *almost* obsolete.
+ * 0 = allow all
+ * 1 = block all
+ * 3 = only allow locally-added roots (e.g. anti-virus) (default)
+ * 4 = only allow locally-added roots or for certs in 2015 and earlier
+ * [SETUP-CHROME] If you have problems, update your software: SHA-1 is obsolete
  * [1] https://blog.mozilla.org/security/2016/10/18/phasing-out-sha-1-on-the-public-web/ ***/
 user_pref("security.pki.sha1_enforcement_level", 1);
 /* 1221: disable Windows 8.1's Microsoft Family Safety cert [FF50+] [WINDOWS]
@@ -517,60 +508,44 @@ user_pref("security.pki.sha1_enforcement_level", 1);
  * 2=detect Family Safety mode and import the root
  * [1] https://gitlab.torproject.org/tpo/applications/tor-browser/-/issues/21686 ***/
 user_pref("security.family_safety.mode", 0);
-/* 1222: disable intermediate certificate caching (fingerprinting attack vector) [FF41+] [RESTART]
- * [NOTE] This affects login/cert/key dbs. The effect is all credentials are session-only.
- * Saved logins and passwords are not available. Reset the pref and restart to return them.
- * [1] https://shiftordie.de/blog/2017/02/21/fingerprinting-firefox-users-with-cached-intermediate-ca-certificates-fiprinca/ ***/
-   // user_pref("security.nocertdb", true); // [HIDDEN PREF]
-/* 1223: enforce strict pinning
+/* 1223: enable strict pinning
  * PKP (Public Key Pinning) 0=disabled 1=allow user MiTM (such as your antivirus), 2=strict
- * [SETUP-INSTALL] If you rely on an AV (anti-virus) to protect your web browsing
- * by inspecting ALL your web traffic, then leave at current 1 (default).
- * [NOTE] It needs to be set to 1 when connecting to the ProtonMail's Bridge for the first time.
+ * [SETUP-WEB] If you rely on an AV (antivirus) to protect your web browsing
+ * by inspecting ALL your web traffic, then leave at current default=1
  * [1] https://gitlab.torproject.org/tpo/applications/tor-browser/-/issues/16206 ***/
 user_pref("security.cert_pinning.enforcement_level", 2);
+/* 1224: enable CRLite [FF73+]
+ * In FF84+ it covers valid certs and in mode 2 doesn't fall back to OCSP
+ * [1] https://bugzilla.mozilla.org/buglist.cgi?bug_id=1429800,1670985
+ * [2] https://blog.mozilla.org/security/tag/crlite/ ***/
+user_pref("security.remote_settings.crlite_filters.enabled", true);
+user_pref("security.pki.crlite_mode", 2);
 
 /** MIXED CONTENT ***/
-/* 1240: disable insecure active content on https pages
- * [1] https://gitlab.torproject.org/tpo/applications/tor-browser/-/issues/21323 ***/
-user_pref("security.mixed_content.block_active_content", true); // [DEFAULT: true]
 /* 1241: disable insecure passive content (such as images) on https pages [SETUP-WEB] ***/
 user_pref("security.mixed_content.block_display_content", true);
-/* 1243: block unencrypted requests from Flash on encrypted pages to mitigate MitM attacks [FF59+]
- * [1] https://bugzilla.mozilla.org/1190623 ***/
-user_pref("security.mixed_content.block_object_subrequest", true);
-
-/** CIPHERS [WARNING: do not meddle with your cipher suite: see the section 1200 intro]
- * These are all the ciphers still using SHA-1 and CBC which are weaker than the available alternatives. (see "Cipher Suites" in [1])
- * Additionally some have other weaknesses like key sizes of 128 (or lower) [2] and/or no Perfect Forward Secrecy [3].
- * [1] https://browserleaks.com/ssl
- * [2] https://en.wikipedia.org/wiki/Key_size
- * [3] https://en.wikipedia.org/wiki/Forward_secrecy
- ***/
-/* 1261: disable 3DES (effective key size < 128 and no PFS)
- * [1] https://en.wikipedia.org/wiki/3des#Security
- * [2] https://en.wikipedia.org/wiki/Meet-in-the-middle_attack
- * [3] https://www-archive.mozilla.org/projects/security/pki/nss/ssl/fips-ssl-ciphersuites.html ***/
-   // user_pref("security.ssl3.rsa_des_ede3_sha", false);
-/* 1263: disable DHE (Diffie-Hellman Key Exchange)
- * [1] https://www.eff.org/deeplinks/2015/10/how-to-protect-yourself-from-nsa-attacks-1024-bit-DH ***/
-   // user_pref("security.ssl3.dhe_rsa_aes_128_sha", false); // [DEFAULT: false FF78+]
-   // user_pref("security.ssl3.dhe_rsa_aes_256_sha", false); // [DEFAULT: false FF78+]
-/* 1264: disable the remaining non-modern cipher suites as of FF78 (in order of preferred by FF) ***/
-   // user_pref("security.ssl3.ecdhe_ecdsa_aes_256_sha", false);
-   // user_pref("security.ssl3.ecdhe_ecdsa_aes_128_sha", false);
-   // user_pref("security.ssl3.ecdhe_rsa_aes_128_sha", false);
-   // user_pref("security.ssl3.ecdhe_rsa_aes_256_sha", false);
-   // user_pref("security.ssl3.rsa_aes_128_sha", false); // no PFS
-   // user_pref("security.ssl3.rsa_aes_256_sha", false); // no PFS
+/* 1244: enable HTTPS-Only mode in all windows [FF76+]
+ * When the top-level is HTTPS, insecure subresources are also upgraded (silent fail)
+ * [SETTING] to add site exceptions: Padlock>HTTPS-Only mode>On (after "Continue to HTTP Site")
+ * [SETTING] Privacy & Security>HTTPS-Only Mode (and manage exceptions)
+ * [TEST] http://example.com [upgrade]
+ * [TEST] http://neverssl.com/ [no upgrade] ***/
+user_pref("dom.security.https_only_mode", true); // [FF76+]
+user_pref("dom.security.https_only_mode_pbm", true); // [FF80+]
+/* 1245: enable HTTPS-Only mode for local resources [FF77+] ***/
+user_pref("dom.security.https_only_mode.upgrade_local", true);
+/* 1246: disable HTTP background requests [FF82+]
+ * When attempting to upgrade, if the server doesn't respond within 3 seconds,
+ * Firefox sends HTTP requests in order to check if the server supports HTTPS or not
+ * This is done to avoid waiting for a timeout which takes 90 seconds
+ * [1] https://bugzilla.mozilla.org/buglist.cgi?bug_id=1642387,1660945 ***/
+user_pref("dom.security.https_only_mode_send_http_background_request", false);
 
 /** UI (User Interface) ***/
 /* 1270: display warning on the padlock for "broken security" (if 1201 is false)
  * Bug: warning padlock not indicated for subresources on a secure page! [2]
- * [STATS] SSL Labs (June 2020) reports 98.8% of sites have secure renegotiation [3]
  * [1] https://wiki.mozilla.org/Security:Renegotiation
- * [2] https://bugzilla.mozilla.org/1353705
- * [3] https://www.ssllabs.com/ssl-pulse/ ***/
+ * [2] https://bugzilla.mozilla.org/1353705 ***/
 user_pref("security.ssl.treat_unsafe_negotiation_as_broken", true);
 /* 1271: control "Add Security Exception" dialog on SSL warnings
  * 0=do neither 1=pre-populate url 2=pre-populate url + pre-fetch cert (default)
@@ -581,8 +556,7 @@ user_pref("browser.ssl_override_behavior", 1);
  * i.e. it doesn't work for HSTS discrepancies (https://subdomain.preloaded-hsts.badssl.com/)
  * [TEST] https://expired.badssl.com/ ***/
 user_pref("browser.xul.error_pages.expert_bad_cert", true);
-/* 1273: display "insecure" icon and "Not Secure" text on HTTP sites ***/
-user_pref("security.insecure_connection_icon.enabled", true); // [FF59+] [DEFAULT: true FF70+]
+/* 1273: display "Not Secure" text on HTTP sites ***/
 user_pref("security.insecure_connection_text.enabled", true); // [FF60+]
 /* 1280: display warnings when insecure HTTP connections are made ***/
 user_pref("security.warn_entering_weak", true);
@@ -591,24 +565,14 @@ user_pref("security.warn_viewing_mixed", true);
 
 /*** [SECTION 1400]: FONTS ***/
 user_pref("_user.js.parrot", "1400 syntax error: the parrot's bereft of life!");
-/* 1401: disable websites choosing fonts (0=block, 1=allow)
- * This can limit most (but not all) JS font enumeration which is a high entropy fingerprinting vector
- * [SETUP-WEB] Can break some PDFs (missing text). Limiting to default fonts can "uglify" the web
- * [SETTING] General>Language and Appearance>Fonts & Colors>Advanced>Allow pages to choose... ***/
-user_pref("browser.display.use_document_fonts", 0);
-/* 1403: disable icon fonts (glyphs) and local fallback rendering
- * [1] https://bugzilla.mozilla.org/789788
- * [2] https://gitlab.torproject.org/legacy/trac/-/issues/8455 ***/
-user_pref("gfx.downloadable_fonts.enabled", false); // [FF41+]
-user_pref("gfx.downloadable_fonts.fallback_delay", -1);
-/* 1404: disable rendering of SVG OpenType fonts
- * [1] https://wiki.mozilla.org/SVGOpenTypeFonts - iSECPartnersReport recommends to disable this ***/
+/* 1401: disable rendering of SVG OpenType fonts ***/
 user_pref("gfx.font_rendering.opentype_svg.enabled", false);
-/* 1408: disable graphite
- * Graphite has had many critical security issues in the past, see [1]
- * [1] https://www.mozilla.org/security/advisories/mfsa2017-15/#CVE-2017-7778
- * [2] https://en.wikipedia.org/wiki/Graphite_(SIL) ***/
-user_pref("gfx.font_rendering.graphite.enabled", false);
+/* 1402: limit font visibility (Windows, Mac, some Linux) [FF79+]
+ * [NOTE] In FF80+ RFP ignores the pref and uses value 1
+ * Uses hardcoded lists with two parts: kBaseFonts + kLangPackFonts [1], bundled fonts are auto-allowed
+ * 1=only base system fonts, 2=also fonts from optional language packs, 3=also user-installed fonts
+ * [1] https://searchfox.org/mozilla-central/search?path=StandardFonts*.inc ***/
+user_pref("layout.css.font-visibility.level", 1);
 
 /*** [SECTION 1600]: HEADERS / REFERERS
      Only *cross domain* referers need controlling: leave 1601, 1602, 1605 and 1606 alone
@@ -1417,14 +1381,6 @@ user_pref("mail.cloud_files.inserted_urls.footer.link", "");
 user_pref("pref.privacy.disable_button.view_cookies", false);
 user_pref("pref.privacy.disable_button.cookie_exceptions", false);
 user_pref("pref.privacy.disable_button.view_passwords", false);
-/* 9114: Prevent access to emails until the master password is entered
- * If a master password has been set, Thunderbird will prevent access to locally available emails
- * until the secret is provided.
- * This preference MAY mitigate risk due to intimate relationship threat in some cases (see [2])...
- * [WARNING] This DOES NOT encrypt locally cached emails anyhow (poor man's application security)
- * [1] https://support.mozilla.org/en-US/kb/protect-your-thunderbird-passwords-master-password
- * [2] https://www.schneier.com/wp-content/uploads/2020/06/Privacy_Threats_in_Intimate_Relationships-1.pdf ***/
-user_pref("mail.password_protect_local_cache", true);  // [HIDDEN PREF]
 
 /** HEADERS ***/
 /* 9120:
