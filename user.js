@@ -575,74 +575,43 @@ user_pref("gfx.font_rendering.opentype_svg.enabled", false);
 user_pref("layout.css.font-visibility.level", 1);
 
 /*** [SECTION 1600]: HEADERS / REFERERS
-     Only *cross domain* referers need controlling: leave 1601, 1602, 1605 and 1606 alone
-     ---
-            harden it a bit: set XOriginPolicy (1603) to 1 (as per the settings below)
-       harden it a bit more: set XOriginPolicy (1603) to 2 (and optionally 1604 to 1 or 2), expect breakage
-     ---
-     If you want any REAL control over referers and breakage, then use an extension. Either:
-              uMatrix: limited by scope, all requests are spoofed or not-spoofed
-       Smart Referrer: granular with source<->destination, whitelists
-     ---
-
-                    full URI: https://example.com:8888/foo/bar.html?id=1234
-       scheme+host+port+path: https://example.com:8888/foo/bar.html
-            scheme+host+port: https://example.com:8888
-     ---
-     #Required reading [#] https://feeding.cloud.geek.nz/posts/tweaking-referrer-for-privacy-in-firefox/
+   Expect some breakage e.g. banks: use an extension if you need precise control
+                  full URI: https://example.com:8888/foo/bar.html?id=1234
+     scheme+host+port+path: https://example.com:8888/foo/bar.html
+          scheme+host+port: https://example.com:8888
+   [1] https://feeding.cloud.geek.nz/posts/tweaking-referrer-for-privacy-in-firefox/
 ***/
 user_pref("_user.js.parrot", "1600 syntax error: the parrot rests in peace!");
-/* 1601: ALL: control when images/links send a referer
- * 0=never, 1=send only when links are clicked, 2=for links and images (default) ***/
-user_pref("network.http.sendRefererHeader", 0); // [DEFAULT: 2]
-/* 1602: ALL: control the amount of information to send
- * 0=send full URI (default), 1=scheme+host+port+path, 2=scheme+host+port ***/
-   // user_pref("network.http.referer.trimmingPolicy", 0); // [DEFAULT: 0]
-/* 1603: CROSS ORIGIN: control when to send a referer
+/* 1601: control when to send a cross-origin referer
  * 0=always (default), 1=only if base domains match, 2=only if hosts match
- * [SETUP-WEB] Known to cause issues with older modems/routers and some sites e.g vimeo, icloud ***/
+ * [SETUP-WEB] Known to cause issues with older modems/routers and some sites e.g vimeo, icloud, instagram ***/
 user_pref("network.http.referer.XOriginPolicy", 2);
-/* 1604: CROSS ORIGIN: control the amount of information to send [FF52+]
+/* 1602: control the amount of cross-origin information to send [FF52+]
  * 0=send full URI (default), 1=scheme+host+port+path, 2=scheme+host+port ***/
-user_pref("network.http.referer.XOriginTrimmingPolicy", 0); // [DEFAULT: 0]
-/* 1605: ALL: disable spoofing a referer
- * [WARNING] Do not set this to true, as spoofing effectively disables the anti-CSRF
- * (Cross-Site Request Forgery) protections that some sites may rely on ***/
-   // user_pref("network.http.referer.spoofSource", false); // [DEFAULT: false]
-/* 1606: ALL: set the default Referrer Policy [FF59+]
- * 0=no-referer, 1=same-origin, 2=strict-origin-when-cross-origin, 3=no-referrer-when-downgrade
- * [NOTE] This is only a default, it can be overridden by a site-controlled Referrer Policy
- * [1] https://www.w3.org/TR/referrer-policy/
- * [2] https://developer.mozilla.org/docs/Web/HTTP/Headers/Referrer-Policy
- * [3] https://blog.mozilla.org/security/2018/01/31/preventing-data-leaks-by-stripping-path-information-in-http-referrers/ ***/
-user_pref("network.http.referer.defaultPolicy", 0); // [DEFAULT: 3]
-user_pref("network.http.referer.defaultPolicy.pbmode", 0); // [DEFAULT: 2]
-/* 1610: ALL: enable the DNT (Do Not Track) HTTP header
- * [NOTE] DNT is enforced with Enhanced Tracking Protection regardless of this pref
+user_pref("network.http.referer.XOriginTrimmingPolicy", 2);
+/* 1603: enable the DNT (Do Not Track) HTTP header
+ * [NOTE] DNT is enforced with Enhanced Tracking Protection (2710)
  * [SETTING] Privacy & Security>Enhanced Tracking Protection>Send websites a "Do Not Track" signal... ***/
 user_pref("privacy.donottrackheader.enabled", true);
 
-/*** [SECTION 1800]: PLUGINS ***/
-user_pref("_user.js.parrot", "1800 syntax error: the parrot's pushing up daisies!");
-/* 1803: disable Flash plugin
- * 0=deactivated, 1=ask, 2=enabled
- * ESR52.x is the last branch to *fully* support NPAPI, FF52+ stable only supports Flash
- * [NOTE] You can still override individual sites via site permissions ***/
-user_pref("plugin.state.flash", 0);
-/* 1820: disable GMP (Gecko Media Plugins)
- * [1] https://wiki.mozilla.org/GeckoMediaPlugins ***/
-   // user_pref("media.gmp-provider.enabled", false);
-/* 1825: disable widevine CDM (Content Decryption Module)
- * [SETUP-WEB] if you *need* CDM, e.g. Netflix, Amazon Prime, Hulu, whatever ***/
-user_pref("media.gmp-widevinecdm.visible", false);
-user_pref("media.gmp-widevinecdm.enabled", false);
-/* 1830: disable all DRM content (EME: Encryption Media Extension)
- * [SETUP-WEB] if you *need* EME, e.g. Netflix, Amazon Prime, Hulu, whatever
- * [SETTING] General>DRM Content>Play DRM-controlled content
- * [1] https://www.eff.org/deeplinks/2017/10/drms-dead-canary-how-we-just-lost-web-what-we-learned-it-and-what-we-need-do-next ***/
-user_pref("media.eme.enabled", false);
+/*** [SECTION 1700]: CONTAINERS
+   Check out Temporary Containers [2], read the article [3], and visit the wiki/repo [4]
+   [1] https://wiki.mozilla.org/Security/Contextual_Identity_Project/Containers
+   [2] https://addons.mozilla.org/firefox/addon/temporary-containers/
+   [3] https://medium.com/@stoically/enhance-your-privacy-in-firefox-with-temporary-containers-33925cd6cd21
+   [4] https://github.com/stoically/temporary-containers/wiki
+***/
+user_pref("_user.js.parrot", "1700 syntax error: the parrot's bit the dust!");
+/* 1701: enable Container Tabs and its UI setting [FF50+]
+ * [SETTING] General>Tabs>Enable Container Tabs ***/
+user_pref("privacy.userContext.enabled", true);
+user_pref("privacy.userContext.ui.enabled", true);
+/* 1702: set behaviour on "+ Tab" button to display container menu on left click [FF74+]
+ * [NOTE] The menu is always shown on long press and right click
+ * [SETTING] General>Tabs>Enable Container Tabs>Settings>Select a container for each new tab ***/
+   // user_pref("privacy.userContext.newTabContainerOnLeftClick.enabled", true);
 
-/*** [SECTION 2000]: MEDIA / CAMERA / MIC ***/
+/*** [SECTION 2000]: PLUGINS / MEDIA / WEBRTC ***/
 user_pref("_user.js.parrot", "2000 syntax error: the parrot's snuffed it!");
 /* 2001: disable WebRTC (Web Real-Time Communication)
  * [SETUP-WEB] WebRTC can leak your IP address from behind your VPN, but if this is not
@@ -650,7 +619,7 @@ user_pref("_user.js.parrot", "2000 syntax error: the parrot's snuffed it!");
  * [1] https://www.privacytools.io/#webrtc ***/
 user_pref("media.peerconnection.enabled", false);
 /* 2002: limit WebRTC IP leaks if using WebRTC
- * In FF70+ these settings match Mode 4 (Mode 3 in older versions) (see [3])
+ * In FF70+ these settings match Mode 4 (Mode 3 in older versions) [3]
  * [TEST] https://browserleaks.com/webrtc
  * [1] https://bugzilla.mozilla.org/buglist.cgi?bug_id=1189041,1297416,1452713
  * [2] https://wiki.mozilla.org/Media/WebRTC/Privacy
@@ -658,347 +627,220 @@ user_pref("media.peerconnection.enabled", false);
 user_pref("media.peerconnection.ice.default_address_only", true);
 user_pref("media.peerconnection.ice.no_host", true); // [FF51+]
 user_pref("media.peerconnection.ice.proxy_only_if_behind_proxy", true); // [FF70+]
-/* 2010: disable WebGL (Web Graphics Library)
- * [SETUP-WEB] When disabled, may break some websites. When enabled, provides high entropy,
- * especially with readPixels(). Some of the other entropy is lessened with RFP (see 4501)
- * [1] https://www.contextis.com/resources/blog/webgl-new-dimension-browser-exploitation/
- * [2] https://security.stackexchange.com/questions/13799/is-webgl-a-security-concern ***/
-user_pref("webgl.disabled", true);
-user_pref("webgl.enable-webgl2", false);
-/* 2012: limit WebGL ***/
-user_pref("webgl.min_capability_mode", true);
-user_pref("webgl.disable-fail-if-major-performance-caveat", true);
-/* 2022: disable screensharing ***/
-user_pref("media.getusermedia.screensharing.enabled", false);
-user_pref("media.getusermedia.browser.enabled", false);
-user_pref("media.getusermedia.audiocapture.enabled", false);
+/* 2020: disable GMP (Gecko Media Plugins)
+ * [1] https://wiki.mozilla.org/GeckoMediaPlugins ***/
+user_pref("media.gmp-provider.enabled", false);
+/* 2021: disable widevine CDM (Content Decryption Module)
+ * [NOTE] This is covered by the EME master switch (2022) ***/
+user_pref("media.gmp-widevinecdm.enabled", false);
+/* 2022: disable all DRM content (EME: Encryption Media Extension)
+ * [SETUP-WEB] e.g. Netflix, Amazon Prime, Hulu, HBO, Disney+, Showtime, Starz, DirectTV
+ * [SETTING] General>DRM Content>Play DRM-controlled content
+ * [TEST] https://bitmovin.com/demos/drm
+ * [1] https://www.eff.org/deeplinks/2017/10/drms-dead-canary-how-we-just-lost-web-what-we-learned-it-and-what-we-need-do-next ***/
+user_pref("media.eme.enabled", false);
 /* 2030: disable autoplay of HTML5 media [FF63+]
- * 0=Allow all, 1=Block non-muted media (default in FF67+), 2=Prompt (removed in FF66), 5=Block all (FF69+)
+ * 0=Allow all, 1=Block non-muted media (default), 5=Block all
  * [NOTE] You can set exceptions under site permissions
-* [SETTING] Privacy & Security>Permissions>Autoplay>Settings>Default for all websites ***/
-   // user_pref("media.autoplay.default", 5);
+ * [SETTING] Privacy & Security>Permissions>Autoplay>Settings>Default for all websites ***/
+user_pref("media.autoplay.default", 5);
 /* 2031: disable autoplay of HTML5 media if you interacted with the site [FF78+]
  * 0=sticky (default), 1=transient, 2=user
- * [NOTE] If you have trouble with some video sites, then add an exception (see 2030)
- * [1] https://html.spec.whatwg.org/multipage/interaction.html#sticky-activation ***/
+ * Firefox's Autoplay Policy Documentation [PDF] is linked below via SUMO
+ * [NOTE] If you have trouble with some video sites, then add an exception (2030)
+ * [1] https://support.mozilla.org/questions/1293231 ***/
 user_pref("media.autoplay.blocking_policy", 2);
 
-/*** [SECTION 2200]: WINDOW MEDDLING & LEAKS / POPUPS ***/
-user_pref("_user.js.parrot", "2200 syntax error: the parrot's 'istory!");
-/* 2201: prevent websites from disabling new window features ***/
-user_pref("dom.disable_window_open_feature.close", true);
-user_pref("dom.disable_window_open_feature.location", true); // [DEFAULT: true]
-user_pref("dom.disable_window_open_feature.menubar", true);
-user_pref("dom.disable_window_open_feature.minimizable", true);
-user_pref("dom.disable_window_open_feature.personalbar", true); // bookmarks toolbar
-user_pref("dom.disable_window_open_feature.resizable", true); // [DEFAULT: true]
-user_pref("dom.disable_window_open_feature.status", true); // [DEFAULT: true]
-user_pref("dom.disable_window_open_feature.titlebar", true);
-user_pref("dom.disable_window_open_feature.toolbar", true);
-/* 2202: prevent scripts from moving and resizing open windows ***/
-user_pref("dom.disable_window_move_resize", true);
-/* 2203: open links targeting new windows in a new tab instead
- * This stops malicious window sizes and some screen resolution leaks.
- * You can still right-click a link and open in a new window.
- * [NOTE] Unlike arkenfox/user.js, we explicitly set them
- * [TEST] https://arkenfox.github.io/TZP/tzp.html#screen
- * [1] https://gitlab.torproject.org/tpo/applications/tor-browser/-/issues/9881 ***/
-user_pref("browser.link.open_newwindow", 3);
-user_pref("browser.link.open_newwindow.restriction", 0);
-/* 2204: disable Fullscreen API (requires user interaction) to prevent screen-resolution leaks
- * [NOTE] You can still manually toggle the browser's fullscreen state (F11),
- * but this pref will disable embedded video/game fullscreen controls, e.g. youtube
- * [TEST] https://arkenfox.github.io/TZP/tzp.html#screen ***/
-   // user_pref("full-screen-api.enabled", false);  // [DEFAULT: false]
-/* 2210: block popup windows
- * [SETTING] Privacy & Security>Permissions>Block pop-up windows ***/
-user_pref("dom.disable_open_during_load", true);
-/* 2212: limit events that can cause a popup [SETUP-WEB]
- * default is "change click dblclick auxclick mouseup pointerup notificationclick reset submit touchend contextmenu" ***/
-user_pref("dom.popup_allowed_events", "click dblclick");
-
 /*** [SECTION 2300]: WEB WORKERS
-     A worker is a JS "background task" running in a global context, i.e. it is different from
-     the current window. Workers can spawn new workers (must be the same origin & scheme),
-     including service and shared workers. Shared workers can be utilized by multiple scripts and
-     communicate between browsing contexts (windows/tabs/iframes) and can even control your cache.
-     [NOTE] uMatrix 1.2.0+ allows a per-scope control for workers (2301-deprecated) and service workers (2302)
-              #Required reading [#] https://github.com/gorhill/uMatrix/releases/tag/1.2.0
-     [1]    Web Workers: https://developer.mozilla.org/docs/Web/API/Web_Workers_API
-     [2]         Worker: https://developer.mozilla.org/docs/Web/API/Worker
-     [3] Service Worker: https://developer.mozilla.org/docs/Web/API/Service_Worker_API
-     [4]   SharedWorker: https://developer.mozilla.org/docs/Web/API/SharedWorker
-     [5]   ChromeWorker: https://developer.mozilla.org/docs/Web/API/ChromeWorker
-     [6]  Notifications: https://support.mozilla.org/questions/1165867#answer-981820
+   A worker is a JS "background task" running in a global context, i.e. it is different from
+   the current window. Workers can spawn new workers (must be the same origin & scheme),
+   including service and shared workers. Shared workers can be utilized by multiple scripts and
+   communicate between browsing contexts (windows/tabs/iframes) and can even control your cache.
+
+   [1]    Web Workers: https://developer.mozilla.org/docs/Web/API/Web_Workers_API
+   [2]         Worker: https://developer.mozilla.org/docs/Web/API/Worker
+   [3] Service Worker: https://developer.mozilla.org/docs/Web/API/Service_Worker_API
+   [4]   SharedWorker: https://developer.mozilla.org/docs/Web/API/SharedWorker
+   [5]   ChromeWorker: https://developer.mozilla.org/docs/Web/API/ChromeWorker
+   [6]  Notifications: https://support.mozilla.org/questions/1165867#answer-981820
 ***/
 user_pref("_user.js.parrot", "2300 syntax error: the parrot's off the twig!");
 /* 2302: disable service workers [FF32, FF44-compat]
  * Service workers essentially act as proxy servers that sit between web apps, and the
- * browser and network, are event driven, and can control the web page/site it is associated
+ * browser and network, are event driven, and can control the web page/site they are associated
  * with, intercepting and modifying navigation and resource requests, and caching resources.
- * [NOTE] Service worker APIs are hidden (in Firefox) and cannot be used when in PB mode.
- * [NOTE] Service workers only run over HTTPS. Service workers have no DOM access.
+ * [NOTE] Service workers require HTTPS, have no DOM access, and are not supported in PB mode [1]
  * [SETUP-WEB] Disabling service workers will break some sites. This pref is required true for
  * service worker notifications (2304), push notifications (disabled, 2305) and service worker
- * cache (2740). If you enable this pref, then check those settings as well ***/
+ * cache (2740). If you enable this pref, then check those settings as well
+ * [1] https://bugzilla.mozilla.org/show_bug.cgi?id=1320796#c7 ***/
 user_pref("dom.serviceWorkers.enabled", false);
 /* 2304: disable Web Notifications
- * [NOTE] Web Notifications can also use service workers (2302) and are behind a prompt (2306)
- * [NOTE] Unlike arkenfox/user.js, we explicitly disable them as they are enabled by default
+ * [NOTE] Web Notifications can also use service workers (2302) and are behind a prompt (7002)
  * [1] https://developer.mozilla.org/docs/Web/API/Notifications_API ***/
 user_pref("dom.webnotifications.enabled", false); // [FF22+]
 user_pref("dom.webnotifications.serviceworker.enabled", false); // [FF44+]
 /* 2305: disable Push Notifications [FF44+]
  * Push is an API that allows websites to send you (subscribed) messages even when the site
- * isn't loaded, by pushing messages to your userAgentID through Mozilla's Push Server.
+ * isn't loaded, by pushing messages to your userAgentID through Mozilla's Push Server
  * [NOTE] Push requires service workers (2302) to subscribe to and display, and is behind
- * a prompt (2306). Disabling service workers alone doesn't stop Firefox polling the
- * Mozilla Push Server. To remove all subscriptions, reset your userAgentID (in about:config
- * or on start), and you will get a new one within a few seconds.
- * [1] https://support.mozilla.org/en-US/kb/push-notifications-firefox
- * [2] https://developer.mozilla.org/en-US/docs/Web/API/Push_API ***/
+ * a prompt (7002). Disabling service workers alone doesn't stop Thunderbird polling the
+ * Mozilla Push Server. To remove all subscriptions, reset your userAgentID.
+ * [1] https://support.mozilla.org/kb/push-notifications-firefox
+ * [2] https://developer.mozilla.org/docs/Web/API/Push_API ***/
 user_pref("dom.push.enabled", false);
    // user_pref("dom.push.userAgentID", "");
-/* 2306: set a default permission for Notifications (both 2304 and 2305) [FF58+]
- * 0=always ask (default), 1=allow, 2=block
- * [NOTE] Best left at default "always ask", fingerprintable via Permissions API
- * [SETTING] to add site exceptions: Page Info>Permissions>Receive Notifications
- * [SETTING] to manage site exceptions: Options>Privacy & Security>Permissions>Notifications>Settings ***/
-   // user_pref("permissions.default.desktop-notification", 2);
 
-/*** [SECTION 2400]: DOM (DOCUMENT OBJECT MODEL) & JAVASCRIPT ***/
+/*** [SECTION 2400]: DOM (DOCUMENT OBJECT MODEL) ***/
 user_pref("_user.js.parrot", "2400 syntax error: the parrot's kicked the bucket!");
-/* 2401: disable website control over browser right-click context menu
- * [NOTE] Shift-Right-Click will always bring up the browser right-click context menu
- * [NOTE] Unlike arkenfox/user.js, we explicitly disable it ***/
-user_pref("dom.event.contextmenu.enabled", false);
-/* 2402: disable website access to clipboard events/content [SETUP-HARDEN]
- * [NOTE] This will break some sites' functionality e.g. Outlook, Twitter, Facebook, Wordpress
- * This applies to onCut/onCopy/onPaste events - i.e. it requires interaction with the website
- * [WARNING] If both 'middlemouse.paste' and 'general.autoScroll' are true (at least one
- * is default false) then enabling this pref can leak clipboard content, see [2]
- * [NOTE] Unlike arkenfox/user.js, we explicitly disable it
- * [1] https://www.ghacks.net/2014/01/08/block-websites-reading-modifying-clipboard-contents-firefox/
- * [2] https://bugzilla.mozilla.org/1528289 */
-user_pref("dom.event.clipboardevents.enabled", false);
-/* 2404: disable clipboard commands (cut/copy) from "non-privileged" content [FF41+]
- * this disables document.execCommand("cut"/"copy") to protect your clipboard
- * [1] https://bugzilla.mozilla.org/1170911 ***/
-user_pref("dom.allow_cut_copy", false);
-/* 2405: disable "Confirm you want to leave" dialog on page close
- * Does not prevent JS leaks of the page close event.
- * [1] https://developer.mozilla.org/docs/Web/Events/beforeunload
- * [2] https://support.mozilla.org/questions/1043508 ***/
+/* 2401: disable "Confirm you want to leave" dialog on page close
+ * Does not prevent JS leaks of the page close event
+ * [1] https://developer.mozilla.org/docs/Web/Events/beforeunload ***/
 user_pref("dom.disable_beforeunload", true);
-/* 2414: disable shaking the screen ***/
-user_pref("dom.vibrator.enabled", false);
-/* 2420: disable asm.js [FF22+] [SETUP-PERF]
- * [1] http://asmjs.org/
- * [2] https://www.mozilla.org/security/advisories/mfsa2015-29/
- * [3] https://www.mozilla.org/security/advisories/mfsa2015-50/
- * [4] https://www.mozilla.org/security/advisories/mfsa2017-01/#CVE-2017-5375
- * [5] https://www.mozilla.org/security/advisories/mfsa2017-05/#CVE-2017-5400
- * [6] https://rh0dev.github.io/blog/2017/the-return-of-the-jit/ ***/
-user_pref("javascript.options.asmjs", false);
-/* 2421: disable Ion and baseline JIT to harden against JS exploits [SETUP-HARDEN]
- * [NOTE] In FF75+, when **both** Ion and JIT are disabled, **and** the new
- * hidden pref is enabled, then Ion can still be used by extensions (1599226)
- * [WARNING] Disabling Ion/JIT can cause some site issues and performance loss
- * [NOTE] Unlike arkenfox/user.js, we explicitly disable them
- * [1] https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2015-0817 ***/
-user_pref("javascript.options.ion", false);
-user_pref("javascript.options.baselinejit", false);
-/* 2422: disable WebAssembly [FF52+] [SETUP-PERF]
- * [NOTE] In FF71+ this no longer affects extensions (1576254)
- * [1] https://developer.mozilla.org/docs/WebAssembly ***/
-user_pref("javascript.options.wasm", false);
-/* 2426: disable Intersection Observer API [FF55+] [RESTART]
- * [NOTE] Disabling it may break the error console (CTRL+SHIFT+J)
- * [1] https://developer.mozilla.org/docs/Web/API/Intersection_Observer_API
- * [2] https://w3c.github.io/IntersectionObserver/
- * [3] https://bugzilla.mozilla.org/1243846 ***/
-   // user_pref("dom.IntersectionObserver.enabled", false);
-/* 2429: enable (limited but sufficient) window.opener protection [FF65+]
- * Makes rel=noopener implicit for target=_blank in anchor and area elements when no rel attribute is set ***/
-user_pref("dom.targetBlankNoOpener.enabled", true); // [DEFAULT: true FF78+]
+/* 2402: prevent scripts from moving and resizing open windows ***/
+user_pref("dom.disable_window_move_resize", true);
+/* 2403: block popup windows
+ * [SETTING] Privacy & Security>Permissions>Block pop-up windows ***/
+user_pref("dom.disable_open_during_load", true);
+/* 2404: limit events that can cause a popup [SETUP-WEB] ***/
+user_pref("dom.popup_allowed_events", "click dblclick mousedown pointerdown");
 
-/*** [SECTION 2500]: HARDWARE FINGERPRINTING ***/
+/*** [SECTION 2500]: FINGERPRINTING ***/
 user_pref("_user.js.parrot", "2500 syntax error: the parrot's shuffled off 'is mortal coil!");
-/* 2502: disable Battery Status API
- * Initially a Linux issue (high precision readout) that was fixed.
- * However, it is still another metric for fingerprinting, used to raise entropy.
- * e.g. do you have a battery or not, current charging status, charge level, times remaining etc
- * [NOTE] From FF52+ Battery Status API is only available in chrome/privileged code. see [1]
- * [NOTE] Unlike arkenfox/user.js, we explicitly disable it
- * [1] https://bugzilla.mozilla.org/1313580 ***/
-user_pref("dom.battery.enabled", false);
-/* 2505: disable media device enumeration [FF29+]
- * [NOTE] media.peerconnection.enabled should also be set to false (see 2001)
- * [NOTE] Unlike arkenfox/user.js, we explicitly disable it
- * [1] https://wiki.mozilla.org/Media/getUserMedia
- * [2] https://developer.mozilla.org/docs/Web/API/MediaDevices/enumerateDevices ***/
-user_pref("media.navigator.enabled", false);
-/* 2508: disable hardware acceleration to reduce graphics fingerprinting [SETUP-HARDEN]
- * [WARNING] Affects text rendering (fonts will look different), impacts video performance,
- * and parts of Quantum that utilize the GPU will also be affected as they are rolled out
- * [SETTING] General>Performance>Custom>Use hardware acceleration when available
- * [NOTE] Unlike arkenfox/user.js, we explicitly disable it
- * [1] https://wiki.mozilla.org/Platform/GFX/HardwareAcceleration ***/
-user_pref("gfx.direct2d.disabled", true); // [WINDOWS]
-user_pref("layers.acceleration.disabled", true);
-/* 2510: disable Web Audio API [FF51+]
- * [NOTE] Unlike arkenfox/user.js, we explicitly disable it
- * [1] https://bugzilla.mozilla.org/1288359 ***/
-user_pref("dom.webaudio.enabled", false);
-/* 2517: disable Media Capabilities API [FF63+]
- * [WARNING] This *may* affect media performance if disabled, no one is sure
- * [NOTE] Unlike arkenfox/user.js, we explicitly disable it
- * [1] https://github.com/WICG/media-capabilities
- * [2] https://wicg.github.io/media-capabilities/#security-privacy-considerations ***/
-user_pref("media.media-capabilities.enabled", false);
-/* 2520: disable virtual reality devices
- * Optional protection depending on your connected devices
- * [NOTE] Unlike arkenfox/user.js, we explicitly disable them
- * [1] https://developer.mozilla.org/docs/Web/API/WebVR_API ***/
-user_pref("dom.vr.enabled", false);
-/* 2521: set a default permission for Virtual Reality (see 2520) [FF73+]
- * 0=always ask (default), 1=allow, 2=block
- * [SETTING] to add site exceptions: Page Info>Permissions>Access Virtual Reality Devices
- * [SETTING] to manage site exceptions: Options>Privacy & Security>Permissions>Virtual Reality>Settings
- * [NOTE] Unlike arkenfox/user.js, we explicitly disable it ***/
-user_pref("permissions.default.xr", 2);
+/* 2501: enforce no system colors
+ * [SETTING] General>Language and Appearance>Fonts and Colors>Colors>Use system colors ***/
+user_pref("browser.display.use_system_colors", false); // [DEFAULT: false]
+/* 2502: enforce non-native widget theme
+ * Security: removes/reduces system API calls, e.g. win32k API [1]
+ * Fingerprinting: provides a uniform look and feel across platforms [2]
+ * [1] https://bugzilla.mozilla.org/1381938
+ * [2] https://bugzilla.mozilla.org/1411425 ***/
+user_pref("widget.non-native-theme.enabled", true); // [DEFAULT: true FF89+]
+/* 2503: open links targeting new windows in a new tab instead
+ * Stops malicious window sizes and some screen resolution leaks.
+ * You can still right-click a link and open in a new window
+ * [TEST] https://arkenfox.github.io/TZP/tzp.html#screen
+ * [1] https://gitlab.torproject.org/tpo/applications/tor-browser/-/issues/9881 ***/
+user_pref("browser.link.open_newwindow", 3); // 1=most recent window or tab 2=new window, 3=new tab
+user_pref("browser.link.open_newwindow.restriction", 0);
+/* 2504: disable WebGL (Web Graphics Library)
+ * [SETUP-WEB] If you need it then enable it. RFP still randomizes canvas for naive scripts ***/
+user_pref("webgl.disabled", true);
 
 /*** [SECTION 2600]: MISCELLANEOUS ***/
 user_pref("_user.js.parrot", "2600 syntax error: the parrot's run down the curtain!");
-/* 2601: prevent accessibility services from accessing your browser [RESTART] [SETUP-FEATURE]
+/* 2601: prevent accessibility services from accessing your browser [RESTART]
  * [SETTING] Privacy & Security>Permissions>Prevent accessibility services from accessing your browser (FF80 or lower)
  * [1] https://support.mozilla.org/kb/accessibility-services ***/
 user_pref("accessibility.force_disabled", 1);
 /* 2602: disable sending additional analytics to web servers
  * [1] https://developer.mozilla.org/docs/Web/API/Navigator/sendBeacon ***/
 user_pref("beacon.enabled", false);
+/* 2603: remove temp files opened with an external application
+ * [1] https://bugzilla.mozilla.org/302433 ***/
+user_pref("browser.helperApps.deleteTempFileOnExit", true);
+/* 2604: disable page thumbnail collection ***/
+user_pref("browser.pagethumbnails.capturing_disabled", true); // [HIDDEN PREF]
+/* 2606: disable UITour backend so there is no chance that a remote page can use it ***/
+user_pref("browser.uitour.enabled", false);
+user_pref("browser.uitour.url", "");
 /* 2607: disable various developer tools in browser context
  * [SETTING] Devtools>Advanced Settings>Enable browser chrome and add-on debugging toolboxes
  * [1] https://github.com/pyllyukko/user.js/issues/179#issuecomment-246468676 ***/
 user_pref("devtools.chrome.enabled", false);
-/* 2608: disable remote debugging
+/* 2608: reset remote debugging to disabled
  * [1] https://gitlab.torproject.org/tpo/applications/tor-browser/-/issues/16222 ***/
 user_pref("devtools.debugger.remote-enabled", false); // [DEFAULT: false]
-/* 2609: disable MathML (Mathematical Markup Language) [FF51+] [SETUP-HARDEN]
- * [NOTE] Unlike arkenfox/user.js, we explicitly disable it
- * [TEST] https://arkenfox.github.io/TZP/tzp.html#misc
- * [1] https://bugzilla.mozilla.org/1173199 ***/
-user_pref("mathml.disabled", true);
-/* 2610: disable in-content SVG (Scalable Vector Graphics) [FF53+]
- * [NOTE] In FF70+ and ESR68.1.0+ this no longer affects extensions (1564208)
- * [WARNING] Expect breakage incl. youtube player controls. Best left for a "hardened" profile.
- * [1] https://bugzilla.mozilla.org/1216893 ***/
-user_pref("svg.disabled", true);
 /* 2611: disable middle mouse click opening links from clipboard
  * [1] https://gitlab.torproject.org/tpo/applications/tor-browser/-/issues/10089 ***/
 user_pref("middlemouse.contentLoadURL", false);
-/* 2614: limit HTTP redirects (this does not control redirects with HTML meta tags or JS)
- * [NOTE] A low setting of 5 or under will probably break some sites (e.g. gmail logins)
- * To control HTML Meta tag and JS redirects, use an extension. Default is 20 ***/
-user_pref("network.http.redirection-limit", 8);
-/* 2619: enforce Punycode for Internationalized Domain Names to eliminate possible spoofing
- * Firefox has *some* protections, but it is better to be safe than sorry
+/* 2615: disable websites overriding Thunderbird's keyboard shortcuts [FF58+]
+ * 0 (default) or 1=allow, 2=block ***/
+user_pref("permissions.default.shortcuts", 2);
+/* 2616: remove special permissions for certain mozilla domains [FF35+]
+ * [1] resource://app/defaults/permissions ***/
+user_pref("permissions.manager.defaultsUrl", "");
+/* 2617: remove webchannel whitelist ***/
+user_pref("webchannel.allowObject.urlWhitelist", "");
+/* 2619: use Punycode in Internationalized Domain Names to eliminate possible spoofing
  * [SETUP-WEB] Might be undesirable for non-latin alphabet users since legitimate IDN's are also punycoded
  * [TEST] https://www.xn--80ak6aa92e.com/ (www.apple.com)
  * [1] https://wiki.mozilla.org/IDN_Display_Algorithm
  * [2] https://en.wikipedia.org/wiki/IDN_homograph_attack
- * [3] CVE-2017-5383: https://www.mozilla.org/security/advisories/mfsa2017-02/
+ * [3] https://cve.mitre.org/cgi-bin/cvekey.cgi?keyword=punycode+firefox
  * [4] https://www.xudongz.com/blog/2017/idn-phishing/ ***/
 user_pref("network.IDN_show_punycode", true);
-/* 2622: enforce no system colors; they can be fingerprinted
- * [SETTING] General>Language and Appearance>Fonts and Colors>Colors>Use system colors ***/
-user_pref("browser.display.use_system_colors", false); // [DEFAULT: false]
-
-/** DOWNLOADS ***/
-/* 2650: discourage downloading to desktop
- * 0=desktop, 1=downloads (default), 2=last used
- * [SETTING] To set your default "downloads": General>Downloads>Save files to ***/
-   // user_pref("browser.download.folderList", 2);
-/* 2651: enforce user interaction for security by always asking where to download
- * [SETUP-CHROME] On Android this blocks longtapping and saving images
- * [SETTING] General>Downloads>Always ask you where to save files ***/
-user_pref("browser.download.useDownloadDir", false);
-/* 2652: disable adding downloads to the system's "recent documents" list ***/
-user_pref("browser.download.manager.addToRecentDocs", false);
-/* 2653: disable hiding mime types (Options>General>Applications) not associated with a plugin ***/
-user_pref("browser.download.hide_plugins_without_extensions", false);
-/* 2654: disable "open with" in download dialog [FF50+] [SETUP-HARDEN]
- * This is very useful to enable when the browser is sandboxed (e.g. via AppArmor)
- * in such a way that it is forbidden to run external applications.
- * [WARNING] This may interfere with some users' workflow or methods
- * [1] https://bugzilla.mozilla.org/1281959 ***/
-   // user_pref("browser.download.forbid_open_with", true);
-
-/** EXTENSIONS ***/
-/* 2660: lock down allowed extension directories
- * [SETUP-CHROME] This will break extensions, language packs, themes and any other
- * XPI files which are installed outside of profile and application directories
- * [1] https://mike.kaply.com/2012/02/21/understanding-add-on-scopes/
- * [1] archived: https://archive.is/DYjAM ***/
-user_pref("extensions.enabledScopes", 1); // [HIDDEN PREF]
-user_pref("extensions.autoDisableScopes", 15); // [DEFAULT: 15]
-/* 2662: disable webextension restrictions on certain mozilla domains (you also need 4503) [FF60+]
- * [1] https://bugzilla.mozilla.org/buglist.cgi?bug_id=1384330,1406795,1415644,1453988 ***/
-   // user_pref("extensions.webextensions.restrictedDomains", "");
-
-/** SECURITY ***/
-/* 2680: enforce CSP (Content Security Policy)
- * [WARNING] CSP is a very important and widespread security feature. Don't disable it!
- * [1] https://developer.mozilla.org/docs/Web/HTTP/CSP ***/
-user_pref("security.csp.enable", true); // [DEFAULT: true]
-/* 2684: enforce a security delay on some confirmation dialogs such as install, open/save
- * [1] https://www.squarefree.com/2004/07/01/race-conditions-in-security-dialogs/ ***/
-user_pref("security.dialog_enable_delay", 700);
+/* 2620: enforce PDFJS, disable PDFJS scripting [SETUP-CHROME]
+ * This setting controls if the option "Display in Thunderbird" is available in the setting below
+ *   and by effect controls whether PDFs are handled in-browser or externally ("Ask" or "Open With")
+ * PROS: pdfjs is lightweight, open source, and more secure/vetted than most
+ *   Exploits are rare (one serious case in seven years), treated seriously and patched quickly.
+ *   It doesn't break "state separation" of browser content (by not sharing with OS, independent apps).
+ *   It maintains disk avoidance and application data isolation. It's convenient. You can still save to disk.
+ * CONS: You may prefer a different pdf reader for security reasons
+ * CAVEAT: JS can still force a pdf to open in-browser by bundling its own code
+ * [SETTING] General>Applications>Portable Document Format (PDF) ***/
+user_pref("pdfjs.disabled", false); // [DEFAULT: false]
+user_pref("pdfjs.enableScripting", false); // [FF86+]
+/* 2621: disable links launching Windows Store on Windows 8/8.1/10 [WINDOWS] ***/
+user_pref("network.protocol-handler.external.ms-windows-store", false);
+/* 2623: disable permissions delegation [FF73+]
+ * Currently applies to cross-origin geolocation, camera, mic and screen-sharing
+ * permissions, and fullscreen requests. Disabling delegation means any prompts
+ * for these will show/use their correct 3rd party origin
+ * [1] https://groups.google.com/forum/#!topic/mozilla.dev.platform/BdFOMAuCGW8/discussion ***/
+user_pref("permissions.delegation.enabled", false);
 
 /*** [SECTION 2700]: PERSISTENT STORAGE
-     Data SET by websites including
-            cookies : profile\cookies.sqlite
-       localStorage : profile\webappsstore.sqlite
-          indexedDB : profile\storage\default
-           appCache : profile\OfflineCache
-     serviceWorkers :
+   Data SET by websites including
+          cookies : profile\cookies.sqlite
+     localStorage : profile\webappsstore.sqlite
+        indexedDB : profile\storage\default
+   serviceWorkers :
 
-     [NOTE] indexedDB and serviceWorkers are not available in Private Browsing Mode
-     [NOTE] Blocking cookies also blocks websites access to: localStorage (incl. sessionStorage),
-     indexedDB, sharedWorker, and serviceWorker (and therefore service worker cache and notifications)
-     If you set a site exception for cookies (either "Allow" or "Allow for Session") then they become
-     accessible to websites except shared/service workers where the cookie setting *must* be "Allow"
+   [NOTE] indexedDB and serviceWorkers are not available in Private Browsing Mode
+   [NOTE] Blocking cookies also blocks websites access to: localStorage (incl. sessionStorage),
+   indexedDB, sharedWorker, and serviceWorker (and therefore service worker cache and notifications)
+   If you set a site exception for cookies (either "Allow" or "Allow for Session") then they become
+   accessible to websites except shared/service workers where the cookie setting must be "Allow"
 ***/
 user_pref("_user.js.parrot", "2700 syntax error: the parrot's joined the bleedin' choir invisible!");
-/* 2701: disable cookies and site-data [SETUP-WEB]
- * 0=Accept cookies and site data, 1=(Block) All third-party cookies, 2=(Block) All cookies,
- * 3=(Block) Cookies from unvisited websites, 4=(Block) Cross-site and social media trackers (FF63+) (default FF69+)
- * [NOTE] You can set exceptions under site permissions or use an extension
- * [NOTE] Unlike arkenfox/user.js, we block **ALL** cookies on purpose
- * [SETTING] Privacy & Security>Privacy>Web Content>Accept cookies from sites ***/
+/* 2701: disable or isolate 3rd-party cookies and site-data [SETUP-WEB]
+ * 0 = Accept cookies and site data
+ * 1 = (Block) All third-party cookies
+ * 2 = (Block) All cookies
+ * 3 = (Block) Cookies from unvisited websites
+ * 4 = (Block) Cross-site tracking cookies (default)
+ * 5 = (Isolate All) Cross-site cookies (TCP: Total Cookie Protection / dFPI: dynamic FPI) [1] (FF86+)
+ * Option 5 with FPI enabled (4001) is ignored and not shown, and option 4 used instead
+ * [NOTE] You can set cookie exceptions under site permissions or use an extension
+ * [NOTE] Enforcing category to custom ensures ETP related prefs are always honored
+ * [SETTING] Privacy & Security>Enhanced Tracking Protection>Custom>Cookies
+ * [1] https://blog.mozilla.org/security/2021/02/23/total-cookie-protection/ ***/
 user_pref("network.cookie.cookieBehavior", 2);
-/* 2702: set third-party cookies (i.e ALL) (if enabled, see 2701) to session-only
-   and (FF58+) set third-party non-secure (i.e HTTP) cookies to session-only
-   [NOTE] .sessionOnly overrides .nonsecureSessionOnly except when .sessionOnly=false and
-   .nonsecureSessionOnly=true. This allows you to keep HTTPS cookies, but session-only HTTP ones
+user_pref("browser.contentblocking.category", "custom");
+/* 2702: set third-party cookies (if enabled, see 2701) to session-only
+ * [NOTE] .sessionOnly overrides .nonsecureSessionOnly except when .sessionOnly=false and
+ * .nonsecureSessionOnly=true. This allows you to keep HTTPS cookies, but session-only HTTP ones
  * [1] https://feeding.cloud.geek.nz/posts/tweaking-cookies-for-privacy-in-firefox/ ***/
 user_pref("network.cookie.thirdparty.sessionOnly", true);
 user_pref("network.cookie.thirdparty.nonsecureSessionOnly", true); // [FF58+]
 /* 2703: delete cookies and site data on close
  * 0=keep until they expire (default), 2=keep until you close Thunderbird
  * [NOTE] The setting below is disabled (but not changed) if you block all cookies (2701 = 2)
- * [NOTE] Unlike arkenfox/user.js, we keep them until Thunderbird exit on purpose
- * [SETTING] Privacy & Security>Privacy>Web Content>Keep until: "I close Thunderbird" ***/
+ * [SETTING] Privacy & Security>Cookies and Site Data>Delete cookies and site data when Thunderbird is closed ***/
 user_pref("network.cookie.lifetimePolicy", 2);
-/* 2710: disable DOM (Document Object Model) Storage
- * [WARNING] This will break a LOT of sites' functionality AND extensions!
- * You are better off using an extension for more granular control ***/
-user_pref("dom.storage.enabled", false);
-/* 2730: disable offline cache ***/
-user_pref("browser.cache.offline.enable", false);
+/* 2710: enable Enhanced Tracking Protection (ETP) in all windows
+ * [SETTING] Privacy & Security>Enhanced Tracking Protection>Custom>Tracking content
+ * [SETTING] to add site exceptions: Urlbar>ETP Shield
+ * [SETTING] to manage site exceptions: Options>Privacy & Security>Enhanced Tracking Protection>Manage Exceptions ***/
+user_pref("privacy.trackingprotection.enabled", true);
+/* 2711: enable various ETP lists ***/
+user_pref("privacy.trackingprotection.socialtracking.enabled", true);
+user_pref("privacy.trackingprotection.cryptomining.enabled", true); // [DEFAULT: true]
+user_pref("privacy.trackingprotection.fingerprinting.enabled", true); // [DEFAULT: true]
 /* 2740: disable service worker cache and cache storage
- * [NOTE] We clear service worker cache on exiting Firefox (see 2803)
- * [NOTE] Unlike arkenfox/user.js, we explicitly disable it
+ * [NOTE] We clear service worker cache on exit (2803)
  * [1] https://w3c.github.io/ServiceWorker/#privacy ***/
 user_pref("dom.caches.enabled", false);
 /* 2750: disable Storage API [FF51+]
@@ -1010,24 +852,28 @@ user_pref("dom.caches.enabled", false);
  * [3] https://blog.mozilla.org/l10n/2017/03/07/firefox-l10n-report-aurora-54/ ***/
 user_pref("dom.storageManager.enabled", false);
 /* 2755: disable Storage Access API [FF65+]
- * [1] https://developer.mozilla.org/en-US/docs/Web/API/Storage_Access_API ***/
-   // user_pref("dom.storage_access.enabled", false); // [DEFAULT: false]
+ * [1] https://developer.mozilla.org/docs/Web/API/Storage_Access_API ***/
+user_pref("dom.storage_access.enabled", false);
+/* 2760: enable Local Storage Next Generation (LSNG) [FF65+] ***/
+user_pref("dom.storage.next_gen", true); // [DEFAULT: true FF92+]
 
 /*** [SECTION 2800]: SHUTDOWN
-     You should set the values to what suits you best.
-     - "Offline Website Data" includes appCache (2730), localStorage (2710),
-       service worker cache (2740), and QuotaManager (IndexedDB (2720), asm-cache)
-     - In both 2803 + 2804, the 'download' and 'history' prefs are combined in the
-       Firefox interface as "Browsing & Download History" and their values will be synced
+   * Sanitizing on shutdown is all or nothing. It does not use Managed Exceptions under
+     Privacy & Security>Delete cookies and site data when Thunderbird is closed (1681701)
+   * If you want to keep some sites' cookies (exception as "Allow") and optionally other site
+     data but clear all the rest on close, then you need to set the "cookie" and optionally the
+     "offlineApps" prefs below to false, and to set the cookie lifetime pref to 2 (2703)
 ***/
 user_pref("_user.js.parrot", "2800 syntax error: the parrot's bleedin' demised!");
-/* 2802: enable Thunderbird to clear items on shutdown (see 2803)
+/* 2802: enable Thunderbird to clear items on shutdown (2803)
+ * [SETTING] Privacy & Security>History>Custom Settings>Clear history when Thunderbird closes ***/
 user_pref("privacy.sanitize.sanitizeOnShutdown", true);
 /* 2803: set what items to clear on shutdown (if 2802 is true) [SETUP-CHROME]
- * [NOTE] If 'history' is true, downloads will also be cleared regardless of the value
- * but if 'history' is false, downloads can still be cleared independently
- * However, this may not always be the case. The interface combines and syncs these
- * prefs when set from there, and the sanitize code may change at any time ***/
+ * [NOTE] If "history" is true, downloads will also be cleared
+ * [NOTE] Active Logins: does not refer to logins via cookies, but rather HTTP Basic Authentication [1]
+ * [NOTE] Offline Website Data: localStorage, service worker cache, QuotaManager (IndexedDB, asm-cache)
+ * [SETTING] Privacy & Security>History>Custom Settings>Clear history when Thunderbird closes>Settings
+ * [1] https://en.wikipedia.org/wiki/Basic_access_authentication ***/
 user_pref("privacy.clearOnShutdown.cache", true);
 user_pref("privacy.clearOnShutdown.cookies", true);
 user_pref("privacy.clearOnShutdown.downloads", true); // see note above
@@ -1038,18 +884,29 @@ user_pref("privacy.clearOnShutdown.sessions", true); // Active Logins
 user_pref("privacy.clearOnShutdown.siteSettings", false); // Site Preferences
 /* 2804: reset default items to clear with Ctrl-Shift-Del (to match 2803) [SETUP-CHROME]
  * This dialog can also be accessed from the menu History>Clear Recent History
- * Firefox remembers your last choices. This will reset them when you start Firefox.
- * [NOTE] Regardless of what you set privacy.cpd.downloads to, as soon as the dialog
- * for "Clear Recent History" is opened, it is synced to the same as 'history' ***/
+ * Thunderbird remembers your last choices. This will reset them when you start Thunderbird
+ * [NOTE] Regardless of what you set "downloads" to, as soon as the dialog
+ * for "Clear Recent History" is opened, it is synced to the same as "history" ***/
 user_pref("privacy.cpd.cache", true);
 user_pref("privacy.cpd.cookies", true);
+   // user_pref("privacy.cpd.downloads", true); // not used, see note above
+user_pref("privacy.cpd.formdata", true); // Form & Search History
 user_pref("privacy.cpd.history", true); // Browsing & Download History
-/* 2806: reset default 'Time range to clear' for 'Clear Recent History' (see 2804)
- * Firefox remembers your last choice. This will reset the value when you start Firefox.
- * 0=everything, 1=last hour, 2=last two hours, 3=last four hours,
- * 4=today, 5=last five minutes, 6=last twenty-four hours
- * [NOTE] The values 5 + 6 are not listed in the dropdown, which will display a
- * blank value if they are used, but they do work as advertised ***/
+user_pref("privacy.cpd.offlineApps", true); // Offline Website Data
+user_pref("privacy.cpd.passwords", false); // this is not listed
+user_pref("privacy.cpd.sessions", true); // Active Logins
+user_pref("privacy.cpd.siteSettings", false); // Site Preferences
+/* 2805: clear Session Restore data when sanitizing on shutdown or manually [FF34+]
+ * [NOTE] Not needed if Session Restore is not used (0102) or is already cleared with history (2803)
+ * [NOTE] privacy.clearOnShutdown.openWindows prevents resuming from crashes (also see 5008)
+ * [NOTE] privacy.cpd.openWindows has a bug that causes an additional window to open ***/
+   // user_pref("privacy.clearOnShutdown.openWindows", true);
+   // user_pref("privacy.cpd.openWindows", true);
+/* 2806: reset default "Time range to clear" for "Clear Recent History" (2804)
+ * Thunderbird remembers your last choice. This will reset the value when you start Thunderbird
+ * 0=everything, 1=last hour, 2=last two hours, 3=last four hours, 4=today
+ * [NOTE] Values 5 (last 5 minutes) and 6 (last 24 hours) are not listed in the dropdown,
+ * which will display a blank value, and are not guaranteed to work ***/
 user_pref("privacy.sanitize.timeSpan", 0);
 
 /*** [SECTION 4000]: FPI (FIRST PARTY ISOLATION)
