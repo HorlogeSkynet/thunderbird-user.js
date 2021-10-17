@@ -1165,16 +1165,20 @@ user_pref("privacy.window.name.update.enabled", true); // [DEFAULT: true FF86+]
    // user_pref("webgl.enable-webgl2", "");
    // user_pref("webgl.min_capability_mode", "");
 
-/*** [SECTION 7000]: DON'T BOTHER ***/
+/*** [SECTION 7000]: DON'T BOTHER
+   Thunderbird-User.JS maintainer here :
+        Actually we do, TB is an e-mail client, not a (bloated) browser.
+        Thus some of below preferences have been set, despite upstream (Arkenfox) warnings.
+***/
 user_pref("_user.js.parrot", "7000 syntax error: the parrot's pushing up daisies!");
 /* 7001: disable APIs
  * Location-Aware Browsing, Full Screen, offline cache (appCache), Virtual Reality
  * [WHY] The API state is easily fingerprintable. Geo and VR are behind prompts (7002).
  * appCache storage capability was removed in FF90. Full screen requires user interaction ***/
-   // user_pref("geo.enabled", false);
-   // user_pref("full-screen-api.enabled", false);
-   // user_pref("browser.cache.offline.enable", false);
-   // user_pref("dom.vr.enabled", false);
+user_pref("geo.enabled", false);
+user_pref("full-screen-api.enabled", false);
+user_pref("browser.cache.offline.enable", false);
+user_pref("dom.vr.enabled", false);
 /* 7002: set default permissions
  * Location, Camera, Microphone, Notifications [FF58+] Virtual Reality [FF73+]
  * 0=always ask (default), 1=allow, 2=block
@@ -1182,11 +1186,11 @@ user_pref("_user.js.parrot", "7000 syntax error: the parrot's pushing up daisies
  * exceptions as allow/block for frequently visited/annoying sites: i.e. not global
  * [SETTING] to add site exceptions: Ctrl+I>Permissions>
  * [SETTING] to manage site exceptions: Options>Privacy & Security>Permissions>Settings ***/
-   // user_pref("permissions.default.geo", 0);
-   // user_pref("permissions.default.camera", 0);
-   // user_pref("permissions.default.microphone", 0);
-   // user_pref("permissions.default.desktop-notification", 0);
-   // user_pref("permissions.default.xr", 0); // Virtual Reality
+user_pref("permissions.default.geo", 0);
+user_pref("permissions.default.camera", 0);
+user_pref("permissions.default.microphone", 0);
+user_pref("permissions.default.desktop-notification", 0);
+user_pref("permissions.default.xr", 0); // Virtual Reality
 /* 7003: disable non-modern cipher suites [1]
  * [WHY] Passive fingerprinting. Minimal/non-existent threat of downgrade attacks
  * [1] https://browserleaks.com/ssl ***/
@@ -1213,13 +1217,13 @@ user_pref("_user.js.parrot", "7000 syntax error: the parrot's pushing up daisies
    // user_pref("network.http.referer.hideOnionSource", true); // 1305144
 /* 7007: referers
  * [WHY] Only cross-origin referers (1600s) need control ***/
-   // user_pref("network.http.sendRefererHeader", 2);
-   // user_pref("network.http.referer.trimmingPolicy", 0);
+user_pref("network.http.sendRefererHeader", 0);
+user_pref("network.http.referer.trimmingPolicy", 0);
 /* 7008: set the default Referrer Policy [FF59+]
  * 0=no-referer, 1=same-origin, 2=strict-origin-when-cross-origin, 3=no-referrer-when-downgrade
  * [WHY] Defaults are fine. They can be overridden by a site-controlled Referrer Policy ***/
-   // user_pref("network.http.referer.defaultPolicy", 2); // [DEFAULT: 2 FF87+]
-   // user_pref("network.http.referer.defaultPolicy.pbmode", 2); // [DEFAULT: 2]
+user_pref("network.http.referer.defaultPolicy", 0); // [DEFAULT: 2 FF87+]
+user_pref("network.http.referer.defaultPolicy.pbmode", 0); // [DEFAULT: 2]
 /* 7009: disable HTTP2
  * [WHY] Passive fingerprinting. ~50% of sites use HTTP2 [1]
  * [1] https://w3techs.com/technologies/details/ce-http2/all/all ***/
@@ -1229,21 +1233,21 @@ user_pref("_user.js.parrot", "7000 syntax error: the parrot's pushing up daisies
    // user_pref("network.http.spdy.websockets", false); // [FF65+]
 /* 7010: disable HTTP Alternative Services [FF37+]
  * [WHY] Already isolated by network partitioning (FF85+) or FPI ***/
-   // user_pref("network.http.altsvc.enabled", false);
-   // user_pref("network.http.altsvc.oe", false);
+user_pref("network.http.altsvc.enabled", false);
+user_pref("network.http.altsvc.oe", false);
 /* 7011: disable website control over browser right-click context menu
  * [WHY] Just use Shift-Right-Click ***/
-   // user_pref("dom.event.contextmenu.enabled", false);
+user_pref("dom.event.contextmenu.enabled", false);
 /* 7012: disable icon fonts (glyphs) and local fallback rendering
  * [WHY] Breakage, font fallback is equivalency, also RFP
  * [1] https://bugzilla.mozilla.org/789788
  * [2] https://gitlab.torproject.org/legacy/trac/-/issues/8455 ***/
-   // user_pref("gfx.downloadable_fonts.enabled", false); // [FF41+]
-   // user_pref("gfx.downloadable_fonts.fallback_delay", -1);
+user_pref("gfx.downloadable_fonts.enabled", false); // [FF41+]
+user_pref("gfx.downloadable_fonts.fallback_delay", -1);
 /* 7013: disable Clipboard API
  * [WHY] Fingerprintable. Breakage. Cut/copy/paste require user
  * interaction, and paste is limited to focused editable fields ***/
-   // user_pref("dom.event.clipboardevents.enabled", false);
+user_pref("dom.event.clipboardevents.enabled", false);
 
 /*** [SECTION 8000]: DON'T BOTHER: NON-RFP
    [WHY] They are insufficient to help anti-fingerprinting and do more harm than good
