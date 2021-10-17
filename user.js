@@ -1118,7 +1118,7 @@ user_pref("javascript.options.jit_trustedprincipals", true); // [FF75+] [HIDDEN 
  * Vulnerabilities [1] have increasingly been found, including those known and fixed
  * in native programs years ago [2]. WASM has powerful low-level access, making
  * certain attacks (brute-force) and vulnerabilities more possible
- * [STATS] ~0.2% of websites, about half of which are for crytopmining / malvertising [2][3]
+ * [STATS] ~0.2% of websites, about half of which are for crytomining / malvertising [2][3]
  * [1] https://cve.mitre.org/cgi-bin/cvekey.cgi?keyword=wasm
  * [2] https://spectrum.ieee.org/tech-talk/telecom/security/more-worries-over-the-security-of-web-assembly
  * [3] https://www.zdnet.com/article/half-of-the-websites-using-webassembly-use-it-for-malicious-purposes ***/
@@ -1259,7 +1259,6 @@ user_pref("_user.js.parrot", "8000 syntax error: the parrot's crossed the Jordan
    // user_pref("dom.webaudio.enabled", false);
 /* 8002: disable other ***/
    // user_pref("browser.display.use_document_fonts", 0);
-   // user_pref("browser.zoom.siteSpecific", false);
    // user_pref("dom.w3c_touch_events.enabled", 0);
    // user_pref("media.navigator.enabled", false);
    // user_pref("media.ondevicechange.enabled", false);
@@ -1278,27 +1277,29 @@ user_pref("_user.js.parrot", "8000 syntax error: the parrot's crossed the Jordan
    // user_pref("ui.use_standins_for_native_colors", true);
 
 /*** [SECTION 9000]: PERSONAL
-     Non-project related but useful. If any of these interest you, add them to your overrides ***/
-user_pref("_user.js.parrot", "9000 syntax error: this is an ex-parrot!");
-/* WELCOME & WHAT's NEW NOTICES ***/
-   //user_pref("mailnews.start_page_override.mstone", "ignore"); // master switch
+   Non-project related but useful. If any interest you, add them to your overrides
+***/
+user_pref("_user.js.parrot", "9000 syntax error: the parrot's cashed in 'is chips!");
+/* WELCOME & WHAT'S NEW NOTICES ***/
+user_pref("mailnews.start_page_override.mstone", "ignore"); // master switch
 /* WARNINGS ***/
    // user_pref("full-screen-api.warning.delay", 0);
    // user_pref("full-screen-api.warning.timeout", 0);
 /* APPEARANCE ***/
+   // user_pref("ui.systemUsesDarkTheme", 1); // [FF67+] [HIDDEN PREF]
+      // 0=light, 1=dark: with RFP this only affects chrome
    // user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true); // [FF68+] allow userChrome/userContent
+   // user_pref("ui.prefersReducedMotion", 1); // disable chrome animations [FF77+] [RESTART] [HIDDEN PREF]
+      // 0=no-preference, 1=reduce: with RFP this only affects chrome
 /* CONTENT BEHAVIOR ***/
    // user_pref("accessibility.typeaheadfind", true); // enable "Find As You Type"
    // user_pref("clipboard.autocopy", false); // disable autocopy default [LINUX]
-/* RETURN RECEIPT BEHAVIOR ***/
-   // user_pref("mail.mdn.report.enabled", false); // disable return receipt sending unconditionally
 /* UX BEHAVIOR ***/
    // user_pref("general.autoScroll", false); // middle-click enabling auto-scrolling [DEFAULT: false on Linux]
    // user_pref("ui.key.menuAccessKey", 0); // disable alt key toggling the menu bar [RESTART]
-/* OTHER ***/
-   // user_pref("network.manage-offline-status", false); // see bugzilla 620472
-   // user_pref("xpinstall.signatures.required", false); // enforced extension signing (Nightly/ESR)
-/* Set custom headers ***/
+/* RETURN RECEIPT BEHAVIOR ***/
+   // user_pref("mail.mdn.report.enabled", false); // disable return receipt sending unconditionally
+/* CUSTOM HEADERS ***/
    // user_pref("mail.identity.id1.headers", "References, InReplyTo");
    // user_pref("mail.identity.id1.header.References", "References: <2ad46d80-c8ce-49a3-9896-16171788ac28@example.tld>\n <31ff00c2-b7cb-4063-beeb-a0bdd424c3a7@example1.tld>");
    // user_pref("mail.identity.id1.header.InReplyTo", "In-Reply-To: <31ff00c2-b7cb-4063-beeb-a0bdd424c3a7@example1.tld>");
@@ -1640,93 +1641,57 @@ user_pref("mail.server.default.acPreferEncrypt", 0);
 user_pref("mail.openpgp.allow_external_gnupg", true);  // [HIDDEN PREF]
 
 /*** [SECTION 9999]: DEPRECATED / REMOVED / LEGACY / RENAMED
-     Documentation denoted as [-]. Items deprecated in FF68 or earlier have been archived at [1],
-     which also provides a link-clickable, viewer-friendly version of the deprecated bugzilla tickets
-     [1] https://github.com/ghacksuserjs/ghacks-user.js/issues/123
+   Documentation denoted as [-]. Items deprecated in FF78 or earlier have been archived at [1]
+   [1] https://github.com/arkenfox/user.js/issues/123
 ***/
 user_pref("_user.js.parrot", "9999 syntax error: the parrot's deprecated!");
-/* ESR68.x still uses all the following prefs
+/* ESR78.x still uses all the following prefs
 // [NOTE] replace the * with a slash in the line above to re-enable them
-// FF69
-// 1405: disable WOFF2 (Web Open Font Format) [FF35+]
-   // [-] https://bugzilla.mozilla.org/1556991
-   // user_pref("gfx.downloadable_fonts.woff2.enabled", false);
-// 1802: enforce click-to-play for plugins
-   // [-] https://bugzilla.mozilla.org/1519434
-user_pref("plugins.click_to_play", true); // [DEFAULT: true FF25+]
-// 2033: disable autoplay for muted videos [FF63+] - replaced by 'media.autoplay.default' options (2030)
-   // [-] https://bugzilla.mozilla.org/1562331
-   // user_pref("media.autoplay.allow-muted", false);
-// * * * /
-// FF71
-// 2608: disable WebIDE and ADB extension download
-   // [1] https://trac.torproject.org/projects/tor/ticket/16222
-   // [-] https://bugzilla.mozilla.org/1539462
-user_pref("devtools.webide.enabled", false); // [DEFAULT: false FF70+]
-user_pref("devtools.webide.autoinstallADBExtension", false); // [FF64+]
-// 2731: enforce websites to ask to store data for offline use
-   // [1] https://support.mozilla.org/questions/1098540
-   // [2] https://bugzilla.mozilla.org/959985
-   // [-] https://bugzilla.mozilla.org/1574480
-user_pref("offline-apps.allow_by_default", false);
-// * * * /
-// FF72
-// 0105a: disable Activity Stream telemetry
-   // [-] https://bugzilla.mozilla.org/1597697
-user_pref("browser.newtabpage.activity-stream.telemetry.ping.endpoint", "");
-// 0330: disable Hybdrid Content telemetry
-   // [-] https://bugzilla.mozilla.org/1520491
-user_pref("toolkit.telemetry.hybridContent.enabled", false); // [FF59+]
-// 2720: enforce IndexedDB (IDB) as enabled
-   // IDB is required for extensions and Firefox internals (even before FF63 in [1])
-   // To control *website* IDB data, control allowing cookies and service workers, or use
-   // Temporary Containers. To mitigate *website* IDB, FPI helps (4001), and/or sanitize
-   // on close (Offline Website Data, see 2800) or on-demand (Ctrl-Shift-Del), or automatically
-   // via an extension. Note that IDB currently cannot be sanitized by host.
-   // [1] https://blog.mozilla.org/addons/2018/08/03/new-backend-for-storage-local-api/
-   // [-] https://bugzilla.mozilla.org/1488583
-user_pref("dom.indexedDB.enabled", true); // [DEFAULT: true]
-// * * * /
-// FF74
-// 0203: use Mozilla geolocation service instead of Google when geolocation is enabled
-   // Optionally enable logging to the console (defaults to false)
-   // [-] https://bugzilla.mozilla.org/1613627
-user_pref("geo.wifi.uri", "https://location.services.mozilla.com/v1/geolocate?key=%MOZILLA_API_KEY%");
-   // user_pref("geo.wifi.logging.enabled", true); // [HIDDEN PREF]
-// 1704: set behaviour on "+ Tab" button to display container menu [FF53+] [SETUP-CHROME]
-   // 0=no menu (default), 1=show when clicked, 2=show on long press
-   // [1] https://bugzilla.mozilla.org/1328756
-   // [-] https://bugzilla.mozilla.org/1606265
-user_pref("privacy.userContext.longPressBehavior", 2);
-// 2012: limit WebGL
-   // [-] https://bugzilla.mozilla.org/1477756
-user_pref("webgl.disable-extensions", true);
-// * * * /
-// FF76
-// 0401: sanitize blocklist url
-   // [2] https://trac.torproject.org/projects/tor/ticket/16931
-   // [-] https://bugzilla.mozilla.org/1618188
-user_pref("extensions.blocklist.url", "https://blocklists.settings.services.mozilla.com/v1/blocklist/3/%APP_ID%/%APP_VERSION%/");
-// * * * /
-// FF77
-// 0850e: disable location bar one-off searches [FF51+]
-   // [1] https://www.ghacks.net/2016/08/09/firefox-one-off-searches-address-bar/
-   // [-] https://bugzilla.mozilla.org/1628926
-   // user_pref("browser.urlbar.oneOffSearches", false);
-// 2605: block web content in file processes [FF55+]
-   // [SETUP-WEB] You may want to disable this for corporate or developer environments
-   // [1] https://bugzilla.mozilla.org/1343184
-   // [-] https://bugzilla.mozilla.org/1603007
-user_pref("browser.tabs.remote.allowLinkedWebInFileUriProcess", false);
-// * * * /
-// FF78
-// 2031: disable autoplay of HTML5 media if you interacted with the site [FF66+] - replaced by 'media.autoplay.blocking_policy'
-   // [-] https://bugzilla.mozilla.org/1509933
-user_pref("media.autoplay.enabled.user-gestures-needed", false);
-// 5000's: disable chrome animations - replaced FF77+ by 'ui.prefersReducedMotion' (4520)
-   // [-] https://bugzilla.mozilla.org/1640501
-   // user_pref("toolkit.cosmeticAnimations.enabled", false); // [FF55+]
-// * * * /
+// FF79
+// 0212: enforce fallback text encoding to match en-US
+   // When the content or server doesn't declare a charset the browser will
+   // fallback to the "Current locale" based on your application language
+   // [TEST] https://hsivonen.com/test/moz/check-charset.htm
+   // [1] https://gitlab.torproject.org/tpo/applications/tor-browser/-/issues/20025
+   // [-] https://bugzilla.mozilla.org/1603712
+user_pref("intl.charset.fallback.override", "windows-1252");
+// FF82
+// 0206: disable geographically specific results/search engines e.g. "browser.search.*.US"
+   // i.e. ignore all of Mozilla's various search engines in multiple locales
+   // [-] https://bugzilla.mozilla.org/1619926
+user_pref("browser.search.geoSpecificDefaults", false);
+user_pref("browser.search.geoSpecificDefaults.url", "");
+// FF86
+// 1205: disable SSL Error Reporting
+   // [1] https://firefox-source-docs.mozilla.org/main/65.0/browser/base/sslerrorreport/preferences.html
+   // [-] https://bugzilla.mozilla.org/1681839
+user_pref("security.ssl.errorReporting.automatic", false);
+user_pref("security.ssl.errorReporting.enabled", false);
+user_pref("security.ssl.errorReporting.url", "");
+// 2653: disable hiding mime types (Options>General>Applications) not associated with a plugin
+   // [-] https://bugzilla.mozilla.org/1581678
+user_pref("browser.download.hide_plugins_without_extensions", false);
+// FF89
+// 0309: disable sending Flash crash reports
+   // [-] https://bugzilla.mozilla.org/1682030 [underlying NPAPI code removed]
+user_pref("dom.ipc.plugins.flash.subprocess.crashreporter.enabled", false);
+// 0310: disable sending the URL of the website where a plugin crashed
+   // [-] https://bugzilla.mozilla.org/1682030 [underlying NPAPI code removed]
+user_pref("dom.ipc.plugins.reportCrashURL", false);
+// 1243: block unencrypted requests from Flash on encrypted pages to mitigate MitM attacks [FF59+]
+   // [1] https://bugzilla.mozilla.org/1190623
+   // [-] https://bugzilla.mozilla.org/1682030 [underlying NPAPI code removed]
+user_pref("security.mixed_content.block_object_subrequest", true);
+// 1803: disable Flash plugin
+   // 0=deactivated, 1=ask, 2=enabled
+   // ESR52.x is the last branch to fully support NPAPI, FF52+ stable only supports Flash
+   // [NOTE] You can still override individual sites via site permissions
+   // [-] https://bugzilla.mozilla.org/1682030 [underlying NPAPI code removed]
+user_pref("plugin.state.flash", 0); // [DEFAULT: 1]
+// FF90
+// 0708: disable FTP [FF60+]
+   // [-] https://bugzilla.mozilla.org/1574475
+   // user_pref("network.ftp.enabled", false); // [DEFAULT: false FF88+]
 // ***/
 
 /* END: internal custom pref to test for syntax errors ***/
