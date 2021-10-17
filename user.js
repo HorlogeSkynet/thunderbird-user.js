@@ -760,9 +760,6 @@ user_pref("devtools.debugger.remote-enabled", false); // [DEFAULT: false]
 /* 2611: disable middle mouse click opening links from clipboard
  * [1] https://gitlab.torproject.org/tpo/applications/tor-browser/-/issues/10089 ***/
 user_pref("middlemouse.contentLoadURL", false);
-/* 2615: disable websites overriding Thunderbird's keyboard shortcuts [FF58+]
- * 0 (default) or 1=allow, 2=block ***/
-user_pref("permissions.default.shortcuts", 2);
 /* 2616: remove special permissions for certain mozilla domains [FF35+]
  * [1] resource://app/defaults/permissions ***/
 user_pref("permissions.manager.defaultsUrl", "");
@@ -1210,18 +1207,6 @@ user_pref("geo.enabled", false);
 user_pref("full-screen-api.enabled", false);
 user_pref("browser.cache.offline.enable", false);
 user_pref("dom.vr.enabled", false);
-/* 7002: set default permissions
- * Location, Camera, Microphone, Notifications [FF58+] Virtual Reality [FF73+]
- * 0=always ask (default), 1=allow, 2=block
- * [WHY] These are fingerprintable via Permissions API, except VR. Just add site
- * exceptions as allow/block for frequently visited/annoying sites: i.e. not global
- * [SETTING] to add site exceptions: Ctrl+I>Permissions>
- * [SETTING] to manage site exceptions: Options>Privacy & Security>Permissions>Settings ***/
-user_pref("permissions.default.geo", 0);
-user_pref("permissions.default.camera", 0);
-user_pref("permissions.default.microphone", 0);
-user_pref("permissions.default.desktop-notification", 0);
-user_pref("permissions.default.xr", 0); // Virtual Reality
 /* 7003: disable non-modern cipher suites [1]
  * [WHY] Passive fingerprinting. Minimal/non-existent threat of downgrade attacks
  * [1] https://browserleaks.com/ssl ***/
