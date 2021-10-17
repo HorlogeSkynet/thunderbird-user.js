@@ -231,6 +231,9 @@ user_pref("mail.instrumentation.userOptedIn", false);
  * [1] https://searchfox.org/comm-esr78/rev/384830b0570096c48770398060f87fbe556f6f01/mail/base/content/specialTabs.js#1218 ***/
 user_pref("mail.rights.override", true);  // [DEFAULT: unset]
    // user_pref("mail.rights.version", 1)  // [DEFAULT: unset]
+/* 0380: disable the unread message count badge on taskbar icon
+ * [1] https://www.thunderbird.net/en-US/thunderbird/91.0.2/releasenotes/#whatsnew */
+  // user_pref("mail.biff.show_badge", false); // [WINDOWS]
 
 /*** [SECTION 0400]: SAFE BROWSING (SB)
    SB has taken many steps to preserve privacy. If required, a full url is never sent
