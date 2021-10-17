@@ -84,6 +84,10 @@ user_pref("mail.shell.checkDefaultClient", false);
 /* 0102: set START page [SETUP-CHROME]
  * [SETTING] Edit>Preferences>General>Thunderbird Start Page ***/
 user_pref("mailnews.start_page.enabled", false);
+/* 0104: set NEWTAB page
+ * true=Activity Stream (default, see 0105), false=blank page
+ * [SETTING] Home>New Windows and Tabs>New tabs ***/
+user_pref("browser.newtabpage.enabled", false);
 
 /*** [SECTION 0200]: GEOLOCATION / LANGUAGE / LOCALE ***/
 user_pref("_user.js.parrot", "0200 syntax error: the parrot's definitely deceased!");
@@ -793,6 +797,26 @@ user_pref("network.protocol-handler.external.ms-windows-store", false);
  * [1] https://groups.google.com/forum/#!topic/mozilla.dev.platform/BdFOMAuCGW8/discussion ***/
 user_pref("permissions.delegation.enabled", false);
 
+/** DOWNLOADS ***/
+/* 2651: enable user interaction for security by always asking where to download
+ * [SETUP-CHROME] On Android this blocks longtapping and saving images
+ * [SETTING] General>Downloads>Always ask you where to save files ***/
+user_pref("browser.download.useDownloadDir", false);
+/* 2652: disable adding downloads to the system's "recent documents" list ***/
+user_pref("browser.download.manager.addToRecentDocs", false);
+
+/** EXTENSIONS ***/
+/* 2660: lock down allowed extension directories
+ * [SETUP-CHROME] This will break extensions, language packs, themes and any other
+ * XPI files which are installed outside of profile and application directories
+ * [1] https://mike.kaply.com/2012/02/21/understanding-add-on-scopes/
+ * [1] archived: https://archive.is/DYjAM ***/
+user_pref("extensions.enabledScopes", 5); // [HIDDEN PREF]
+user_pref("extensions.autoDisableScopes", 15); // [DEFAULT: 15]
+/* 2662: disable webextension restrictions on certain mozilla domains (you also need 4503) [FF60+]
+ * [1] https://bugzilla.mozilla.org/buglist.cgi?bug_id=1384330,1406795,1415644,1453988 ***/
+   // user_pref("extensions.webextensions.restrictedDomains", "");
+
 /*** [SECTION 2700]: PERSISTENT STORAGE
    Data SET by websites including
           cookies : profile\cookies.sqlite
@@ -1034,6 +1058,11 @@ user_pref("privacy.resistFingerprinting.block_mozAddonManager", true); // [HIDDE
  * [2] https://hg.mozilla.org/mozilla-central/rev/6d2d7856e468#l2.32 ***/
 user_pref("privacy.resistFingerprinting.letterboxing", true); // [HIDDEN PREF]
    // user_pref("privacy.resistFingerprinting.letterboxing.dimensions", ""); // [HIDDEN PREF]
+/* 4505: experimental RFP [FF91+]
+ * [WARNING] DO NOT USE unless testing, see [1] comment 12
+ * [1] https://bugzilla.mozilla.org/1635603 ***/
+   // user_pref("privacy.resistFingerprinting.exemptedDomains", "*.example.invalid");
+   // user_pref("privacy.resistFingerprinting.testGranularityMask", 0);
 
 /*** [SECTION 5000]: OPTIONAL OPSEC
    Disk avoidance, application data isolation, eyeballs...
@@ -1303,6 +1332,12 @@ user_pref("mailnews.start_page_override.mstone", "ignore"); // master switch
 /* UX BEHAVIOR ***/
    // user_pref("general.autoScroll", false); // middle-click enabling auto-scrolling [DEFAULT: false on Linux]
    // user_pref("ui.key.menuAccessKey", 0); // disable alt key toggling the menu bar [RESTART]
+/* UX FEATURES ***/
+   // user_pref("reader.parse-on-load.enabled", false); // Reader View
+/* OTHER ***/
+   // user_pref("browser.bookmarks.max_backups", 2);
+   // user_pref("network.manage-offline-status", false); // see bugzilla 620472
+   // user_pref("xpinstall.signatures.required", false); // enforced extension signing (Nightly/ESR)
 /* RETURN RECEIPT BEHAVIOR ***/
    // user_pref("mail.mdn.report.enabled", false); // disable return receipt sending unconditionally
 /* CUSTOM HEADERS ***/
