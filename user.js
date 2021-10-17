@@ -422,9 +422,10 @@ user_pref("network.http.windows-sso.enabled", false); // [DEFAULT: false]
  * until the secret is provided.
  * This preference MAY mitigate risk due to intimate relationship threat in some cases (see [2])...
  * [WARNING] This DOES NOT encrypt locally cached emails anyhow (poor man's application security)
+ * [WARNING] This preference is very buggy, you might not manage to start Thunderbird when it's switched on
  * [1] https://support.mozilla.org/en-US/kb/protect-your-thunderbird-passwords-master-password
  * [2] https://www.schneier.com/wp-content/uploads/2020/06/Privacy_Threats_in_Intimate_Relationships-1.pdf ***/
-user_pref("mail.password_protect_local_cache", true);  // [HIDDEN PREF]
+  // user_pref("mail.password_protect_local_cache", true);  // [HIDDEN PREF]
 
 /*** [SECTION 1000]: DISK AVOIDANCE ***/
 user_pref("_user.js.parrot", "1000 syntax error: the parrot's gone to meet 'is maker!");
