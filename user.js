@@ -180,9 +180,9 @@ user_pref("toolkit.telemetry.bhrPing.enabled", false); // [FF57+] Background Han
 user_pref("toolkit.telemetry.firstShutdownPing.enabled", false); // [FF57+]
 /* 0333: disable Telemetry Coverage
   * [1] https://blog.mozilla.org/data/2018/08/20/effectively-measuring-search-in-firefox/ ***/
- user_pref("toolkit.telemetry.coverage.opt-out", true); // [HIDDEN PREF]
- user_pref("toolkit.coverage.opt-out", true); // [FF64+] [HIDDEN PREF]
- user_pref("toolkit.coverage.endpoint.base", "");
+user_pref("toolkit.telemetry.coverage.opt-out", true); // [HIDDEN PREF]
+user_pref("toolkit.coverage.opt-out", true); // [FF64+] [HIDDEN PREF]
+user_pref("toolkit.coverage.endpoint.base", "");
 /* 0334: disable PingCentre telemetry (used in several System Add-ons) [FF57+]
  * Defense-in-depth: currently covered by 0331 ***/
 user_pref("browser.ping-centre.telemetry", false);
@@ -1676,7 +1676,7 @@ user_pref("mail.openpgp.allow_external_gnupg", true);  // [HIDDEN PREF]
    Documentation denoted as [-]. Items deprecated in FF78 or earlier have been archived at [1]
    [1] https://github.com/arkenfox/user.js/issues/123
 ***/
- user_pref("_user.js.parrot", "9999 syntax error: the parrot's shuffled off 'is mortal coil!");
+user_pref("_user.js.parrot", "9999 syntax error: the parrot's shuffled off 'is mortal coil!");
 /* ESR78.x still uses all the following prefs
 // [NOTE] replace the * with a slash in the line above to re-enable them
 // FF79
