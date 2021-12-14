@@ -1112,7 +1112,7 @@ user_pref("dom.storageManager.enabled", false);
        Firefox interface as "Browsing & Download History" and their values will be synced
 ***/
 user_pref("_user.js.parrot", "2800 syntax error: the parrot's bleedin' demised!");
-/* 2802: enable Thunderbird to clear items on shutdown (see 2803)
+/* 2802: enable Thunderbird to clear items on shutdown (see 2803) ***/
 user_pref("privacy.sanitize.sanitizeOnShutdown", true);
 /* 2803: set what items to clear on shutdown (if 2802 is true) [SETUP-CHROME]
  * [NOTE] If 'history' is true, downloads will also be cleared regardless of the value
