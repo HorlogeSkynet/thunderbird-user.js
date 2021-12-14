@@ -1,6 +1,6 @@
 /******
 * name: thunderbird user.js
-* date: 30 October 2021
+* date: 14 December 2021
 * version: v91-beta
 * url: https://github.com/HorlogeSkynet/thunderbird-user.js
 * license: MIT (https://github.com/HorlogeSkynet/thunderbird-user.js/blob/master/LICENSE)
@@ -867,8 +867,7 @@ user_pref("dom.storage.next_gen", true); // [DEFAULT: true FF92+]
      "offlineApps" prefs below to false, and to set the cookie lifetime pref to 2 (2703)
 ***/
 user_pref("_user.js.parrot", "2800 syntax error: the parrot's bleedin' demised!");
-/* 2802: enable Thunderbird to clear items on shutdown (2803)
- * [SETTING] Privacy & Security>History>Custom Settings>Clear history when Thunderbird closes ***/
+/* 2802: enable Thunderbird to clear items on shutdown (see 2803) ***/
 user_pref("privacy.sanitize.sanitizeOnShutdown", true);
 /* 2803: set what items to clear on shutdown (if 2802 is true) [SETUP-CHROME]
  * [NOTE] If "history" is true, downloads will also be cleared
@@ -1423,7 +1422,7 @@ user_pref("mailnews.display.date_senders_timezone", false);
  * Consider using CardBook extension instead (https://addons.thunderbird.net/addon/cardbook/)
  * [SETTING] Preferences>Composition>Addressing>Automatically add outgoing e-mail addresses...
  * [SETTING][CARDBOOK] CardBook>Preferences>Email>Collect Outgoing Email ***/
-user_pref("mail.collect_addressbook", "");  // [DEFAULT: "jsaddrbook://history.sqlite"]
+   // user_pref("mail.collect_addressbook", "jsaddrbook://history.sqlite");
 user_pref("mail.collect_email_address_outgoing", false);
 /* 9131: Only use email addresses, without their Display Names [CARDBOOK] [SETUP-FEATURE]
  * By default, CardBook extension incorporates contacts display names in addresses fields.
