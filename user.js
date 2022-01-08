@@ -1453,7 +1453,7 @@ user_pref("mail.identity.default.compose_html", false);
 /* 9213: Downgrade email to plaintext by default
  * [SETUP-FEATURE] Only use HTML email if you need it, see above
  * [SETTING] Composition > Composition > HTML Style > Configure text format behavior > Send options... > Send messages as plain text if possible ***/
-user_pref("mailnews.sendformat.auto_downgrade", false);
+user_pref("mailnews.sendformat.auto_downgrade", true);
 /* 9214: What classes can process incoming data.
  * (0=All classes (default), 1=Don't display HTML, 2=Don't display HTML and inline images,
  * 3=Don't display HTML, inline images and some other uncommon types, 100=Use a hard coded list)
