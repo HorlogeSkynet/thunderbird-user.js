@@ -1504,6 +1504,13 @@ user_pref("media.hardware-video-decoding.enabled", false);
  * 3=Prevent third-party images from loading
  * [1] http://kb.mozillazine.org/Permissions.default.image ***/
 user_pref("permissions.default.image", 2);
+/* 9240: Builtin phishing/scamming detection
+ * [NOTE] These preferences are enabled by default and should not usually be touched.
+ * [1] https://searchfox.org/comm-central/source/mail/modules/PhishingDetector.jsm ***/
+user_pref("mail.phishing.detection.enabled", true);
+user_pref("mail.phishing.detection.disallow_form_actions", true);
+user_pref("mail.phishing.detection.ipaddresses", true);
+user_pref("mail.phishing.detection.mismatched_hosts", true);
 
 /*** [SECTION 9300]: OTHER THUNDERBIRD COMPONENTS (CHAT / CALENDAR / RSS)
    Options that relate to other Thunderbird components such as the chat client, calendar and RSS)
