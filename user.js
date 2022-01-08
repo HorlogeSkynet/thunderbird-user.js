@@ -60,7 +60,7 @@
   9100: THUNDERBIRD (AUTO CONFIG / UI / HEADERS / ADDRESS BOOK)
   9200: EMAIL COMPOSITION (ENCODING / FORMAT / VIEW)
   9300: OTHER THUNDERBIRD COMPONENTS (CHAT / CALENDAR / RSS)
-  9400: THUNDERBIRD ENCRYPTION (ENIGMAIL / AUTOCRYPT / GNUPG)
+  9400: THUNDERBIRD ENCRYPTION (OPENGPG / GNUPG)
   9999: DEPRECATED / REMOVED / LEGACY / RENAMED
 
 ******/
@@ -1585,54 +1585,12 @@ user_pref("rss.show.summary", 1);
  * 0=no action, 1=load web page in default browser, on select ***/
 user_pref("rss.message.loadWebPageOnSelect", 0);
 
-/*** [SECTION 9400]: THUNDERBIRD ENCRYPTION (ENIGMAIL / AUTOCRYPT / GNUPG)
-   Options that relate to Enigmail addon and AutoCrypt.
-   GnuPG (and RNP) specific options should also land there.
-   [1] https://autocrypt.org
-   [2] https://www.enigmail.net/index.php/en/user-manual/advanced-operations
-   [3] https://wiki.mozilla.org/Thunderbird:OpenPGP
+/*** [SECTION 9400]: THUNDERBIRD ENCRYPTION (OPENGPG / GNUPG)
+   Options that relate to e-mail encryption in Thunderbird.
+   [1] https://wiki.mozilla.org/Thunderbird:OpenPGP
+   [2] https://support.mozilla.org/kb/openpgp-thunderbird-howto-and-faq
 ***/
 user_pref("_user.js.parrot", "9400 syntax error: this parrot is talking in codes!");
-
-/** ENIGMAIL ***/
-/* These used to be inversed, however it seems upstream has changed this behavior
- * [1] https://www.privacy-handbuch.de/handbuch_31f.htm ***/
-/* 9401: Silence the Enigmail version header ***/
-user_pref("extensions.enigmail.addHeaders", false); // [DEFAULT: false]
-/* 9402: Silence the Enigmail comment ***/
-user_pref("extensions.enigmail.useDefaultComment", true); // [DEFAULT: true]
-/* 9403: Silence the version ***/
-user_pref("extensions.enigmail.agentAdditionalParam", "--no-emit-version --no-comments");
-/* 9404: Specifies the hash algorithm used by GnuPG for its cryptographic operations:
- * 0=automatic selection, let GnuPG choose (default, recommended), 1=SHA1, 2=RIPEMD160
- * 3=SHA256, 4=SHA384, 5=SHA512
- * [NOTE] You should probably have a decent gpg.conf with things set. Examples
- * [1] https://github.com/Whonix/anon-gpg-tweaks/blob/master/etc/skel/.gnupg/gpg.conf
- * [2] https://github.com/ioerror/torbirdy/blob/master/gpg.conf
- * ***/
-user_pref("extensions.enigmail.mimeHashAlgorithm", 5);
-/* 9405: Protect subject line
- * 0=Leave subject unprotected,
- * 1=Show dialog with "Leave subject unprotected" (changes value to 0)
- *                     or "Protect subject" (changes value to 2,
- * 2=Protect subject***/
-user_pref("extensions.enigmail.protectedHeaders", 2);
-/* 9406: Text to use as replacement for the subject, following the Memory Hole
- * standard. If nothing is defined, then "Encrypted Message" is used.
- ***/
-user_pref("extensions.enigmail.protectedSubjectText", "Encrypted Message"); // [DEFAULT: "Encrypted Message"]
-
-/** AUTOCRYPT ***/
-/* 9407: Choose whether to enable AutoCrypt
- * [1] https://autocrypt.org/level1.html
- * [2] https://redmine.tails.boum.org/code/issues/16186
- * [SETTING] Edit > Account Settings > OpenPGP Security > Autocrypt > Enable Autocrypt ***/
-user_pref("mail.server.default.enableAutocrypt", false);
-/* 9408: Prefer email encryption with known contacts
- * [SETTING] Edit > Account Settings > OpenPGP Security > Autocrypt >
- *           Prefer encrypted emails from the people you exchange email with
- *  [1] https://redmine.tails.boum.org/code/issues/15923 ***/
-user_pref("mail.server.default.acPreferEncrypt", 0);
 
 /** GNUPG ***/
 /* 9409: Allow the use of external GnuPG
