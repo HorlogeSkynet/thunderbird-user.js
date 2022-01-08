@@ -78,14 +78,13 @@ user_pref("browser.aboutConfig.showWarning", false);
 /*** [SECTION 0100]: STARTUP ***/
 user_pref("_user.js.parrot", "0100 syntax error: the parrot's dead!");
 /* 0101: disable default browser check
- * [SETTING] Edit>Preferences>Advanced>Always check to see if Thunderbird is the default mail client on startup ***/
+ * [SETTING] General > System Integration > Always check to see if Thunderbird is the default... ***/
 user_pref("mail.shell.checkDefaultClient", false);
 /* 0102: set START page [SETUP-CHROME]
- * [SETTING] Edit>Preferences>General>Thunderbird Start Page ***/
+ * [SETTING] General > Thunderbird Start Page ***/
 user_pref("mailnews.start_page.enabled", false);
 /* 0104: set NEWTAB page
- * true=Activity Stream (default, see 0105), false=blank page
- * [SETTING] Home>New Windows and Tabs>New tabs ***/
+ * true=Activity Stream (default), false=blank page ***/
 user_pref("browser.newtabpage.enabled", false);
 
 /*** [SECTION 0200]: GEOLOCATION / LANGUAGE / LOCALE ***/
@@ -106,7 +105,7 @@ user_pref("browser.region.update.enabled", false); // [FF79+]
  * [NOTE] May not be hidden if Thunderbird has changed your settings due to your region (0203) ***/
    // user_pref("browser.search.region", "US"); // [HIDDEN PREF]
 /* 0210: set preferred language for displaying pages
- * [SETTING] General>Language and Appearance>Language>Choose your preferred language...
+ * [SETTING] General > Language & Appearance > Language > Choose the language used to display...
  * [TEST] https://addons.mozilla.org/about ***/
 user_pref("intl.accept_languages", "en-US, en");
 /* 0210b: Set dictionary to US ***/
@@ -127,17 +126,16 @@ user_pref("javascript.use_us_english_locale", true); // [HIDDEN PREF]
 user_pref("_user.js.parrot", "0300 syntax error: the parrot's not pinin' for the fjords!");
 /** UPDATES ***/
 /* 0301: disable auto-INSTALLING Thunderbird updates [NON-WINDOWS]
- * [NOTE] You will still get prompts to update, and should do so in a timely manner
- * [SETTING] General>Thunderbird Updates>Check for updates but let you choose to install them... ***/
+ * [NOTE] You will still get prompts to update, and should do so in a timely manner ***/
 user_pref("app.update.auto", false);
 /* 0302: disable auto-INSTALLING Thunderbird updates via a background service [FF90+] [WINDOWS]
- * [SETTING] General>Thunderbird Updates>Automatically install updates>Use a background service to install updates
+ * [SETTING] General > Thunderbird Updates > Automatically install updates > Use a background service to install updates
  * [1] https://support.mozilla.org/kb/enable-background-updates-firefox-windows ***/
 user_pref("app.update.background.scheduling.enabled", false);
 /* 0303: disable auto-CHECKING for extension and theme updates ***/
    // user_pref("extensions.update.enabled", false);
 /* 0304: disable auto-INSTALLING extension and theme updates (after the check in 0303)
- * [SETTING] about:addons>Extensions>[cog-wheel-icon]>Update Add-ons Automatically (toggle) ***/
+ * [SETTING] about:addons > Extensions > [cog-wheel-icon] > Update Add-ons Automatically (toggle) ***/
    // user_pref("extensions.update.autoUpdateDefault", false);
 /* 0305: disable extension metadata
  * used when installing/updating an extension, and in daily background update checks:
@@ -160,7 +158,7 @@ user_pref("extensions.htmlaboutaddons.recommendations.enabled", false);
  * [1] https://bugzilla.mozilla.org/1195552 ***/
 user_pref("datareporting.policy.dataSubmissionEnabled", false);
 /* 0331: disable Health Reports
- * [SETTING] Privacy & Security>Thunderbird Data Collection & Use>Allow Thunderbird to send technical... data ***/
+ * [SETTING] Privacy & Security > Thunderbird Data Collection and Use > Allow Thunderbird to send technical... ***/
 user_pref("datareporting.healthreport.uploadEnabled", false);
 /* 0332: disable telemetry
  * The "unified" pref affects the behaviour of the "enabled" pref
@@ -203,7 +201,7 @@ user_pref("breakpad.reportURL", "");
 user_pref("browser.tabs.crashReporting.sendReport", false); // [FF44+]
    // user_pref("browser.crashReports.unsubmittedCheck.enabled", false); // [FF51+] [DEFAULT: false]
 /* 0351: enforce no submission of backlogged Crash Reports [FF58+]
- * [SETTING] Privacy & Security>Thunderbird Data Collection & Use>Allow Thunderbird to send backlogged crash reports  ***/
+ * [SETTING] Privacy & Security > Thunderbird Data Collection and Use > Allow Thunderbird to send backlogged crash reports... ***/
 user_pref("browser.crashReports.unsubmittedCheck.autoSubmit2", false); // [DEFAULT: false]
 
 /** OTHER ***/
@@ -248,13 +246,11 @@ user_pref("mail.rights.override", true);  // [DEFAULT: unset]
 ***/
 user_pref("_user.js.parrot", "0400 syntax error: the parrot's passed on!");
 /* 0401: disable SB (Safe Browsing)
- * [WARNING] Do this at your own risk! These are the master switches
- * [SETTING] Privacy & Security>Security>... Block dangerous and deceptive content ***/
+ * [WARNING] Do this at your own risk! These are the master switches ***/
    // user_pref("browser.safebrowsing.malware.enabled", false);
    // user_pref("browser.safebrowsing.phishing.enabled", false);
 /* 0402: disable SB checks for downloads (both local lookups + remote)
- * This is the master switch for the safebrowsing.downloads* prefs (0403, 0404)
- * [SETTING] Privacy & Security>Security>... "Block dangerous downloads" ***/
+ * This is the master switch for the safebrowsing.downloads* prefs (0403, 0404) ***/
    // user_pref("browser.safebrowsing.downloads.enabled", false);
 /* 0403: disable SB checks for downloads (remote)
  * To verify the safety of certain executable files, Thunderbird may submit some information about the
@@ -263,8 +259,7 @@ user_pref("_user.js.parrot", "0400 syntax error: the parrot's passed on!");
  * [SETUP-SECURITY] If you do not understand this, or you want this protection, then override it ***/
 user_pref("browser.safebrowsing.downloads.remote.enabled", false);
 user_pref("browser.safebrowsing.downloads.remote.url", "");
-/* 0404: disable SB checks for unwanted software
- * [SETTING] Privacy & Security>Security>... "Warn you about unwanted and uncommon software" ***/
+/* 0404: disable SB checks for unwanted software ***/
    // user_pref("browser.safebrowsing.downloads.remote.block_potentially_unwanted", false);
    // user_pref("browser.safebrowsing.downloads.remote.block_uncommon", false);
 /* 0405: disable "ignore this warning" on SB warnings [FF45+]
@@ -359,20 +354,17 @@ user_pref("keyword.enabled", false);  // [DEFAULT: false]
 user_pref("browser.fixup.alternate.enabled", false);
 /* 0804: disable live search suggestions
  * [NOTE] Both must be true for the location bar to work
- * [SETUP-CHROME] Change these if you trust and use a privacy respecting search engine
- * [SETTING] Search>Provide search suggestions | Show search suggestions in address bar results ***/
+ * [SETUP-CHROME] Change these if you trust and use a privacy respecting search engine ***/
 user_pref("browser.search.suggest.enabled", false);
 /* 0810: disable search and form history
  * [SETUP-WEB] Be aware that autocomplete form data can be read by third parties [1][2]
  * [NOTE] We also clear formdata on exit (2803)
- * [SETTING] Privacy & Security>History>Custom Settings>Remember search and form history
  * [1] https://blog.mindedsecurity.com/2011/10/autocompleteagain.html
  * [2] https://bugzilla.mozilla.org/381681 ***/
 user_pref("browser.formfill.enable", false);
 /* 0811: disable Form Autofill
  * [NOTE] Stored data is NOT secure (uses a JSON file)
  * [NOTE] Heuristics controls Form Autofill on forms without @autocomplete attributes
- * [SETTING] Privacy & Security>Forms and Autofill>Autofill addresses
  * [1] https://wiki.mozilla.org/Firefox/Features/Form_Autofill ***/
 user_pref("extensions.formautofill.addresses.enabled", false); // [FF55+]
 user_pref("extensions.formautofill.available", "off"); // [FF56+]
@@ -488,7 +480,7 @@ user_pref("security.tls.enable_0rtt_data", false);
  * OCSP (non-stapled) leaks information about the sites you visit to the CA (cert authority)
  * It's a trade-off between security (checking) and privacy (leaking info to the CA)
  * [NOTE] This pref only controls OCSP fetching and does not affect OCSP stapling
- * [SETTING] Privacy & Security>Security>Certificates>Query OCSP responder servers...
+ * [SETTING] Privacy & Security > Security > Certificates > Query OCSP responder servers...
  * [1] https://en.wikipedia.org/wiki/Ocsp ***/
 user_pref("security.OCSP.enabled", 1); // [DEFAULT: 1]
 /* 1212: set OCSP fetch failures (non-stapled, see 1211) to hard-fail [SETUP-WEB]
@@ -533,8 +525,6 @@ user_pref("security.pki.crlite_mode", 2);
 user_pref("security.mixed_content.block_display_content", true);
 /* 1244: enable HTTPS-Only mode in all windows [FF76+]
  * When the top-level is HTTPS, insecure subresources are also upgraded (silent fail)
- * [SETTING] to add site exceptions: Padlock>HTTPS-Only mode>On (after "Continue to HTTP Site")
- * [SETTING] Privacy & Security>HTTPS-Only Mode (and manage exceptions)
  * [TEST] http://example.com [upgrade]
  * [TEST] http://neverssl.com/ [no upgrade] ***/
 user_pref("dom.security.https_only_mode", true); // [FF76+]
@@ -598,7 +588,7 @@ user_pref("network.http.referer.XOriginPolicy", 2);
 user_pref("network.http.referer.XOriginTrimmingPolicy", 2);
 /* 1603: enable the DNT (Do Not Track) HTTP header
  * [NOTE] DNT is enforced with Enhanced Tracking Protection (2710)
- * [SETTING] Privacy & Security>Enhanced Tracking Protection>Send websites a "Do Not Track" signal... ***/
+ * [SETTING] Privacy & Security > Privacy > Web Content > Send websites a "Do Not Track" signal... ***/
 user_pref("privacy.donottrackheader.enabled", true);
 
 /*** [SECTION 1700]: CONTAINERS
@@ -609,13 +599,11 @@ user_pref("privacy.donottrackheader.enabled", true);
    [4] https://github.com/stoically/temporary-containers/wiki
 ***/
 user_pref("_user.js.parrot", "1700 syntax error: the parrot's bit the dust!");
-/* 1701: enable Container Tabs and its UI setting [FF50+]
- * [SETTING] General>Tabs>Enable Container Tabs ***/
+/* 1701: enable Container Tabs and its UI setting [FF50+] ***/
 user_pref("privacy.userContext.enabled", true);
 user_pref("privacy.userContext.ui.enabled", true);
 /* 1702: set behaviour on "+ Tab" button to display container menu on left click [FF74+]
- * [NOTE] The menu is always shown on long press and right click
- * [SETTING] General>Tabs>Enable Container Tabs>Settings>Select a container for each new tab ***/
+ * [NOTE] The menu is always shown on long press and right click ***/
    // user_pref("privacy.userContext.newTabContainerOnLeftClick.enabled", true);
 
 /*** [SECTION 2000]: PLUGINS / MEDIA / WEBRTC ***/
@@ -642,14 +630,12 @@ user_pref("media.gmp-provider.enabled", false);
 user_pref("media.gmp-widevinecdm.enabled", false);
 /* 2022: disable all DRM content (EME: Encryption Media Extension)
  * [SETUP-WEB] e.g. Netflix, Amazon Prime, Hulu, HBO, Disney+, Showtime, Starz, DirectTV
- * [SETTING] General>DRM Content>Play DRM-controlled content
  * [TEST] https://bitmovin.com/demos/drm
  * [1] https://www.eff.org/deeplinks/2017/10/drms-dead-canary-how-we-just-lost-web-what-we-learned-it-and-what-we-need-do-next ***/
 user_pref("media.eme.enabled", false);
 /* 2030: disable autoplay of HTML5 media [FF63+]
  * 0=Allow all, 1=Block non-muted media (default), 5=Block all
- * [NOTE] You can set exceptions under site permissions
- * [SETTING] Privacy & Security>Permissions>Autoplay>Settings>Default for all websites ***/
+ * [NOTE] You can set exceptions under site permissions ***/
 user_pref("media.autoplay.default", 5);
 /* 2031: disable autoplay of HTML5 media if you interacted with the site [FF78+]
  * 0=sticky (default), 1=transient, 2=user
@@ -706,8 +692,7 @@ user_pref("_user.js.parrot", "2400 syntax error: the parrot's kicked the bucket!
 user_pref("dom.disable_beforeunload", true);
 /* 2402: prevent scripts from moving and resizing open windows ***/
 user_pref("dom.disable_window_move_resize", true);
-/* 2403: block popup windows
- * [SETTING] Privacy & Security>Permissions>Block pop-up windows ***/
+/* 2403: block popup windows ***/
 user_pref("dom.disable_open_during_load", true);
 /* 2404: limit events that can cause a popup [SETUP-WEB] ***/
 user_pref("dom.popup_allowed_events", "click dblclick mousedown pointerdown");
@@ -715,7 +700,6 @@ user_pref("dom.popup_allowed_events", "click dblclick mousedown pointerdown");
 /*** [SECTION 2600]: MISCELLANEOUS ***/
 user_pref("_user.js.parrot", "2600 syntax error: the parrot's run down the curtain!");
 /* 2601: prevent accessibility services from accessing your browser [RESTART]
- * [SETTING] Privacy & Security>Permissions>Prevent accessibility services from accessing your browser (FF80 or lower)
  * [1] https://support.mozilla.org/kb/accessibility-services ***/
 user_pref("accessibility.force_disabled", 1);
 /* 2602: disable sending additional analytics to web servers
@@ -730,7 +714,6 @@ user_pref("browser.pagethumbnails.capturing_disabled", true); // [HIDDEN PREF]
 user_pref("browser.uitour.enabled", false);
 user_pref("browser.uitour.url", "");
 /* 2607: disable various developer tools in browser context
- * [SETTING] Devtools>Advanced Settings>Enable browser chrome and add-on debugging toolboxes
  * [1] https://github.com/pyllyukko/user.js/issues/179#issuecomment-246468676 ***/
 user_pref("devtools.chrome.enabled", false);
 /* 2608: reset remote debugging to disabled
@@ -760,8 +743,7 @@ user_pref("network.IDN_show_punycode", true);
  *   It doesn't break "state separation" of browser content (by not sharing with OS, independent apps).
  *   It maintains disk avoidance and application data isolation. It's convenient. You can still save to disk.
  * CONS: You may prefer a different pdf reader for security reasons
- * CAVEAT: JS can still force a pdf to open in-browser by bundling its own code
- * [SETTING] General>Applications>Portable Document Format (PDF) ***/
+ * CAVEAT: JS can still force a pdf to open in-browser by bundling its own code ***/
 user_pref("pdfjs.disabled", false); // [DEFAULT: false]
 user_pref("pdfjs.enableScripting", false); // [FF86+]
 /* 2621: disable links launching Windows Store on Windows 8/8.1/10 [WINDOWS] ***/
@@ -775,8 +757,7 @@ user_pref("permissions.delegation.enabled", false);
 
 /** DOWNLOADS ***/
 /* 2651: enable user interaction for security by always asking where to download
- * [SETUP-CHROME] On Android this blocks longtapping and saving images
- * [SETTING] General>Downloads>Always ask you where to save files ***/
+ * [SETUP-CHROME] On Android this blocks longtapping and saving images ***/
 user_pref("browser.download.useDownloadDir", false);
 /* 2652: disable adding downloads to the system's "recent documents" list ***/
 user_pref("browser.download.manager.addToRecentDocs", false);
@@ -817,7 +798,7 @@ user_pref("_user.js.parrot", "2700 syntax error: the parrot's joined the bleedin
  * Option 5 with FPI enabled (4001) is ignored and not shown, and option 4 used instead
  * [NOTE] You can set cookie exceptions under site permissions or use an extension
  * [NOTE] Enforcing category to custom ensures ETP related prefs are always honored
- * [SETTING] Privacy & Security>Enhanced Tracking Protection>Custom>Cookies
+ * [SETTING] Privacy & Security > Privacy > Web Content > Accept cookies from sites
  * [1] https://blog.mozilla.org/security/2021/02/23/total-cookie-protection/ ***/
 user_pref("network.cookie.cookieBehavior", 2);
 user_pref("browser.contentblocking.category", "custom");
@@ -830,12 +811,9 @@ user_pref("network.cookie.thirdparty.nonsecureSessionOnly", true); // [FF58+]
 /* 2703: delete cookies and site data on close
  * 0=keep until they expire (default), 2=keep until you close Thunderbird
  * [NOTE] The setting below is disabled (but not changed) if you block all cookies (2701 = 2)
- * [SETTING] Privacy & Security>Cookies and Site Data>Delete cookies and site data when Thunderbird is closed ***/
+ * [SETTING] Privacy & Security > Privacy > Web Content > Keep until: "I close Thunderbird" ***/
 user_pref("network.cookie.lifetimePolicy", 2);
-/* 2710: enable Enhanced Tracking Protection (ETP) in all windows
- * [SETTING] Privacy & Security>Enhanced Tracking Protection>Custom>Tracking content
- * [SETTING] to add site exceptions: Urlbar>ETP Shield
- * [SETTING] to manage site exceptions: Options>Privacy & Security>Enhanced Tracking Protection>Manage Exceptions ***/
+/* 2710: enable Enhanced Tracking Protection (ETP) in all windows ***/
 user_pref("privacy.trackingprotection.enabled", true);
 /* 2711: enable various ETP lists ***/
 user_pref("privacy.trackingprotection.socialtracking.enabled", true);
@@ -860,8 +838,7 @@ user_pref("dom.storage_access.enabled", false);
 user_pref("dom.storage.next_gen", true); // [DEFAULT: true FF92+]
 
 /*** [SECTION 2800]: SHUTDOWN
-   * Sanitizing on shutdown is all or nothing. It does not use Managed Exceptions under
-     Privacy & Security>Delete cookies and site data when Thunderbird is closed (1681701)
+   * Sanitizing on shutdown is all or nothing (no exception can be set)
    * If you want to keep some sites' cookies (exception as "Allow") and optionally other site
      data but clear all the rest on close, then you need to set the "cookie" and optionally the
      "offlineApps" prefs below to false, and to set the cookie lifetime pref to 2 (2703)
@@ -873,7 +850,6 @@ user_pref("privacy.sanitize.sanitizeOnShutdown", true);
  * [NOTE] If "history" is true, downloads will also be cleared
  * [NOTE] Active Logins: does not refer to logins via cookies, but rather HTTP Basic Authentication [1]
  * [NOTE] Offline Website Data: localStorage, service worker cache, QuotaManager (IndexedDB, asm-cache)
- * [SETTING] Privacy & Security>History>Custom Settings>Clear history when Thunderbird closes>Settings
  * [1] https://en.wikipedia.org/wiki/Basic_access_authentication ***/
 user_pref("privacy.clearOnShutdown.cache", true);
 user_pref("privacy.clearOnShutdown.cookies", true);
@@ -1039,7 +1015,7 @@ user_pref("privacy.resistFingerprinting.letterboxing", true); // [HIDDEN PREF]
    // user_pref("privacy.resistFingerprinting.exemptedDomains", "*.example.invalid");
    // user_pref("privacy.resistFingerprinting.testGranularityMask", 0);
 /* 4510: enforce no system colors
- * [SETTING] General>Language and Appearance>Fonts and Colors>Colors>Use system colors ***/
+ * [SETTING] General > Language & Appearance > Colors... > Use system colors ***/
 user_pref("browser.display.use_system_colors", false); // [DEFAULT: false]
 /* 4511: enforce non-native widget theme
  * Security: removes/reduces system API calls, e.g. win32k API [1]
@@ -1051,7 +1027,6 @@ user_pref("widget.non-native-theme.enabled", true); // [DEFAULT: true]
  * 1=most recent window or tab, 2=new window, 3=new tab
  * Stops malicious window sizes and some screen resolution leaks.
  * You can still right-click a link and open in a new window
- * [SETTING] General>Tabs>Open links in tabs instead of new windows
  * [TEST] https://arkenfox.github.io/TZP/tzp.html#screen
  * [1] https://gitlab.torproject.org/tpo/applications/tor-browser/-/issues/9881 ***/
 user_pref("browser.link.open_newwindow", 3); // [DEFAULT: 3]
@@ -1073,7 +1048,6 @@ user_pref("_user.js.parrot", "5000 syntax error: the parrot's taken 'is last bow
  * In fact, PB mode limits or removes the ability to control some of these, and you need to quit
  * Thunderbird to clear them. PB is best used as a one off window (Menu>New Private Window) to provide
  * a temporary self-contained new session. Close all Private Windows to clear the PB mode session.
- * [SETTING] Privacy & Security>History>Custom Settings>Always use private browsing mode
  * [1] https://wiki.mozilla.org/Private_Browsing
  * [2] https://support.mozilla.org/kb/common-myths-about-private-browsing ***/
    // user_pref("browser.privatebrowsing.autostart", true);
@@ -1082,8 +1056,7 @@ user_pref("_user.js.parrot", "5000 syntax error: the parrot's taken 'is last bow
 user_pref("browser.cache.memory.enable", false);
 user_pref("browser.cache.memory.capacity", 0);
 /* 5003: disable saving passwords
- * [NOTE] This does not clear any passwords already saved
- * [SETTING] Privacy & Security>Logins and Passwords>Ask to save logins and passwords for websites ***/
+ * [NOTE] This does not clear any passwords already saved ***/
 user_pref("signon.rememberSignons", false);
 /* 5004: disable permissions manager from writing to disk [FF41+] [RESTART]
  * [NOTE] This means any permission changes are session only
@@ -1108,12 +1081,10 @@ user_pref("browser.sessionstore.resume_from_crash", false);
  * [1] https://bugzilla.mozilla.org/1281959 ***/
    // user_pref("browser.download.forbid_open_with", true);
 /* 5013: disable browsing and download history
- * [NOTE] We also clear history and downloads on exit (2803)
- * [SETTING] Privacy & Security>History>Custom Settings>Remember browsing and download history ***/
+ * [NOTE] We also clear history and downloads on exit (2803) ***/
 user_pref("places.history.enabled", false);
 /* 5016: discourage downloading to desktop
- * 0=desktop, 1=downloads (default), 2=last used
- * [SETTING] To set your default "downloads": General>Downloads>Save files to ***/
+ * 0=desktop, 1=downloads (default), 2=last used ***/
    // user_pref("browser.download.folderList", 2);
 
 /*** [SECTION 5500]: OPTIONAL HARDENING
@@ -1420,14 +1391,14 @@ user_pref("mailnews.display.date_senders_timezone", false);
 /* 9130: Address book collection [SETUP-FEATURE]
  * Disable Thunderbird internal address book email collection
  * Consider using CardBook extension instead (https://addons.thunderbird.net/addon/cardbook/)
- * [SETTING] Preferences>Composition>Addressing>Automatically add outgoing e-mail addresses...
- * [SETTING][CARDBOOK] CardBook>Preferences>Email>Collect Outgoing Email ***/
+ * [SETTING] Preferences > Composition > Addressing > Automatically add outgoing e-mail addresses...
+ * [SETTING][CARDBOOK] CardBook > Preferences > Email > Collect Outgoing Email ***/
    // user_pref("mail.collect_addressbook", "jsaddrbook://history.sqlite");
 user_pref("mail.collect_email_address_outgoing", false);
 /* 9131: Only use email addresses, without their Display Names [CARDBOOK] [SETUP-FEATURE]
  * By default, CardBook extension incorporates contacts display names in addresses fields.
  * This could leak sensitive information to all recipients.
- * [SETTING][CARDBOOK] CardBook>Preferences>Email>Sending Emails>Only use email addresses... ***/
+ * [SETTING][CARDBOOK] CardBook > Preferences > Email > Sending Emails > Only use email addresses... ***/
 user_pref("extensions.cardbook.useOnlyEmail", true);
 
 /*** [SECTION 9200]: EMAIL COMPOSITION (ENCODING / FORMAT / VIEW)
@@ -1441,11 +1412,9 @@ user_pref("_user.js.parrot", "9200 syntax error: this parrot has got no mail!");
  * [2] https://bugzilla.mozilla.org/show_bug.cgi?id=214729
  * [3] https://stackoverflow.com/a/28531705 ***/
 user_pref("intl.fallbackCharsetList.ISO-8859-1", "UTF-8");
-/* 9202: Set encoding of incoming mail
- * [SETTING] Display > Advanced > Fonts & Encodings > Incoming Mail ***/
+/* 9202: Set encoding of incoming mail ***/
 user_pref("mailnews.view_default_charset", "UTF-8");
-/* 9203: Set encoding of outgoing mail
- * [SETTING] Display > Advanced > Fonts & Encodings > Outgoing Mail ***/
+/* 9203: Set encoding of outgoing mail ***/
 user_pref("mailnews.send_default_charset", "UTF-8");
 /* 9204: Forces encoding in reply to be the default charset
  * [1] https://bugzilla.mozilla.org/show_bug.cgi?id=234958#c2 ***/
@@ -1471,7 +1440,7 @@ user_pref("mail.SpellCheckBeforeSend", false);
  * 3=Include both plain text and HTML message bodies in message)
  * Email that is HTML should also have plaintext multipart for plain text users.
  * [1] https://drewdevault.com/2016/04/11/Please-use-text-plain-for-emails.html
- * [SETTING] Edit > Preferences > Send Options > Send the message in both plain text and HTML ***/
+ * [SETTING] Account Settings > Composition & Addressing > Composition > Compose messages in HTML format ***/
 user_pref("mail.default_html_action", 1);
 /* 9212: Send email in plaintext unless expressly overridden.
  * [SETUP-FEATURE] Sometimes HTML is useful especially when used with Markdown Here
@@ -1483,7 +1452,7 @@ user_pref("mail.html_compose", false);
 user_pref("mail.identity.default.compose_html", false);
 /* 9213: Downgrade email to plaintext by default
  * [SETUP-FEATURE] Only use HTML email if you need it, see above
- * [SETTING] Edit > Preferences > Composition > Send Options > Send messages as plain-text if possible ***/
+ * [SETTING] Composition > Composition > HTML Style > Configure text format behavior > Send options... > Send messages as plain text if possible ***/
 user_pref("mailnews.sendformat.auto_downgrade", false);
 /* 9214: What classes can process incoming data.
  * (0=All classes (default), 1=Don't display HTML, 2=Don't display HTML and inline images,
@@ -1574,7 +1543,7 @@ user_pref("calendar.useragent.extra", "");
  * By default, extensive system detection would be performed to find user's current timezone.
  * Setting this preference to "UTC" should disable it.
  * You may also directly set it to your timezone, i.e. "Pacific/Fakaofo"
- * [SETTING] Edit>Preferences>Calendar>Calendar>Timezone ***/
+ * [SETTING] Calendar > Calendar > Timezone ***/
 user_pref("calendar.timezone.local", "UTC");  // [DEFAULT: ""]
 
 /** RSS ***/
