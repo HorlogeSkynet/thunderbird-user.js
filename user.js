@@ -519,6 +519,10 @@ user_pref("security.cert_pinning.enforcement_level", 2);
  * [2] https://blog.mozilla.org/security/tag/crlite/ ***/
 user_pref("security.remote_settings.crlite_filters.enabled", true);
 user_pref("security.pki.crlite_mode", 2);
+/* 1225: enable loading of client certificates stored in OS certificate storage
+  * Bug: this does **NOT** work for S/MIME [1]
+  * [1] https://bugzilla.mozilla.org/show_bug.cgi?id=1726442 ***/
+   // user_pref("security.osclientcerts.autoload", true);
 
 /** MIXED CONTENT ***/
 /* 1241: disable insecure passive content (such as images) on https pages [SETUP-WEB] ***/
