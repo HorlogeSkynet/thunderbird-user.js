@@ -1351,7 +1351,6 @@ user_pref("mail.showCondensedAddresses", false);
 /* 9112: Disable "Filelink for Large Attachments" feature
  * [1] https://support.thunderbird.net/kb/filelink-large-attachments ***/
 user_pref("mail.cloud_files.enabled", false);
-user_pref("mail.cloud_files.inserted_urls.footer.link", "");
 /* 9113: Don't hide cookies and passwords related (advanced?) buttons ***/
 user_pref("pref.privacy.disable_button.view_cookies", false);
 user_pref("pref.privacy.disable_button.cookie_exceptions", false);
