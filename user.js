@@ -1490,6 +1490,7 @@ user_pref("mail.inline_attachments", false);
  * [2] http://forums.mozillazine.org/viewtopic.php?f=39&t=2949521 */
 user_pref("mail.compose.big_attachments.notify", true); // [DEFAULT: true]
 /* 9219: Set big attachment size to warn at */
+user_pref("mail.compose.big_attachments.threshold_kb", 9220); // [DEFAULT: 5120]
    // user_pref("mailnews.message_warning_size", 20971520); // [DEFAULT: 20971520]
 
 /** VIEW ***/
