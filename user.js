@@ -1541,6 +1541,13 @@ user_pref("purple.conversations.im.send_typing", false);
    // user_pref("messenger.startup.action", 0);
 /* 9307: When chat is enabled, do not report idle status ***/
    // user_pref("messenger.status.reportIdle", false);
+/* 9308: Disable chat desktop notifications ***/
+   // user_pref("mail.chat.show_desktop_notifications", false);
+/* 9309: Decide how much information will be shown in chat notifications
+ * 0=Show all info (sender, chat message message preview),
+ * 1=Show sender's info only (not message preview),
+ * 2=No info (fill dummy values). ***/
+user_pref("mail.chat.notification_info", 2);
 
 /** CALENDAR ***/
 /* 9310: Disable calendar integration
