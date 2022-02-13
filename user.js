@@ -1127,6 +1127,8 @@ user_pref("javascript.options.jit_trustedprincipals", true); // [FF75+] [HIDDEN 
  * [2] https://spectrum.ieee.org/tech-talk/telecom/security/more-worries-over-the-security-of-web-assembly
  * [3] https://www.zdnet.com/article/half-of-the-websites-using-webassembly-use-it-for-malicious-purposes ***/
 user_pref("javascript.options.wasm", false);
+/* 5590: show a prompt when opening a link in external applications ***/
+user_pref("security.external_protocol_requires_permission", true);
 
 /*** [SECTION 6000]: DON'T TOUCH ***/
 user_pref("_user.js.parrot", "6000 syntax error: the parrot's 'istory!");
