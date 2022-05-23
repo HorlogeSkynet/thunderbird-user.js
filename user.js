@@ -1253,6 +1253,7 @@ user_pref("dom.event.clipboardevents.enabled", false);
 /*** [SECTION 8000]: DON'T BOTHER: NON-RFP
    [WHY] They are insufficient to help anti-fingerprinting and do more harm than good
    [WARNING] DO NOT USE with RFP. RFP already covers these and they can interfere
+   [NOTE] An empty User-Agent may break Microsoft Exchange OAuth2 login
 ***/
 user_pref("_user.js.parrot", "8000 syntax error: the parrot's crossed the Jordan");
 /* 8001: disable APIs ***/
