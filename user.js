@@ -1439,6 +1439,12 @@ user_pref("mailnews.reply_header_type", 1);
 user_pref("mailnews.reply_header_authorwrotesingle", "#1 wrote:");
    // user_pref("mailnews.reply_header_ondateauthorwrote", "On #2 #3, #1 wrote:");
    // user_pref("mailnews.reply_header_authorwroteondate", "#1 wrote on #2 #3:");
+/* 9206: Prevent spellchecking dictionary leakage through Content-Language header
+ * [1] https://bugzilla.mozilla.org/show_bug.cgi?id=1370217 ***/
+user_pref("mail.suppress_content_language", true);
+/* 9207: Sanitize Date header to convert date to UTC and round to closest minute
+ * [1] https://bugzilla.mozilla.org/show_bug.cgi?id=1603359 ***/
+user_pref("mail.sanitize_date_header", true);
 
 /** COMPOSITION ***/
 /* 9210: Check spelling before sending [SETUP-FEATURE]
