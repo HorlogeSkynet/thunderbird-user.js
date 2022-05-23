@@ -594,6 +594,9 @@ user_pref("network.http.referer.XOriginTrimmingPolicy", 2);
  * [NOTE] DNT is enforced with Enhanced Tracking Protection (2710)
  * [SETTING] Privacy & Security > Privacy > Web Content > Send websites a "Do Not Track" signal... ***/
 user_pref("privacy.donottrackheader.enabled", true);
+/* 1690: add emails custom headers
+  * [NOTE] The value of each header can be set in the compose window by clicking on the "double-arrow" drop-down ***/
+   // user_pref("mail.compose.other.header", "X-Custom-Header,X-Another-Custom-Header");
 
 /*** [SECTION 1700]: CONTAINERS
    Check out Temporary Containers [2], read the article [3], and visit the wiki/repo [4]
