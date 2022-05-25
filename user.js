@@ -594,9 +594,6 @@ user_pref("network.http.referer.XOriginTrimmingPolicy", 2);
  * [NOTE] DNT is enforced with Enhanced Tracking Protection (2710)
  * [SETTING] Privacy & Security > Privacy > Web Content > Send websites a "Do Not Track" signal... ***/
 user_pref("privacy.donottrackheader.enabled", true);
-/* 1690: add emails custom headers
-  * [NOTE] The value of each header can be set in the compose window by clicking on the "double-arrow" drop-down ***/
-   // user_pref("mail.compose.other.header", "X-Custom-Header,X-Another-Custom-Header");
 
 /*** [SECTION 1700]: CONTAINERS
    Check out Temporary Containers [2], read the article [3], and visit the wiki/repo [4]
@@ -1312,6 +1309,7 @@ user_pref("mailnews.start_page_override.mstone", "ignore"); // master switch
 /* RETURN RECEIPT BEHAVIOR ***/
    // user_pref("mail.mdn.report.enabled", false); // disable return receipt sending unconditionally
 /* CUSTOM HEADERS ***/
+   // user_pref("mail.compose.other.header", "X-Custom-Header,X-Another-Custom-Header"); // corresponding values can be set in compose window ("double-arrow" drop-down)
    // user_pref("mail.identity.id1.headers", "References, InReplyTo");
    // user_pref("mail.identity.id1.header.References", "References: <2ad46d80-c8ce-49a3-9896-16171788ac28@example.tld>\n <31ff00c2-b7cb-4063-beeb-a0bdd424c3a7@example1.tld>");
    // user_pref("mail.identity.id1.header.InReplyTo", "In-Reply-To: <31ff00c2-b7cb-4063-beeb-a0bdd424c3a7@example1.tld>");
