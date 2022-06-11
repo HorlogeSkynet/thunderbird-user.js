@@ -1482,7 +1482,7 @@ user_pref("mailnews.display.disallow_mime_handlers", 3);
  * [2] https://hg.mozilla.org/comm-central/rev/c1ef44a22eb2
  * [3] https://www.bucksch.org/1/projects/mozilla/108153/ ***/
 user_pref("mailnews.display.html_as", 3);
-/* 9216: Prefer to view as plaintext or html [SETUP-FEATURE]
+/* 9216: Prefer to view as plaintext or HTML [SETUP-FEATURE]
  * true=Display a message as plain text when there is both a HTML and a plain
  * text version of a message body
  * false=Display a message as HTML when there is both a HTML and a plain text
@@ -1591,7 +1591,7 @@ user_pref("rss.display.disallow_mime_handlers", 3);
  * [2] https://hg.mozilla.org/comm-central/rev/c1ef44a22eb2
  * [3] https://www.bucksch.org/1/projects/mozilla/108153/
 user_pref("rss.display.html_as", 1);
-/* 9322: Prefer to view as plaintext or html
+/* 9322: Prefer to view as plaintext or HTML
  * true=Display a message as plain text when there is both a HTML and a plain
  * text version of a message body
  * false=Display a message as HTML when there is both a HTML and a plain text
