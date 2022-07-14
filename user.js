@@ -206,6 +206,8 @@ user_pref("mail.instrumentation.userOptedIn", false);
  * [1] https://searchfox.org/comm-esr102/source/mail/base/content/specialTabs.js#1266 ***/
 user_pref("mail.rights.override", true);  // [DEFAULT: unset]
    // user_pref("mail.rights.version", 1)  // [DEFAULT: unset]
+/* 0372: allow Thunderbird usage without any configured email account [SETUP-INSTALL] ***/
+user_pref("app.use_without_mail_account", true);
 /* 0380: disable the unread message count badge on taskbar icon
  * [1] https://www.thunderbird.net/en-US/thunderbird/91.0.2/releasenotes/#whatsnew */
   // user_pref("mail.biff.show_badge", false); // [WINDOWS]
