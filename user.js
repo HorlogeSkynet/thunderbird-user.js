@@ -1383,6 +1383,10 @@ user_pref("mail.compose.big_attachments.notify", true); // [DEFAULT: true]
 /* 9219: Set big attachment size to warn at */
 user_pref("mail.compose.big_attachments.threshold_kb", 9220); // [DEFAULT: 5120]
    // user_pref("mailnews.message_warning_size", 20971520); // [DEFAULT: 20971520]
+/* 9220: Set public recipients number from which BCC is advised ***/
+   // user_pref("mail.compose.warn_public_recipients.threshold", 15); // [DEFAULT: 15]
+/* 9221: Show an alert if the warning above has not been addressed ***/
+user_pref("mail.compose.warn_public_recipients.aggressive", true);
 
 /** VIEW ***/
 /* 9230: Disable JavaScript
