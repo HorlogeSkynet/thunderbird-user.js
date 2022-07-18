@@ -1062,8 +1062,8 @@ user_pref("browser.cache.memory.capacity", 0);
 /* 5003: disable saving passwords
  * [NOTE] This does not clear any passwords already saved ***/
 user_pref("signon.rememberSignons", false);
-/* 5004: disable permissions manager from writing to disk [FF41+] [RESTART]
- * [NOTE] This means any permission changes are session only
+/* 5004: disable permissions manager from reading or writing to disk [FF41+] [RESTART]
+ * [SETUP-CHROME] This means any permission changes (cookie or mail remote content) are session only
  * [1] https://bugzilla.mozilla.org/967812 ***/
 user_pref("permissions.memory_only", true); // [HIDDEN PREF]
 /* 5005: disable intermediate certificate caching [FF41+] [RESTART]
