@@ -1446,6 +1446,8 @@ user_pref("mail.chat.notification_info", 2);
  * You may also directly set it to your timezone, i.e. "Pacific/Fakaofo"
  * [SETTING] Calendar > Calendar > Timezone ***/
 user_pref("calendar.timezone.local", "UTC");  // [DEFAULT: ""]
+/* 9313: Disable calendar service performing event "extraction" from email content ***/
+user_pref("calendar.extract.service.enabled", false);  // [DEFAULT: false]
 
 /** RSS ***/
 /** These features don't actually do anything as they aren't implemented
