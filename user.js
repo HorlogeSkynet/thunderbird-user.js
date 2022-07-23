@@ -206,6 +206,15 @@ user_pref("app.use_without_mail_account", true);
   // user_pref("mail.biff.show_badge", false); // [WINDOWS]
 /* 0381: show the number of "new" messages on taskbar icon (not the number of unread ones) ***/
   // user_pref("mail.biff.use_new_count_in_badge", true);
+/* 0390: disable new email alerts
+ * [SETTING] General > Incoming Mails > When new messages arrive > Show an alert ***/
+   // user_pref("mail.biff.show_alert", false);
+/* 0391: control the kind of information disclosed in new email alerts
+ * [SETTING] General > Incoming Mails > When new messages arrive > Show an alert > Customize... ***/
+user_pref("mail.biff.alert.show_preview", false);
+user_pref("mail.biff.alert.show_subject", false);
+user_pref("mail.biff.alert.show_sender", false);
+   // user_pref("mail.biff.alert.preview_length", 40);  // [HIDDEN PREF]
 
 /*** [SECTION 0400]: SAFE BROWSING (SB)
    SB has taken many steps to preserve privacy. If required, a full url is never sent
