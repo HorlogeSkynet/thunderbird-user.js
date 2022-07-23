@@ -1447,14 +1447,6 @@ user_pref("purple.conversations.im.send_typing", false);
 user_pref("mail.chat.notification_info", 2);
 
 /** CALENDAR ***/
-/* 9310: Disable calendar integration
- * [SETUP-FEATURE] Lightning calendar add-on is integrated in Thunderbird 38 and later.
- * Keeping this preference false allows us to properly show the opt-in/opt-out dialog
- * on new profiles fresh start, see [3].
- * [1] https://bugzilla.mozilla.org/show_bug.cgi?id=401779
- * [2] https://bugzilla.mozilla.org/show_bug.cgi?id=1130854
- * [3] https://bugzilla.mozilla.org/show_bug.cgi?id=1130852 ***/
-user_pref("mail.calendar-integration.opt-out", false);
 /* 9312: Set calendar timezone to avoid system detection [SETUP-INSTALL]
  * By default, extensive system detection would be performed to find user's current timezone.
  * Setting this preference to "UTC" should disable it.
