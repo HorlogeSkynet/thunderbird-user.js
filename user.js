@@ -150,7 +150,7 @@ user_pref("toolkit.telemetry.updatePing.enabled", false); // [FF56+]
 user_pref("toolkit.telemetry.bhrPing.enabled", false); // [FF57+] Background Hang Reporter
 user_pref("toolkit.telemetry.firstShutdownPing.enabled", false); // [FF57+]
 /* 0333: disable Telemetry Coverage
-  * [1] https://blog.mozilla.org/data/2018/08/20/effectively-measuring-search-in-firefox/ ***/
+ * [1] https://blog.mozilla.org/data/2018/08/20/effectively-measuring-search-in-firefox/ ***/
 user_pref("toolkit.telemetry.coverage.opt-out", true); // [HIDDEN PREF]
 user_pref("toolkit.coverage.opt-out", true); // [FF64+] [HIDDEN PREF]
 user_pref("toolkit.coverage.endpoint.base", "");
@@ -498,8 +498,8 @@ user_pref("security.cert_pinning.enforcement_level", 2);
 user_pref("security.remote_settings.crlite_filters.enabled", true);
 user_pref("security.pki.crlite_mode", 2);
 /* 1225: enable loading of client certificates stored in OS certificate storage
-  * Bug: this does **NOT** work for S/MIME [1]
-  * [1] https://bugzilla.mozilla.org/show_bug.cgi?id=1726442 ***/
+ * Bug: this does **NOT** work for S/MIME [1]
+ * [1] https://bugzilla.mozilla.org/show_bug.cgi?id=1726442 ***/
    // user_pref("security.osclientcerts.autoload", true);
 
 /** MIXED CONTENT ***/
