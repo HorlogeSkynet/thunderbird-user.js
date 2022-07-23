@@ -1332,25 +1332,25 @@ user_pref("mail.sanitize_date_header", true);
 /* 9210: Check spelling before sending [SETUP-FEATURE]
  * [1] https://bugzilla.mozilla.org/show_bug.cgi?id=667133 ***/
 user_pref("mail.SpellCheckBeforeSend", false);
-/* 9211: Behavior when sending HTML message [SETUP-FEATURE]
- * (0=Ask, 1=Send as plain text, 2=Send as HTML anyway,
- * 3=Include both plain text and HTML message bodies in message)
- * Email that is HTML should also have plaintext multipart for plain text users.
- * [1] https://drewdevault.com/2016/04/11/Please-use-text-plain-for-emails.html
- * [SETTING] Account Settings > Composition & Addressing > Composition > Compose messages in HTML format ***/
-user_pref("mail.default_html_action", 1);
-/* 9212: Send email in plaintext unless expressly overridden.
+/* 9212: Compose email in plaintext unless expressly overridden
  * [SETUP-FEATURE] Sometimes HTML is useful especially when used with Markdown Here
+ * [SETTING] Account Settings > Composition & Addressing > Composition > Compose messages in HTML format
  * [NOTE] Holding down shift when you click on "Write" will bypass
  * [1] http://kb.mozillazine.org/Plain_text_e-mail_%28Thunderbird%29
  * [2] https://support.mozilla.org/en-US/questions/1004181
  * [3] https://markdown-here.com ***/
 user_pref("mail.html_compose", false);
 user_pref("mail.identity.default.compose_html", false);
-/* 9213: Downgrade email to plaintext by default
- * [SETUP-FEATURE] Only use HTML email if you need it, see above
- * [SETTING] Composition > Composition > HTML Style > Configure text format behavior > Send options... > Send messages as plain text if possible ***/
-user_pref("mailnews.sendformat.auto_downgrade", true);
+/* 9213: Send only plaintext email by default
+ * [SETUP-FEATURE] Only use HTML email if you need it, see [1]
+ * Email that is HTML should also have plaintext multipart for plain text users.
+ * 0=auto (default, send only plain text if the message is free of any rich formatting
+   or inserted elements. Otherwise send both a HTML part and plain text alternative part)
+ * 1=plain text (only send a plain text part, losing any rich formatting or inserted elements)
+ * 2=HTML (only send a HTML part)
+ * 3=both (send both the HTML part and the plain text alternative part)
+ * [1] https://drewdevault.com/2016/04/11/Please-use-text-plain-for-emails.html ***/
+user_pref("mail.default_send_format", 1);
 /* 9214: What classes can process incoming data.
  * (0=All classes (default), 1=Don't display HTML, 2=Don't display HTML and inline images,
  * 3=Don't display HTML, inline images and some other uncommon types, 100=Use a hard coded list)
@@ -1552,6 +1552,17 @@ user_pref("security.csp.enable", true); // [DEFAULT: true]
    // user_pref("network.http.spdy.enabled.deps", false);
    // user_pref("network.http.spdy.enabled.http2", false);
    // user_pref("network.http.spdy.websockets", false); // [FF65+]
+// FF101
+// 9211: Behavior when sending HTML message
+   // (0=Ask, 1=Send as plain text, 2=Send as HTML anyway,
+   // 3=Include both plain text and HTML message bodies in message)
+   // Email that is HTML should also have plaintext multipart for plain text users.
+   // [1] https://drewdevault.com/2016/04/11/Please-use-text-plain-for-emails.html
+   // [-] https://bugzilla.mozilla.org/1727493
+user_pref("mail.default_html_action", 1);
+// 9213: Downgrade email to plaintext by default
+   // [-] https://bugzilla.mozilla.org/1727493
+user_pref("mailnews.sendformat.auto_downgrade", true);
 // FF102
    // 0901: set when Thunderbird should prompt for the primary password
    // 0=once per session (default), 1=every time it's needed, 2=after n minutes (0902)
