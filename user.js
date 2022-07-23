@@ -1455,8 +1455,6 @@ user_pref("mail.chat.notification_info", 2);
  * [2] https://bugzilla.mozilla.org/show_bug.cgi?id=1130854
  * [3] https://bugzilla.mozilla.org/show_bug.cgi?id=1130852 ***/
 user_pref("mail.calendar-integration.opt-out", false);
-/* 9311: Set user agent for calendar ***/
-user_pref("calendar.useragent.extra", "");
 /* 9312: Set calendar timezone to avoid system detection [SETUP-INSTALL]
  * By default, extensive system detection would be performed to find user's current timezone.
  * Setting this preference to "UTC" should disable it.
