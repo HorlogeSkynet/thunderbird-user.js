@@ -117,14 +117,7 @@ user_pref("spellchecker.dictionary", "en-US");
  * [1] https://bugzilla.mozilla.org/buglist.cgi?bug_id=867501,1629630 ***/
 user_pref("javascript.use_us_english_locale", true); // [HIDDEN PREF]
 
-/*** [SECTION 0300]: QUIETER BIRD
-     Starting in user.js v68, we only disable the auto-INSTALL of Thunderbird.
-     You still get prompts to update, in one click.
-     We have NEVER disabled auto-CHECKING, and highly discourage that.
-     There are many legitimate reasons to turn off auto-INSTALLS, including hijacked or monetized
-     extensions, time constraints, legacy issues, dev/testing, and fear of breakage/bugs. It is
-     still important to do updates for security reasons, please do so manually if you make changes.
-***/
+/*** [SECTION 0300]: QUIETER BIRD ***/
 user_pref("_user.js.parrot", "0300 syntax error: the parrot's not pinin' for the fjords!");
 /** RECOMMENDATIONS ***/
 /* 0320: disable recommendation pane in about:addons (uses Google Analytics) ***/
