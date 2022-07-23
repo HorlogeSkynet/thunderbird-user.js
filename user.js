@@ -208,9 +208,11 @@ user_pref("mail.rights.override", true);  // [DEFAULT: unset]
    // user_pref("mail.rights.version", 1)  // [DEFAULT: unset]
 /* 0372: allow Thunderbird usage without any configured email account [SETUP-INSTALL] ***/
 user_pref("app.use_without_mail_account", true);
-/* 0380: disable the unread message count badge on taskbar icon
+/* 0380: disable the new/unread message count badge on taskbar icon
  * [1] https://www.thunderbird.net/en-US/thunderbird/91.0.2/releasenotes/#whatsnew */
   // user_pref("mail.biff.show_badge", false); // [WINDOWS]
+/* 0381: show the number of "new" messages on taskbar icon (not the number of unread ones) ***/
+  // user_pref("mail.biff.use_new_count_in_badge", true);
 
 /*** [SECTION 0400]: SAFE BROWSING (SB)
    SB has taken many steps to preserve privacy. If required, a full url is never sent
