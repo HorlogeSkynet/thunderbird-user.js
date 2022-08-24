@@ -1299,6 +1299,7 @@ user_pref("mailnews.start_page_override.mstone", "ignore"); // master switch
    // user_pref("clipboard.autocopy", false); // disable autocopy default [LINUX]
 /* UX BEHAVIOR ***/
    // user_pref("general.autoScroll", false); // middle-click enabling auto-scrolling [DEFAULT: false on Linux]
+   // user_pref("mail.tabs.autoHide", true); // hides the tab bar if there is only one tab
    // user_pref("ui.key.menuAccessKey", 0); // disable alt key toggling the menu bar [RESTART]
 /* UX FEATURES ***/
    // user_pref("reader.parse-on-load.enabled", false); // Reader View
@@ -1343,9 +1344,6 @@ user_pref("mailnews.auto_config.addons_url","");
 user_pref("mail.provider.enabled", false);
 
 /** UI (User Interface) ***/
-/* 9110: Hide tab bar
- * false=Hides the tab bar if there is only one tab. (default) ***/
-user_pref("mail.tabs.autoHide", true);
 /* 9111: Show full email instead of just name from address book
  * true=Show just the display name for people in the address book (default)
  * false=Show both the email address and display name. ***/
