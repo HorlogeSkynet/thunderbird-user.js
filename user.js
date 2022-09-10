@@ -1410,6 +1410,9 @@ user_pref("mail.compose.big_attachments.threshold_kb", 9220); // [DEFAULT: 5120]
    // user_pref("mail.compose.warn_public_recipients.threshold", 15); // [DEFAULT: 15]
 /* 9221: Show an alert if the warning above has not been addressed ***/
 user_pref("mail.compose.warn_public_recipients.aggressive", true);
+/* 9222: Disable link previews
+ * [SETTING] Composition > Composition > Add link previews when pasting URLs ***/
+user_pref("mail.compose.add_link_preview", false); // [DEFAULT: false]
 
 /** VIEW ***/
 /* 9230: Disable JavaScript
