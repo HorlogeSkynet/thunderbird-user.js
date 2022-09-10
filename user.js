@@ -1365,6 +1365,7 @@ user_pref("mail.html_compose", false);
 user_pref("mail.identity.default.compose_html", false);
 /* 9213: Send only plaintext email by default
  * [SETUP-FEATURE] Only use HTML email if you need it, see [1]
+ * [SETTING] Composition > Composition > Sending Format
  * Email that is HTML should also have plaintext multipart for plain text users.
  * 0=auto (default, send only plain text if the message is free of any rich formatting
    or inserted elements. Otherwise send both a HTML part and plain text alternative part)
