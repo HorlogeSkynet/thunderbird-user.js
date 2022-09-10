@@ -1439,6 +1439,9 @@ user_pref("mail.phishing.detection.enabled", true);
 user_pref("mail.phishing.detection.disallow_form_actions", true);
 user_pref("mail.phishing.detection.ipaddresses", true);
 user_pref("mail.phishing.detection.mismatched_hosts", true);
+/* 9250: Disable remote content loading
+ * [SETTING] Privacy & Security > Privacy > Mail content > Allow remote content in messages ***/
+user_pref("mailnews.message_display.disable_remote_image", true); // [DEFAULT: true]
 
 /*** [SECTION 9300]: OTHER THUNDERBIRD COMPONENTS (CHAT / CALENDAR / RSS)
    Options that relate to other Thunderbird components such as the chat client, calendar and RSS)
