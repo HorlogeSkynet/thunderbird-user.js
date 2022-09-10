@@ -50,6 +50,7 @@
   2000: PLUGINS / MEDIA / WEBRTC
   2400: DOM (DOCUMENT OBJECT MODEL)
   2600: MISCELLANEOUS
+  2700: ETP (ENHANCED TRACKING PROTECTION)
   2800: SHUTDOWN & SANITIZING
   4500: RFP (RESIST FINGERPRINTING)
   5000: OPTIONAL OPSEC
@@ -719,6 +720,18 @@ user_pref("extensions.autoDisableScopes", 15); // [DEFAULT: 15]
 /* 2662: disable webextension restrictions on certain mozilla domains (you also need 4503) [FF60+]
  * [1] https://bugzilla.mozilla.org/buglist.cgi?bug_id=1384330,1406795,1415644,1453988 ***/
    // user_pref("extensions.webextensions.restrictedDomains", "");
+
+/*** [SECTION 2700]: ETP (ENHANCED TRACKING PROTECTION) ***/
+user_pref("_user.js.parrot", "2700 syntax error: the parrot's joined the bleedin' choir invisible!");
+/* 2702: disable ETP web compat features [FF93+]
+ * [SETUP-HARDEN] Includes skip lists, heuristics (SmartBlock) and automatic grants
+ * Opener and redirect heuristics are granted for 30 days, see [3]
+ * [1] https://blog.mozilla.org/security/2021/07/13/smartblock-v2/
+ * [2] https://hg.mozilla.org/mozilla-central/rev/e5483fd469ab#l4.12
+ * [3] https://developer.mozilla.org/en-US/docs/Web/Privacy/State_Partitioning#storage_access_heuristics ***/
+   // user_pref("privacy.antitracking.enableWebcompat", false);
+/* 2710: enable state partitioning of service workers [FF96+] ***/
+user_pref("privacy.partition.serviceWorkers", true);
 
 /*** [SECTION 2800]: SHUTDOWN & SANITIZING ***/
 user_pref("_user.js.parrot", "2800 syntax error: the parrot's bleedin' demised!");
