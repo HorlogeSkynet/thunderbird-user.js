@@ -212,10 +212,11 @@ user_pref("mail.rights.override", true);  // [DEFAULT: unset]
  * [SETTING] General > Incoming Mails > When new messages arrive > Show an alert ***/
    // user_pref("mail.biff.show_alert", false);
 /* 0391: control the kind of information disclosed in new email alerts
+ * These preferences MAY be appreciated in environments with inquisitive eyes wandering behind your screen.
  * [SETTING] General > Incoming Mails > When new messages arrive > Show an alert > Customize... ***/
-user_pref("mail.biff.alert.show_preview", false);
-user_pref("mail.biff.alert.show_subject", false);
-user_pref("mail.biff.alert.show_sender", false);
+   // user_pref("mail.biff.alert.show_preview", false);
+   // user_pref("mail.biff.alert.show_subject", false);
+   // user_pref("mail.biff.alert.show_sender", false);
    // user_pref("mail.biff.alert.preview_length", 40);  // [HIDDEN PREF]
 
 /*** [SECTION 0400]: SAFE BROWSING (SB)
