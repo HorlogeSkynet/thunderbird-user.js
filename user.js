@@ -579,9 +579,6 @@ user_pref("_user.js.parrot", "1700 syntax error: the parrot's bit the dust!");
  * https://wiki.mozilla.org/Security/Contextual_Identity_Project/Containers ***/
 user_pref("privacy.userContext.enabled", true);
 user_pref("privacy.userContext.ui.enabled", true);
-/* 1702: set behavior on "+ Tab" button to display container menu on left click [FF74+]
- * [NOTE] The menu is always shown on long press and right click ***/
-   // user_pref("privacy.userContext.newTabContainerOnLeftClick.enabled", true);
 
 /*** [SECTION 2000]: PLUGINS / MEDIA / WEBRTC ***/
 user_pref("_user.js.parrot", "2000 syntax error: the parrot's snuffed it!");
