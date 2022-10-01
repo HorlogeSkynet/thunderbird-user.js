@@ -62,7 +62,7 @@
   9100: THUNDERBIRD (AUTO CONFIG / UI / HEADERS / ADDRESS BOOK)
   9200: EMAIL COMPOSITION (ENCODING / FORMAT / VIEW)
   9300: OTHER THUNDERBIRD COMPONENTS (CHAT / CALENDAR / RSS)
-  9400: THUNDERBIRD ENCRYPTION (OPENGPG / GNUPG)
+  9400: THUNDERBIRD ENCRYPTION (OPENPGP / GNUPG)
   9999: DEPRECATED / REMOVED / LEGACY / RENAMED
 
 ******/
@@ -1520,12 +1520,16 @@ user_pref("rss.show.summary", 1);
  * 0=no action, 1=load web page in default browser, on select ***/
 user_pref("rss.message.loadWebPageOnSelect", 0);
 
-/*** [SECTION 9400]: THUNDERBIRD ENCRYPTION (OPENGPG / GNUPG)
+/*** [SECTION 9400]: THUNDERBIRD ENCRYPTION (OPENPGP / GNUPG)
    Options that relate to e-mail encryption in Thunderbird.
    [1] https://wiki.mozilla.org/Thunderbird:OpenPGP
    [2] https://support.mozilla.org/kb/openpgp-thunderbird-howto-and-faq
 ***/
 user_pref("_user.js.parrot", "9400 syntax error: this parrot is talking in codes!");
+
+/** OPENPGP ***/
+/* 9400: disable OpenPGP "encryption is possible" reminder ***/
+   // user_pref("mail.openpgp.remind_encryption_possible", false); // [TB102+]
 
 /** GNUPG ***/
 /* 9409: Allow the use of external GnuPG
