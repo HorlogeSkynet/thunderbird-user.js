@@ -50,8 +50,9 @@
   2000: PLUGINS / MEDIA / WEBRTC
   2400: DOM (DOCUMENT OBJECT MODEL)
   2600: MISCELLANEOUS
-  2700: ETP (ENHANCED TRACKING PROTECTION)
+  2700: PERSISTENT STORAGE & ETP (ENHANCED TRACKING PROTECTION)
   2800: SHUTDOWN & SANITIZING
+  4000: FPI (FIRST PARTY ISOLATION)
   4500: RFP (RESIST FINGERPRINTING)
   5000: OPTIONAL OPSEC
   5500: OPTIONAL HARDENING
@@ -572,6 +573,9 @@ user_pref("network.http.referer.XOriginPolicy", 2);
 /* 1602: control the amount of cross-origin information to send [FF52+]
  * 0=send full URI (default), 1=scheme+host+port+path, 2=scheme+host+port ***/
 user_pref("network.http.referer.XOriginTrimmingPolicy", 2);
+/* 1603: enable the DNT (Do Not Track) HTTP header
+ * [SETTING] Privacy & Security > Privacy > Web Content > Send websites a "Do Not Track" signal... ***/
+user_pref("privacy.donottrackheader.enabled", true);
 
  /*** [SECTION 1700]: CONTAINERS ***/
 user_pref("_user.js.parrot", "1700 syntax error: the parrot's bit the dust!");
@@ -719,16 +723,80 @@ user_pref("extensions.autoDisableScopes", 15); // [DEFAULT: 15]
  * [1] https://bugzilla.mozilla.org/buglist.cgi?bug_id=1384330,1406795,1415644,1453988 ***/
    // user_pref("extensions.webextensions.restrictedDomains", "");
 
-/*** [SECTION 2700]: ETP (ENHANCED TRACKING PROTECTION) ***/
+/*** [SECTION 2700]: PERSISTENT STORAGE & ETP (ENHANCED TRACKING PROTECTION)
+   Data SET by websites including
+          cookies : profile\cookies.sqlite
+     localStorage : profile\webappsstore.sqlite
+        indexedDB : profile\storage\default
+   serviceWorkers :
+   [NOTE] indexedDB and serviceWorkers are not available in Private Browsing Mode
+   [NOTE] Blocking cookies also blocks websites access to: localStorage (incl. sessionStorage),
+   indexedDB, sharedWorker, and serviceWorker (and therefore service worker cache and notifications)
+   If you set a site exception for cookies (either "Allow" or "Allow for Session") then they become
+   accessible to websites except shared/service workers where the cookie setting must be "Allow"
+
+   [NOTE] As Thunderbird lacks of ETP Strict Mode support at the moment, we still enable FPI (4000),
+   have to deal with persistent storage here and enable state partitioning of service workers (2790)
+***/
 user_pref("_user.js.parrot", "2700 syntax error: the parrot's joined the bleedin' choir invisible!");
-/* 2702: disable ETP web compat features [FF93+]
+/* 2701: disable or isolate 3rd-party cookies and site-data [SETUP-WEB]
+ * 0 = Accept cookies and site data
+ * 1 = (Block) All third-party cookies
+ * 2 = (Block) All cookies
+ * 3 = (Block) Cookies from unvisited websites
+ * 4 = (Block) Cross-site tracking cookies (default)
+ * 5 = (Isolate All) Cross-site cookies (TCP: Total Cookie Protection / dFPI: dynamic FPI) [1] (FF86+)
+ * Option 5 with FPI enabled (4001) is ignored and not shown, and option 4 used instead
+ * [NOTE] You can set cookie exceptions under site permissions or use an extension
+ * [NOTE] Enforcing category to custom ensures ETP related prefs are always honored
+ * [SETTING] Privacy & Security > Privacy > Web Content > Accept cookies from sites
+ * [1] https://blog.mozilla.org/security/2021/02/23/total-cookie-protection/ ***/
+user_pref("network.cookie.cookieBehavior", 2);
+/* 2702: set third-party cookies (if enabled, see 2701) to session-only
+ * [NOTE] .sessionOnly overrides .nonsecureSessionOnly except when .sessionOnly=false and
+ * .nonsecureSessionOnly=true. This allows you to keep HTTPS cookies, but session-only HTTP ones
+ * [1] https://feeding.cloud.geek.nz/posts/tweaking-cookies-for-privacy-in-firefox/ ***/
+user_pref("network.cookie.thirdparty.sessionOnly", true);
+user_pref("network.cookie.thirdparty.nonsecureSessionOnly", true); // [FF58+]
+/* 2703: delete cookies and site data on close
+ * 0=keep until they expire (default), 2=keep until you close Thunderbird
+ * [NOTE] The setting below is disabled (but not changed) if you block all cookies (2701 = 2)
+ * [SETTING] Privacy & Security > Privacy > Web Content > Keep until: "I close Thunderbird" ***/
+user_pref("network.cookie.lifetimePolicy", 2);
+/* 2710: enable Enhanced Tracking Protection (ETP) in all windows ***/
+user_pref("privacy.trackingprotection.enabled", true);
+/* 2711: enable various ETP lists ***/
+user_pref("privacy.trackingprotection.socialtracking.enabled", true);
+user_pref("privacy.trackingprotection.cryptomining.enabled", true); // [DEFAULT: true]
+user_pref("privacy.trackingprotection.fingerprinting.enabled", true); // [DEFAULT: true]
+/* 2712: disable ETP web compat features [FF93+]
  * [SETUP-HARDEN] Includes skip lists, heuristics (SmartBlock) and automatic grants
  * Opener and redirect heuristics are granted for 30 days, see [3]
  * [1] https://blog.mozilla.org/security/2021/07/13/smartblock-v2/
  * [2] https://hg.mozilla.org/mozilla-central/rev/e5483fd469ab#l4.12
  * [3] https://developer.mozilla.org/en-US/docs/Web/Privacy/State_Partitioning#storage_access_heuristics ***/
    // user_pref("privacy.antitracking.enableWebcompat", false);
-/* 2710: enable state partitioning of service workers [FF96+] ***/
+/* 2720: customize ETP settings (as Strict Mode is not available) */
+user_pref("network.http.referer.disallowCrossSiteRelaxingDefault", true); // [DEFAULT: true]
+user_pref("network.http.referer.disallowCrossSiteRelaxingDefault.top_navigation", true); // [DEFAULT: true FF100+]
+user_pref("privacy.partition.network_state.ocsp_cache", true);
+user_pref("privacy.query_stripping.enabled", true); // [FF101+]
+/* 2740: disable service worker cache and cache storage
+ * [NOTE] We clear service worker cache on exit (2811)
+ * [1] https://w3c.github.io/ServiceWorker/#privacy ***/
+user_pref("dom.caches.enabled", false);
+/* 2750: disable Storage API [FF51+]
+ * The API gives sites the ability to find out how much space they can use, how much
+ * they are already using, and even control whether or not they need to be alerted
+ * before the user agent disposes of site data in order to make room for other things.
+ * [1] https://developer.mozilla.org/docs/Web/API/StorageManager
+ * [2] https://developer.mozilla.org/docs/Web/API/Storage_API
+ * [3] https://blog.mozilla.org/l10n/2017/03/07/firefox-l10n-report-aurora-54/ ***/
+user_pref("dom.storageManager.enabled", false);
+/* 2755: disable Storage Access API [FF65+]
+ * [1] https://developer.mozilla.org/docs/Web/API/Storage_Access_API ***/
+user_pref("dom.storage_access.enabled", false); // [DEFAULT: false]
+/* 2790: enable state partitioning of service workers [FF96+] ***/
 user_pref("privacy.partition.serviceWorkers", true);
 
 /*** [SECTION 2800]: SHUTDOWN & SANITIZING ***/
@@ -792,6 +860,46 @@ user_pref("privacy.cpd.cookies", true);
  * [NOTE] Values 5 (last 5 minutes) and 6 (last 24 hours) are not listed in the dropdown,
  * which will display a blank value, and are not guaranteed to work ***/
 user_pref("privacy.sanitize.timeSpan", 0);
+
+/*** [SECTION 4000]: FPI (FIRST PARTY ISOLATION)
+   1278037 - indexedDB (FF51+)
+   1277803 - favicons (FF52+)
+   1264562 - OCSP cache (FF52+)
+   1268726 - Shared Workers (FF52+)
+   1316283 - SSL session cache (FF52+)
+   1317927 - media cache (FF53+)
+   1323644 - HSTS and HPKP (FF54+)
+   1334690 - HTTP Alternative Services (FF54+)
+   1334693 - SPDY/HTTP2 (FF55+)
+   1337893 - DNS cache (FF55+)
+   1344170 - blob: URI (FF55+)
+   1300671 - data:, about: URLs (FF55+)
+   1473247 - IP addresses (FF63+)
+   1542309 - top-level domain URLs when host is in the public suffix list (FF68+)
+   1506693 - pdfjs range-based requests (FF68+)
+   1330467 - site permissions (FF69+)
+   1534339 - IPv6 (FF73+)
+   1721858 - WebSocket (FF92+)
+***/
+user_pref("_user.js.parrot", "4000 syntax error: the parrot's pegged out");
+/* 4001: enable First Party Isolation [FF51+]
+ * [SETUP-WEB] Breaks some cross-origin logins
+ * [1] https://bugzilla.mozilla.org/buglist.cgi?bug_id=1260931,1299996 ***/
+user_pref("privacy.firstparty.isolate", true);
+/* 4002: enforce FPI restriction for window.opener [FF54+]
+ * [NOTE] Setting this to false may reduce the breakage in 4001
+ * FF65+ blocks postMessage with targetOrigin "*" if originAttributes don't match. But
+ * to reduce breakage it ignores the 1st-party domain (FPD) originAttribute [2][3]
+ * The 2nd pref removes that limitation and will only allow communication if FPDs also match
+ * [1] https://bugzilla.mozilla.org/1319773#c22
+ * [2] https://bugzilla.mozilla.org/1492607
+ * [3] https://developer.mozilla.org/docs/Web/API/Window/postMessage ***/
+user_pref("privacy.firstparty.isolate.restrict_opener_access", true); // [DEFAULT: true]
+user_pref("privacy.firstparty.isolate.block_post_message", true);
+/* 4003: enable scheme with FPI [FF78+]
+ * [NOTE] Experimental: existing data and site permissions are incompatible
+ * and some site exceptions may not work e.g. HTTPS-only mode (1244) ***/
+user_pref("privacy.firstparty.isolate.use_site", true);
 
 /*** [SECTION 4500]: RFP (RESIST FINGERPRINTING)
    RFP covers a wide range of ongoing fingerprinting solutions.
@@ -1014,10 +1122,6 @@ user_pref("network.http.referer.spoofSource", false); // [DEFAULT: false]
 /* 6004: enforce a security delay on some confirmation dialogs such as install, open/save
  * [1] https://www.squarefree.com/2004/07/01/race-conditions-in-security-dialogs/ ***/
 user_pref("security.dialog_enable_delay", 1000); // [DEFAULT: 1000]
-/* 6008: enforce no First Party Isolation [FF51+]
- * [WARNING] Replaced with network partitioning (FF85+) and TCP (2701),
- * and enabling FPI disables those. FPI is no longer maintained ***/
-user_pref("privacy.firstparty.isolate", false); // [DEFAULT: false]
 /* 6009: enforce SmartBlock shims [FF81+]
  * In FF96+ these are listed in about:compat
  * [1] https://blog.mozilla.org/security/2021/03/23/introducing-smartblock/ ***/
@@ -1034,15 +1138,7 @@ user_pref("extensions.webcompat-reporter.enabled", false); // [DEFAULT: false]
 user_pref("security.pki.sha1_enforcement_level", 1); // [DEFAULT: 1 FF102+]
 /* 6050: prefsCleaner: reset items removed from arkenfox FF92+ ***/
    // user_pref("browser.urlbar.trimURLs", "");
-   // user_pref("dom.caches.enabled", "");
-   // user_pref("dom.storageManager.enabled", "");
-   // user_pref("dom.storage_access.enabled", "");
    // user_pref("dom.targetBlankNoOpener.enabled", "");
-   // user_pref("network.cookie.thirdparty.sessionOnly", "");
-   // user_pref("network.cookie.thirdparty.nonsecureSessionOnly", "");
-   // user_pref("privacy.firstparty.isolate.block_post_message", "");
-   // user_pref("privacy.firstparty.isolate.restrict_opener_access", "");
-   // user_pref("privacy.firstparty.isolate.use_site", "");
    // user_pref("privacy.window.name.update.enabled", "");
    // user_pref("security.insecure_connection_text.enabled", "");
 
@@ -1113,20 +1209,6 @@ user_pref("dom.event.clipboardevents.enabled", false);
  * [WHY] It can compromise security. System addons ship with prefs, use those ***/
    // user_pref("extensions.systemAddon.update.enabled", false); // [FF62+]
    // user_pref("extensions.systemAddon.update.url", ""); // [FF44+]
-/* 7015: enable the DNT (Do Not Track) HTTP header
- * [WHY] DNT is enforced with Tracking Protection which is used in ETP Strict (2701) ***/
-   // user_pref("privacy.donottrackheader.enabled", true);
-/* 7016: customize ETP settings
- * [WHY] Arkenfox only supports strict (2701) which sets these at runtime ***/
-   // user_pref("network.cookie.cookieBehavior", 5);
-   // user_pref("network.http.referer.disallowCrossSiteRelaxingDefault", true);
-   // user_pref("network.http.referer.disallowCrossSiteRelaxingDefault.top_navigation", true); // [FF100+]
-   // user_pref("privacy.partition.network_state.ocsp_cache", true);
-   // user_pref("privacy.query_stripping.enabled", true); // [FF101+] [ETP FF102+]
-   // user_pref("privacy.trackingprotection.enabled", true);
-   // user_pref("privacy.trackingprotection.socialtracking.enabled", true);
-   // user_pref("privacy.trackingprotection.cryptomining.enabled", true); // [DEFAULT: true]
-   // user_pref("privacy.trackingprotection.fingerprinting.enabled", true); // [DEFAULT: true]
 /* 7017: disable service workers
  * [WHY] Already isolated (FF96+) with TCP (2701) behind a pref (2710)
  * or blocked with TCP in 3rd parties (FF95 or lower) ***/
