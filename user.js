@@ -1,7 +1,7 @@
 /******
 * name: thunderbird user.js
-* date: 28 September 2022
-* version: v102.0
+* date: 2 October 2022
+* version: v102.1
 * url: https://github.com/HorlogeSkynet/thunderbird-user.js
 * license: MIT (https://github.com/HorlogeSkynet/thunderbird-user.js/blob/master/LICENSE)
 
