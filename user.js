@@ -490,7 +490,8 @@ user_pref("security.family_safety.mode", 0);
 /* 1223: enable strict PKP (Public Key Pinning)
  * 0=disabled, 1=allow user MiTM (default; such as your antivirus), 2=strict
  * [SETUP-WEB] MOZILLA_PKIX_ERROR_KEY_PINNING_FAILURE: If you rely on an AV (antivirus) to protect
- * your web browsing by inspecting ALL your web traffic, then override to current default ***/
+ * your web browsing by inspecting ALL your web traffic, then override to current default
+ * [NOTE] It needs to be set to 1 when connecting to the ProtonMail Bridge for the first time ***/
 user_pref("security.cert_pinning.enforcement_level", 2);
 /* 1224: enable CRLite [FF73+]
  * 0 = disabled
