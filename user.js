@@ -1038,8 +1038,8 @@ user_pref("_user.js.parrot", "5000 syntax error: the parrot's taken 'is last bow
 user_pref("browser.cache.memory.enable", false);
 user_pref("browser.cache.memory.capacity", 0);
 /* 5003: disable saving passwords
- * [NOTE] This does not clear any passwords already saved ***/
-user_pref("signon.rememberSignons", false);
+ * [NOTE] This does not clear any already saved passwords and will make TB ask for it every time ***/
+   // user_pref("signon.rememberSignons", false);
 /* 5004: disable permissions manager from reading or writing to disk [FF41+] [RESTART]
  * [SETUP-CHROME] This means any permission changes (cookie or mail remote content) are session only
  * [1] https://bugzilla.mozilla.org/967812 ***/
