@@ -204,6 +204,8 @@ user_pref("mail.rights.override", true);  // [DEFAULT: unset]
 /* 0372: allow Thunderbird usage without any configured email account [SETUP-INSTALL]
  * [NOTE] Only enable this if you don't plan to use emails at all and want to hide the account setup ***/
    // user_pref("app.use_without_mail_account", true);
+/* 0373: disable warning when customizing "From address" ***/
+   // user_pref("mail.compose.warned_about_customize_from", true);
 /* 0380: disable the new/unread message count badge on taskbar icon
  * [1] https://www.thunderbird.net/en-US/thunderbird/91.0.2/releasenotes/#whatsnew */
   // user_pref("mail.biff.show_badge", false); // [WINDOWS]
