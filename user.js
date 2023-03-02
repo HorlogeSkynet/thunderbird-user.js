@@ -761,11 +761,6 @@ user_pref("network.cookie.cookieBehavior", 2);
  * [1] https://feeding.cloud.geek.nz/posts/tweaking-cookies-for-privacy-in-firefox/ ***/
 user_pref("network.cookie.thirdparty.sessionOnly", true);
 user_pref("network.cookie.thirdparty.nonsecureSessionOnly", true); // [FF58+]
-/* 2703: delete cookies and site data on close
- * 0=keep until they expire (default), 2=keep until you close Thunderbird
- * [NOTE] The setting below is disabled (but not changed) if you block all cookies (2701 = 2)
- * [SETTING] Privacy & Security > Privacy > Web Content > Keep until: "I close Thunderbird" ***/
-user_pref("network.cookie.lifetimePolicy", 2);
 /* 2710: enable Enhanced Tracking Protection (ETP) in all windows ***/
 user_pref("privacy.trackingprotection.enabled", true);
 /* 2711: enable various ETP lists ***/
