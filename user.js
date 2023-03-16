@@ -1454,7 +1454,7 @@ user_pref("mail.identity.default.compose_html", false);
  * 2=HTML (only send a HTML part)
  * 3=both (send both the HTML part and the plain text alternative part)
  * [1] https://drewdevault.com/2016/04/11/Please-use-text-plain-for-emails.html ***/
-user_pref("mail.default_send_format", 1);
+user_pref("mail.default_send_format", 3);
 /* 9214: What classes can process incoming data.
  * (0=All classes (default), 1=Don't display HTML, 2=Don't display HTML and inline images,
  * 3=Don't display HTML, inline images and some other uncommon types, 100=Use a hard coded list)
