@@ -200,7 +200,7 @@ user_pref("mail.instrumentation.userOptedIn", false);
  * true=never show the notification
  * [1] https://searchfox.org/comm-esr102/source/mail/base/content/specialTabs.js#1266 ***/
 user_pref("mail.rights.override", true);  // [DEFAULT: unset]
-   // user_pref("mail.rights.version", 1)  // [DEFAULT: unset]
+   // user_pref("mail.rights.version", 1);  // [DEFAULT: unset]
 /* 0372: allow Thunderbird usage without any configured email account [SETUP-INSTALL]
  * [NOTE] Only enable this if you don't plan to use emails at all and want to hide the account setup ***/
    // user_pref("app.use_without_mail_account", true);
