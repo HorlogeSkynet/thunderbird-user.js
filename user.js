@@ -1429,9 +1429,9 @@ user_pref("mail.suppress_content_language", true);
 user_pref("mail.sanitize_date_header", true);
 
 /** COMPOSITION ***/
-/* 9210: Check spelling before sending [SETUP-FEATURE]
+/* 9210: Check spelling before sending
  * [1] https://bugzilla.mozilla.org/show_bug.cgi?id=667133 ***/
-user_pref("mail.SpellCheckBeforeSend", false);
+   // user_pref("mail.SpellCheckBeforeSend", false);
 /* 9212: Compose email in plaintext unless expressly overridden
  * [SETUP-FEATURE] Sometimes HTML is useful especially when used with Markdown Here
  * [SETTING] Account Settings > Composition & Addressing > Composition > Compose messages in HTML format
