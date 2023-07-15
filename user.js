@@ -1477,6 +1477,7 @@ user_pref("mailnews.display.prefer_plaintext", false);
  * true=Show inlinable attachments (text, images, messages) after the message.
  * false=Do not display any attachments with the message ***/
 user_pref("mail.inline_attachments", false);
+   // user_pref("mail.inline_attachments.text", false);
 /* 9218: Big attachment warning
  * [1] https://support.mozilla.org/en-US/questions/1081046
  * [2] http://forums.mozillazine.org/viewtopic.php?f=39&t=2949521 */
