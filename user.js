@@ -1468,6 +1468,7 @@ user_pref("mailnews.display.disallow_mime_handlers", 3);
  * [2] https://hg.mozilla.org/comm-central/rev/c1ef44a22eb2
  * [3] https://www.bucksch.org/1/projects/mozilla/108153/ ***/
 user_pref("mailnews.display.html_as", 3);
+user_pref("mail.html_sanitize.drop_conditional_css", true); // [DEFAULT: true]
 /* 9216: Prefer to view as plaintext or HTML [SETUP-FEATURE]
  * true=Display a message as plain text when there is both a HTML and a plain
  * text version of a message body
