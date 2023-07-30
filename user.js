@@ -1,7 +1,7 @@
 /******
 * name: thunderbird user.js
-* date: 6 March 2023
-* version: v102.2
+* date: 30 July 2023
+* version: v115.0-beta1
 * url: https://github.com/HorlogeSkynet/thunderbird-user.js
 * license: MIT (https://github.com/HorlogeSkynet/thunderbird-user.js/blob/master/LICENSE)
 
@@ -431,6 +431,8 @@ user_pref("browser.sessionstore.privacy_level", 2);
  * Increasing this can help on older machines and some websites, as well as reducing writes [1]
  * [1] https://bugzilla.mozilla.org/1304389 ***/
 user_pref("browser.sessionstore.interval", 30000); // [DEFAULT: 15000]
+/* 1901: disable disk cache for messages not in offline store */
+user_pref("mail.imap.use_disk_cache2", false);
 
 /*** [SECTION 1200]: HTTPS (SSL/TLS / OCSP / CERTS / HPKP)
    Your cipher and other settings can be used in server side fingerprinting
@@ -1066,6 +1068,11 @@ user_pref("places.history.enabled", false);
 /* 5016: discourage downloading to desktop
  * 0=desktop, 1=downloads (default), 2=last used ***/
    // user_pref("browser.download.folderList", 2);
+/* 5901: Enforce Private Browsing for OAuth sign-in
+ * Providers may expect a device identifier from the browser, which could cause issues with PB. As
+ * many users could suffer from this we keep this it disabled, feel free to switch it on if yours
+ * supports it. */
+   // user_pref("mailnews.oauth.usePrivateBrowser", true);
 
 /*** [SECTION 5500]: OPTIONAL HARDENING
    Thunderbird-User.JS maintainer here :
@@ -1317,11 +1324,14 @@ user_pref("_user.js.parrot", "9100 syntax error: this parrot is blind!");
  * These options disable auto-configuration of mail servers in Thunderbird.
  * Such settings require a query to Mozilla which could have privacy implications
  * if the user wishes to keep the existence of the mail provider private.
+ * We also enforce (valid) SSL/TLS connections if auto-configuration happens to be enabled.
  * [1] https://developer.mozilla.org/en-US/docs/Mozilla/Thunderbird/Autoconfiguration ***/
 user_pref("mailnews.auto_config.guess.enabled", false);
 user_pref("mailnews.auto_config.fetchFromISP.enabled", false);
 user_pref("mailnews.auto_config.fetchFromISP.sendEmailAddress", false);
 user_pref("mailnews.auto_config.fetchFromExchange.enabled", false);
+user_pref("mailnews.auto_config.guess.sslOnly", true);
+user_pref("mailnews.auto_config.guess.requireGoodCert", true); // [DEFAULT: true]
 user_pref("mailnews.auto_config_url", "");
 user_pref("mailnews.auto_config.addons_url","");
 /* 9102: Disable account provisioning [SETUP-INSTALL]
@@ -1377,6 +1387,9 @@ user_pref("mailnews.display.date_senders_timezone", false);
  * "Received" header. Set the following preference. New messages will show the time the message
  * was received, rather than when it was sent. ***/
    // user_pref("mailnews.use_received_date", true);
+/* 9126: Send minimal User-Agent in outgoing email messages (default) */
+user_pref("mailnews.headers.sendUserAgent", true);
+user_pref("mailnews.headers.useMinimalUserAgent", true);
 
 /** ADDRESS BOOK ***/
 /* 9130: Address book collection [SETUP-FEATURE]
