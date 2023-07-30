@@ -1411,18 +1411,6 @@ user_pref("extensions.cardbook.useOnlyEmail", true);
 user_pref("_user.js.parrot", "9200 syntax error: this parrot has got no mail!");
 
 /** ENCODING ***/
-/* 9201: Prevent fallback encoding to windows-1252, prefer 7bit or 8bit UTF-8
- * [1] http://forums.mozillazine.org/viewtopic.php?f=28&t=267341
- * [2] https://bugzilla.mozilla.org/show_bug.cgi?id=214729
- * [3] https://stackoverflow.com/a/28531705 ***/
-user_pref("intl.fallbackCharsetList.ISO-8859-1", "UTF-8");
-/* 9202: Set encoding of incoming mail ***/
-user_pref("mailnews.view_default_charset", "UTF-8");
-/* 9203: Set encoding of outgoing mail ***/
-user_pref("mailnews.send_default_charset", "UTF-8");
-/* 9204: Forces encoding in reply to be the default charset
- * [1] https://bugzilla.mozilla.org/show_bug.cgi?id=234958#c2 ***/
-user_pref("mailnews.reply_in_default_charset", true);
 /* 9205: Avoid information leakage in reply header
  * Reply header may contain sensitive information about system locale (date and/or language)
  * 0=no header
