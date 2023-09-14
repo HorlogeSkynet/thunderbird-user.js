@@ -39,4 +39,4 @@ Also be aware that this `user.js` is made specifically for Thunderbird and is on
 
 * [Privacy Handbuch](https://www.privacy-handbuch.de/handbuch_31p.htm)
 * [Privacy Haters](http://r-36.net/scm/privacy-haters/file/README.md.html)
-* [12bytes.org's user-overrides.js](https://codeberg.org/12bytes.org/thunderbird-user.js-supplement)
+* [12bytes's user-overrides.js](https://codeberg.org/12bytes/thunderbird-user.js-supplement)
