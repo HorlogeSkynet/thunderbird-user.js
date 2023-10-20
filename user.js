@@ -198,6 +198,12 @@ user_pref("mail.rights.override", true);  // [DEFAULT: unset]
    // user_pref("app.use_without_mail_account", true);
 /* 0373: disable warning when customizing "From address" ***/
    // user_pref("mail.compose.warned_about_customize_from", true);
+/* 0374: prevent donation appeal page opening on fresh profiles
+ * $url Web page is opened if $viewed is lower than $version (and 0330 policy bypass notification is disabled)
+ * [1] https://searchfox.org/comm-esr115/source/mail/base/content/messenger.js#455 ***/
+   // user_pref("app.donation.eoy.version", 2);
+user_pref("app.donation.eoy.version.viewed", 999);
+   // user_pref("app.donation.eoy.url", "https://www.thunderbird.net/thunderbird/115.0/appeal/");
 /* 0380: disable the new/unread message count badge on taskbar icon
  * [1] https://www.thunderbird.net/en-US/thunderbird/91.0.2/releasenotes/#whatsnew */
   // user_pref("mail.biff.show_badge", false); // [WINDOWS]
