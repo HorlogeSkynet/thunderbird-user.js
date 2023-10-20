@@ -120,8 +120,10 @@ user_pref("extensions.htmlaboutaddons.recommendations.enabled", false);
 /** TELEMETRY ***/
 /* 0330: disable new data submission [FF41+]
  * If disabled, no policy is shown or upload takes place, ever
- * [1] https://bugzilla.mozilla.org/1195552 ***/
+ * [1] https://bugzilla.mozilla.org/1195552
+ * [2] https://searchfox.org/comm-esr115/source/mail/components/telemetry/README.md#165 ***/
 user_pref("datareporting.policy.dataSubmissionEnabled", false);
+user_pref("datareporting.policy.dataSubmissionPolicyBypassNotification", true);
 /* 0331: disable Health Reports
  * [SETTING] Privacy & Security > Thunderbird Data Collection and Use > Allow Thunderbird to send technical... ***/
 user_pref("datareporting.healthreport.uploadEnabled", false);
