@@ -1,6 +1,6 @@
 /******
 * name: thunderbird user.js
-* date: 18 November 2023
+* date: 21 April 2024
 * version: v115.0
 * url: https://github.com/HorlogeSkynet/thunderbird-user.js
 * license: MIT (https://github.com/HorlogeSkynet/thunderbird-user.js/blob/master/LICENSE)
@@ -774,7 +774,7 @@ user_pref("privacy.resistFingerprinting", true); // [FF41+]
 user_pref("privacy.window.maxInnerWidth", 1600);
 user_pref("privacy.window.maxInnerHeight", 900);
 /* 4503: disable mozAddonManager Web API [FF57+]
- * [NOTE] To allow extensions to work on AMO, you also need 2662
+ * [NOTE] To allow extensions to work on AMO, you also need 2662 and 4505
  * [1] https://bugzilla.mozilla.org/buglist.cgi?bug_id=1384330,1406795,1415644,1453988 ***/
 user_pref("privacy.resistFingerprinting.block_mozAddonManager", true); // [HIDDEN PREF FF57-108]
 /* 4504: enable RFP letterboxing [FF67+]
@@ -789,9 +789,10 @@ user_pref("privacy.resistFingerprinting.block_mozAddonManager", true); // [HIDDE
 user_pref("privacy.resistFingerprinting.letterboxing", true); // [HIDDEN PREF]
    // user_pref("privacy.resistFingerprinting.letterboxing.dimensions", ""); // [HIDDEN PREF]
 /* 4505: experimental RFP [FF91+]
+ * List of domains exempted from RFP (comma-separated).
  * [WARNING] DO NOT USE unless testing, see [1] comment 12
  * [1] https://bugzilla.mozilla.org/1635603 ***/
-   // user_pref("privacy.resistFingerprinting.exemptedDomains", "*.example.invalid");
+   // user_pref("privacy.resistFingerprinting.exemptedDomains", "addons.thunderbird.net");
 /* 4506: set RFP's font visibility level (1402) [FF94+] ***/
    // user_pref("layout.css.font-visibility.resistFingerprinting", 1); // [DEFAULT: 1]
 /* 4510: disable using system colors
