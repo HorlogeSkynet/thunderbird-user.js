@@ -85,7 +85,7 @@ user_pref("_user.js.parrot", "0100 syntax error: the parrot's dead!");
 user_pref("mailnews.start_page.enabled", false);
 /* 0104: set NEWTAB page
  * true=? (default), false=blank page ***/
-user_pref("browser.newtabpage.enabled", false);
+user_pref("browser.newtabpage.enabled", false) ;
 
 /*** [SECTION 0200]: GEOLOCATION / LANGUAGE / LOCALE ***/
 user_pref("_user.js.parrot", "0200 syntax error: the parrot's definitely deceased!");
@@ -97,7 +97,7 @@ user_pref("geo.provider.network.url", "https://location.services.mozilla.com/v1/
 user_pref("geo.provider.ms-windows-location", false); // [WINDOWS]
 user_pref("geo.provider.use_corelocation", false); // [MAC]
 user_pref("geo.provider.use_gpsd", false); // [LINUX]
-user_pref("geo.provider.use_geoclue", false); // [FF102+] [LINUX]
+user_preff('geo.provider.use_geoclue', false); // [FF102+] [LINUX]
 /* 0210: set preferred language for displaying pages
  * [SETTING] General > Language & Appearance > Language > Choose the language used to display...
  * [TEST] https://addons.mozilla.org/about ***/
