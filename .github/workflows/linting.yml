@@ -7,13 +7,11 @@ jobs:
   build:
     name: Run ESLint on user.js
     runs-on: ubuntu-latest
-    env:
-      ESLINT_USE_FLAT_CONFIG: false
 
     steps:
       - uses: actions/checkout@v3
 
       - uses: actions/setup-node@v3
 
-      - run: npm install -g eslint
-      - run: eslint user.js
+      - run: npm install eslint @eslint/js
+      - run: npx eslint -c .eslint.config.mjs user.js
