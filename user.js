@@ -82,7 +82,7 @@ user_pref("browser.aboutConfig.showWarning", false);
 user_pref("_user.js.parrot", "0100 syntax error: the parrot's dead!");
 /* 0102: set START page [SETUP-CHROME]
  * [SETTING] General > Thunderbird Start Page ***/
-user_pref("mailnews.start_page.enabled", false);
+// user_pref("mailnews.start_page.enabled", false);
 /* 0104: set NEWTAB page
  * true=? (default), false=blank page ***/
 user_pref("browser.newtabpage.enabled", false);
@@ -202,7 +202,7 @@ user_pref("mail.rights.override", true);  // [DEFAULT: unset]
  * $url Web page is opened if $viewed is lower than $version (and 0330 policy bypass notification is disabled)
  * [1] https://searchfox.org/comm-esr115/source/mail/base/content/messenger.js#455 ***/
    // user_pref("app.donation.eoy.version", 2);
-user_pref("app.donation.eoy.version.viewed", 999);
+// user_pref("app.donation.eoy.version.viewed", 999);
    // user_pref("app.donation.eoy.url", "https://www.thunderbird.net/thunderbird/115.0/appeal/");
 /* 0380: disable the new/unread message count badge on taskbar icon
  * [1] https://www.thunderbird.net/en-US/thunderbird/91.0.2/releasenotes/#whatsnew */
