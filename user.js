@@ -567,8 +567,8 @@ user_pref("dom.disable_window_move_resize", true);
 /*** [SECTION 2600]: MISCELLANEOUS ***/
 user_pref("_user.js.parrot", "2600 syntax error: the parrot's run down the curtain!");
 /* 2601: prevent accessibility services from accessing your browser [RESTART]
- * [1] https://support.mozilla.org/kb/accessibility-services ***/
-// user_pref("accessibility.force_disabled", 1);
+ * [1] https://support.mozilla.org/en-US/kb/accessibility-services ***/
+user_pref("accessibility.force_disabled", 1);
 /* 2603: remove temp files opened with an external application
  * [1] https://bugzilla.mozilla.org/302433 ***/
 user_pref("browser.helperApps.deleteTempFileOnExit", true);
