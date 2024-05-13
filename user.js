@@ -1153,14 +1153,17 @@ user_pref("_user.js.parrot", "9100 syntax error: this parrot is blind!");
  * if the user wishes to keep the existence of the mail provider private.
  * We also enforce (valid) SSL/TLS connections if auto-configuration happens to be enabled.
  * [1] https://developer.mozilla.org/en-US/docs/Mozilla/Thunderbird/Autoconfiguration ***/
-user_pref("mailnews.auto_config.guess.enabled", false);
+// user_pref("mailnews.auto_config.guess.enabled", false);
 user_pref("mailnews.auto_config.fetchFromISP.enabled", false);
 user_pref("mailnews.auto_config.fetchFromISP.sendEmailAddress", false);
-user_pref("mailnews.auto_config.fetchFromExchange.enabled", false);
+// user_pref("mailnews.auto_config.fetchFromExchange.enabled", false);
 user_pref("mailnews.auto_config.guess.sslOnly", true);
 user_pref("mailnews.auto_config.guess.requireGoodCert", true); // [DEFAULT: true]
-user_pref("mailnews.auto_config_url", "");
-user_pref("mailnews.auto_config.addons_url","");
+// user_pref("mailnews.auto_config_url", "");
+// user_pref("mailnews.auto_config.addons_url","");
+user_pref("mailnews.auto_config.fetchFromISP.sslOnly", true);
+user_pref("mailnews.auto_config.fetchFromExchange.sslOnly", true);
+
 /* 9102: Disable account provisioning [SETUP-INSTALL]
  * This option allows users to create a new email account through partner providers.
  * [1] https://developer.mozilla.org/en-US/docs/Mozilla/Thunderbird/Account_Provisioner ***/
