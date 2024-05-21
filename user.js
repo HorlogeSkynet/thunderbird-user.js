@@ -1156,13 +1156,12 @@ user_pref("_user.js.parrot", "9100 syntax error: this parrot is blind!");
 // user_pref("mailnews.auto_config.guess.enabled", false);
 user_pref("mailnews.auto_config.fetchFromISP.enabled", false);
 user_pref("mailnews.auto_config.fetchFromISP.sendEmailAddress", false);
-// user_pref("mailnews.auto_config.fetchFromExchange.enabled", false);
+user_pref("mailnews.auto_config.fetchFromISP.sslOnly", true);
+    // user_pref("mailnews.auto_config.fetchFromExchange.enabled", false);
 user_pref("mailnews.auto_config.guess.sslOnly", true);
 user_pref("mailnews.auto_config.guess.requireGoodCert", true); // [DEFAULT: true]
-// user_pref("mailnews.auto_config_url", "");
-// user_pref("mailnews.auto_config.addons_url","");
-user_pref("mailnews.auto_config.fetchFromISP.sslOnly", true);
-user_pref("mailnews.auto_config.fetchFromExchange.sslOnly", true);
+    // user_pref("mailnews.auto_config_url", "https://live.thunderbird.net/autoconfig/v1.1/");
+    // user_pref("mailnews.auto_config.addons_url","https://live.thunderbird.net/autoconfig/addons.json");
 
 /* 9102: Disable account provisioning [SETUP-INSTALL]
  * This option allows users to create a new email account through partner providers.
