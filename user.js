@@ -601,7 +601,7 @@ user_pref("network.IDN_show_punycode", true);
  * [SETUP-CHROME] You may prefer a different pdf reader for security/workflow reasons
  * [SETTING] General > Files & Attachments > Portable Document Format (PDF)
  * [1] https://cve.mitre.org/cgi-bin/cvekey.cgi?keyword=pdf.js+firefox ***/
-// user_pref("pdfjs.disabled", false); // [DEFAULT: false]
+user_pref("pdfjs.disabled", false); // [DEFAULT: false]
 user_pref("pdfjs.enableScripting", false); // [FF86+]
 /* 2623: disable permissions delegation [FF73+]
  * Currently applies to cross-origin geolocation, camera, mic and screen-sharing
@@ -1261,16 +1261,16 @@ user_pref("mail.sanitize_date_header", true);
  * [1] https://bugzilla.mozilla.org/show_bug.cgi?id=667133 ***/
    // user_pref("mail.SpellCheckBeforeSend", false);
 /* 9212: Compose email in plaintext unless expressly overridden
- * [SETUP-FEATURE] Sometimes HTML is useful especially when used with Markdown Here
+ * Sometimes HTML is useful especially when used with Markdown Here
  * [SETTING] Account Settings > Composition & Addressing > Composition > Compose messages in HTML format
  * [NOTE] Holding down shift when you click on "Write" will bypass
  * [1] http://kb.mozillazine.org/Plain_text_e-mail_%28Thunderbird%29
  * [2] https://support.mozilla.org/en-US/questions/1004181
  * [3] https://markdown-here.com ***/
-    // user_pref("mail.html_compose", false);
+   // user_pref("mail.html_compose", false);
 user_pref("mail.identity.default.compose_html", false);
 /* 9213: Send only plaintext email by default
- * [SETUP-FEATURE] Only use HTML email if you need it, see [1]
+ * You should only use HTML email if you need it (see [1])
  * [SETTING] Composition > Composition > Sending Format
  * Email that is HTML should also have plaintext multipart for plain text users.
  * 0=auto (default, send only plain text if the message is free of any rich formatting
@@ -1279,14 +1279,14 @@ user_pref("mail.identity.default.compose_html", false);
  * 2=HTML (only send a HTML part)
  * 3=both (send both the HTML part and the plain text alternative part)
  * [1] https://drewdevault.com/2016/04/11/Please-use-text-plain-for-emails.html ***/
-    // user_pref("mail.default_send_format", 0);
-/* 9214: What classes can process incoming data.
+   // user_pref("mail.default_send_format", 0);
+/* 9214: What classes can process incoming data. [SETUP-FEATURE]
  * (0=All classes (default), 1=Don't display HTML, 2=Don't display HTML and inline images,
  * 3=Don't display HTML, inline images and some other uncommon types, 100=Use a hard coded list)
  * In the past this has mitigated a vulnerability CVE-2008-0304 (rare)
  * [1] https://www.mozilla.org/en-US/security/advisories/mfsa2008-12/
  * [2] https://bugzilla.mozilla.org/show_bug.cgi?id=677905 ***/
-// user_pref("mailnews.display.disallow_mime_handlers", 3);
+user_pref("mailnews.display.disallow_mime_handlers", 3);
 /* 9215: How to display HTML parts of a message body
  * (0=Display the HTML normally (default), 1=Convert it to text and then back again
  * 2=Display the HTML source, 3=Sanitize the HTML, 4=Display all body parts)
@@ -1389,7 +1389,7 @@ user_pref("mail.chat.notification_info", 2);
  * [SETTING] Calendar > Calendar > Timezone ***/
 user_pref("calendar.timezone.local", "UTC");  // [DEFAULT: ""]
 /* 9313: Disable calendar service performing event "extraction" from email content ***/
-// user_pref("calendar.extract.service.enabled", false);  // [DEFAULT: false]
+   // user_pref("calendar.extract.service.enabled", false);  // [DEFAULT: false]
 
 /** RSS ***/
 /** These features don't actually do anything as they aren't implemented
