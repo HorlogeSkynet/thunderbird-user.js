@@ -82,7 +82,7 @@ user_pref("browser.aboutConfig.showWarning", false);
 user_pref("_user.js.parrot", "0100 syntax error: the parrot's dead!");
 /* 0102: set START page [SETUP-CHROME]
  * [SETTING] General > Thunderbird Start Page ***/
-user_pref("mailnews.start_page.enabled", false);
+   // user_pref("mailnews.start_page.enabled", false);
 /* 0104: set NEWTAB page
  * true=? (default), false=blank page ***/
 user_pref("browser.newtabpage.enabled", false);
@@ -850,7 +850,7 @@ user_pref("permissions.memory_only", true); // [HIDDEN PREF]
 /* 5005: disable intermediate certificate caching [FF41+] [RESTART]
  * [NOTE] This affects login/cert/key dbs. The effect is all credentials are session-only.
  * Saved logins and passwords are not available. Reset the pref and restart to return them ***/
-    // user_pref("security.nocertdb", true);
+   // user_pref("security.nocertdb", true);
 /* 5006: disable favicons in history and bookmarks
  * [NOTE] Stored as data blobs in favicons.sqlite, these don't reveal anything that your
  * actual history (and bookmarks) already do. Your history is more detailed, so
@@ -861,7 +861,7 @@ user_pref("browser.chrome.site_icons", false);
 user_pref("browser.sessionstore.max_tabs_undo", 0);
 /* 5008: disable resuming session from crash
  * [TEST] about:crashparent ***/
-user_pref("browser.sessionstore.resume_from_crash", false);
+   // user_pref("browser.sessionstore.resume_from_crash", false);
 /* 5009: disable "open with" in download dialog [FF50+]
  * Application data isolation [1]
  * [1] https://bugzilla.mozilla.org/1281959 ***/
@@ -1263,16 +1263,16 @@ user_pref("mail.sanitize_date_header", true);
  * [1] https://bugzilla.mozilla.org/show_bug.cgi?id=667133 ***/
    // user_pref("mail.SpellCheckBeforeSend", false);
 /* 9212: Compose email in plaintext unless expressly overridden
- * [SETUP-FEATURE] Sometimes HTML is useful especially when used with Markdown Here
+ * Sometimes HTML is useful especially when used with Markdown Here
  * [SETTING] Account Settings > Composition & Addressing > Composition > Compose messages in HTML format
  * [NOTE] Holding down shift when you click on "Write" will bypass
  * [1] http://kb.mozillazine.org/Plain_text_e-mail_%28Thunderbird%29
  * [2] https://support.mozilla.org/en-US/questions/1004181
  * [3] https://markdown-here.com ***/
-user_pref("mail.html_compose", false);
+   // user_pref("mail.html_compose", false);
 user_pref("mail.identity.default.compose_html", false);
 /* 9213: Send only plaintext email by default
- * [SETUP-FEATURE] Only use HTML email if you need it, see [1]
+ * You should only use HTML email if you need it (see [1])
  * [SETTING] Composition > Composition > Sending Format
  * Email that is HTML should also have plaintext multipart for plain text users.
  * 0=auto (default, send only plain text if the message is free of any rich formatting
@@ -1281,8 +1281,8 @@ user_pref("mail.identity.default.compose_html", false);
  * 2=HTML (only send a HTML part)
  * 3=both (send both the HTML part and the plain text alternative part)
  * [1] https://drewdevault.com/2016/04/11/Please-use-text-plain-for-emails.html ***/
-user_pref("mail.default_send_format", 1);
-/* 9214: What classes can process incoming data.
+   // user_pref("mail.default_send_format", 0);
+/* 9214: What classes can process incoming data. [SETUP-FEATURE]
  * (0=All classes (default), 1=Don't display HTML, 2=Don't display HTML and inline images,
  * 3=Don't display HTML, inline images and some other uncommon types, 100=Use a hard coded list)
  * In the past this has mitigated a vulnerability CVE-2008-0304 (rare)
@@ -1391,7 +1391,7 @@ user_pref("mail.chat.notification_info", 2);
  * [SETTING] Calendar > Calendar > Timezone ***/
 user_pref("calendar.timezone.local", "UTC");  // [DEFAULT: ""]
 /* 9313: Disable calendar service performing event "extraction" from email content ***/
-user_pref("calendar.extract.service.enabled", false);  // [DEFAULT: false]
+   // user_pref("calendar.extract.service.enabled", false);  // [DEFAULT: false]
 
 /** RSS ***/
 /** These features don't actually do anything as they aren't implemented
