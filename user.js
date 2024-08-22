@@ -1176,9 +1176,9 @@ user_pref("mail.provider.enabled", false);
  * 2=name ***/
    // user_pref("mail.addressDisplayFormat", 0);
 /* 9111: Show full email instead of just name from address book
- * true=Show just the display name for people in the address book (default)
- * false=Show both the email address and display name. ***/
-user_pref("mail.showCondensedAddresses", false);
+ * true=Show just the display name for people in the address book
+ * false=Show both the email address and display name. (default) ***/
+   // user_pref("mail.showCondensedAddresses", false);
 /* 9112: Disable "Filelink for Large Attachments" feature
  * [1] https://support.thunderbird.net/kb/filelink-large-attachments ***/
 user_pref("mail.cloud_files.enabled", false);
