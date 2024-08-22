@@ -1,7 +1,7 @@
 /******
 * name: thunderbird user.js
-* date: 21 April 2024
-* version: v115.0
+* date: 21 August 2024
+* version: v128.0-beta1
 * url: https://github.com/HorlogeSkynet/thunderbird-user.js
 * license: MIT (https://github.com/HorlogeSkynet/thunderbird-user.js/blob/master/LICENSE)
 
@@ -1169,6 +1169,12 @@ user_pref("mailnews.auto_config.guess.requireGoodCert", true); // [DEFAULT: true
 user_pref("mail.provider.enabled", false);
 
 /** UI (User Interface) ***/
+/* 9110: Control how email addresses are displayed
+ * It's safer to always show actual email address, as name could be spoofed to one of your contacts
+ * 0=name + email (default)
+ * 1=email
+ * 2=name ***/
+   // user_pref("mail.addressDisplayFormat", 0);
 /* 9111: Show full email instead of just name from address book
  * true=Show just the display name for people in the address book (default)
  * false=Show both the email address and display name. ***/
