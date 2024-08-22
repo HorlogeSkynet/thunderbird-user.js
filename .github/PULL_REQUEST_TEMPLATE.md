@@ -25,4 +25,4 @@
 <!--- Put an `X` in all the boxes that apply : -->
 - [ ] My changes looks good ;
 - [ ] I agree that my code may be modified in the future ;
-- [ ] My code follows the code style of this project (see `.eslintrc.yml`).
+- [ ] My code follows the code style of this project (see `.eslint.config.mjs`).
