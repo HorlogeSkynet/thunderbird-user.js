@@ -103,13 +103,12 @@ IF NOT EXIST user.js (
 		IF !_line! GEQ 4 (GOTO exitloop)
 		IF !_line! EQU 1 (SET _name=%%H)
 		IF !_line! EQU 2 (SET _date=%%H)
-		IF !_line! EQU 3 (SET _version=%%G)
+		IF !_line! EQU 3 (SET _version=%%H)
 	)
 	:exitloop
 	IF NOT "!_name!"=="" (
 		SET "_tempvar="
-		IF /I NOT "!_name!"=="!_name:ghacks=!" SET _tempvar=1
-		IF /I NOT "!_name!"=="!_name:arkenfox=!" SET _tempvar=1
+		IF /I NOT "!_name!"=="!_name:thunderbird=!" SET _tempvar=1
 		IF !_tempvar! EQU 1 (
 			CALL :message "!_name! !_version:~2!,!_date!"
 		) ELSE (CALL :message "Current user.js version not recognised.")
