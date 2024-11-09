@@ -1,0 +1,15 @@
+* text=auto
+
+*.js text
+*.md text
+*.yml text
+*.sh text
+## *.bat text eol=crlf
+*.bat -text
+
+*.png binary
+
+.gitattributes export-ignore
+*.yml export-ignore
+/wiki export-ignore
+/.github export-ignore
