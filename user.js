@@ -1300,9 +1300,10 @@ user_pref("mailnews.display.date_senders_timezone", false);
  * "Received" header. Set the following preference. New messages will show the time the message
  * was received, rather than when it was sent. ***/
    // user_pref("mailnews.use_received_date", true);
-/* 9126: Send minimal User-Agent in outgoing email messages (default) */
-user_pref("mailnews.headers.sendUserAgent", true);
-user_pref("mailnews.headers.useMinimalUserAgent", true);
+/* 9126: Prevent any MUA information leakage through User-Agent header in outgoing email messages
+ * [1] https://bugzilla.mozilla.org/show_bug.cgi?id=1114475 ***/
+user_pref("mailnews.headers.sendUserAgent", false);
+   // user_pref("mailnews.headers.useMinimalUserAgent", true);
 
 /** ADDRESS BOOK ***/
 /* 9130: Address book collection [SETUP-FEATURE]
