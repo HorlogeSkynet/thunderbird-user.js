@@ -1023,7 +1023,7 @@ user_pref("network.http.referer.XOriginPolicy", 2);
  * When set to a valid, working value that matches your "network.trr.uri" (0712) Thunderbird
  * won't use the system DNS. If the IP doesn't match then DoH won't work ***/
    // user_pref("network.trr.bootstrapAddr", "10.0.0.1"); // [HIDDEN PREF]
-/* 5590: show a prompt when opening a link in external applications ***/
+/* 5590: show a prompt when opening a link in external applications [SETUP-CHROME] ***/
 user_pref("security.external_protocol_requires_permission", true);
 
 /*** [SECTION 6000]: DON'T TOUCH ***/
