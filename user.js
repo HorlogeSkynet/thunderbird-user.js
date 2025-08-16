@@ -1,7 +1,7 @@
 /******
 * name: thunderbird user.js
-* date: 7 November 2024
-* version: v128.0
+* date: 16 August 2025
+* version: v140.0-beta1
 * url: https://github.com/HorlogeSkynet/thunderbird-user.js
 * license: MIT (https://github.com/HorlogeSkynet/thunderbird-user.js/blob/master/LICENSE)
 
@@ -1481,29 +1481,6 @@ user_pref("calendar.timezone.local", "UTC");  // [DEFAULT: ""]
    // user_pref("calendar.extract.service.enabled", false);  // [DEFAULT: false]
 
 /** RSS ***/
-/** These features don't actually do anything as they aren't implemented
- * [1] https://searchfox.org/comm-esr102/source/mail/base/content/mailWindowOverlay.js#1082
- * [2] https://bugzilla.mozilla.org/show_bug.cgi?id=458606#c9
-/* 9320: What classes can process incoming data.
- * (0=All classes (default), 1=Don't display HTML, 2=Don't display HTML and inline images,
- * 3=Don't display HTML, inline images and some other uncommon types, 100=Use a hard coded list)
- * [1] https://www.privacy-handbuch.de/handbuch_31j.htm
-user_pref("rss.display.disallow_mime_handlers", 3);
-/* 9321: How to display HTML parts of a message body
- * (0=Display the HTML normally (default), 1=Convert it to text and then back again
- * 2=Display the HTML source, 3=Sanitize the HTML, 4=Display all body parts)
- * (in trunk builds later than 2011-07-23)
- * [1] https://bugzilla.mozilla.org/show_bug.cgi?id=602718
- * [2] https://hg.mozilla.org/comm-central/rev/c1ef44a22eb2
- * [3] https://www.bucksch.org/1/projects/mozilla/108153/
-user_pref("rss.display.html_as", 1);
-/* 9322: Prefer to view as plaintext or HTML
- * true=Display a message as plain text when there is both a HTML and a plain
- * text version of a message body
- * false=Display a message as HTML when there is both a HTML and a plain text
- * version of a message body. (default)
-user_pref("rss.display.prefer_plaintext", true);
-**/
 /* 9323: Feed message display (summary or web page), on open.
  * Action on double click or enter in threadpane for a feed message.
  * 0=open content-base url in new window, 1=open summary in new window,
