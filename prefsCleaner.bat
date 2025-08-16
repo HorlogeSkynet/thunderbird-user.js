@@ -4,7 +4,7 @@ TITLE prefs.js cleaner
 REM ## prefs.js cleaner for Windows
 REM ## /!\ This script is a vendored/adapted version of Arkenfox own prefsCleaner.bat /!\
 REM ## author: @claustromaniac
-REM ## version: 2.7
+REM ## version: 2.8
 
 CD /D "%~dp0"
 
@@ -16,7 +16,7 @@ ECHO:
 ECHO                 ########################################
 ECHO                 ####  prefs.js cleaner for Windows  ####
 ECHO                 ####        by claustromaniac       ####
-ECHO                 ####              v2.7              ####
+ECHO                 ####              v2.8              ####
 ECHO                 ########################################
 ECHO:
 CALL :message "This script should be run from your Thunderbird profile directory."
@@ -38,7 +38,7 @@ CALL :strlenCheck
 CALL :FFcheck
 
 CALL :message "Backing up prefs.js..."
-FOR /F "delims=" %%# IN ('powershell get-date -format "{yyyyMMdd_HHmmss}"') DO @SET ldt=%%#
+FOR /F "delims=" %%# IN ('powershell -command get-date -format "{yyyyMMdd_HHmmss}"') DO @SET ldt=%%#
 COPY /B /V /Y prefs.js "prefs-backup-%ldt%.js"
 
 CALL :message "Cleaning prefs.js..."
