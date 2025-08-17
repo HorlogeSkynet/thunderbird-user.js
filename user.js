@@ -1508,6 +1508,9 @@ user_pref("mail.chat.notification_info", 2);
 user_pref("calendar.timezone.local", "UTC");  // [DEFAULT: ""]
 /* 9313: Disable calendar service performing event "extraction" from email content ***/
    // user_pref("calendar.extract.service.enabled", false);  // [DEFAULT: false]
+/* 9314: Show missed reminders (disabled by default since ESR140.0)
+ * [SETTING] Calendar > Reminders > Show missed reminders for writable calendars ***/
+   // user_pref("calendar.alarms.showmissed", true);
 
 /** RSS ***/
 /* 9323: Feed message display (summary or web page), on open.
