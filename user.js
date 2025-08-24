@@ -1302,7 +1302,7 @@ user_pref("mailnews.headers.showSender", true);
 /* 9121:
  * true=Show User Agent header in message pane
  * false=Does nothing. (default) ***/
-user_pref("mailnews.headers.showUserAgent", false);
+user_pref("mailnews.headers.showUserAgent", true);
 /* 9122: Hello argument
  * Lets you replace your IP address with the specified string in Received: headers when your
  * IP address is not a "fully qualified domain name" (FQDN). Typically you only need to do this
