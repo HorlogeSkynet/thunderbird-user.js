@@ -4,10 +4,10 @@ TITLE thunderbird user.js updater
 REM ## thunderbird user.js updater for Windows
 REM ## /!\ This script is a vendored/adapted version of Arkenfox own updater.bat /!\
 REM ## author: @claustromaniac
-REM ## version: 4.19
+REM ## version: 4.20
 REM ## instructions: https://github.com/arkenfox/user.js/wiki/5.1-Updater-[Options]#-windows
 
-SET v=4.19
+SET v=4.20
 
 VERIFY ON
 CD /D "%~dp0"
@@ -177,7 +177,7 @@ IF EXIST user.js.new (
 		IF DEFINED _singlebackup (
 			MOVE /Y user.js user.js.bak >nul
 		) ELSE (
-			FOR /F "delims=" %%# IN ('powershell get-date -format "{yyyyMMdd_HHmmss}"') DO @SET ldt=%%#
+			FOR /F "delims=" %%# IN ('powershell -command get-date -format "{yyyyMMdd_HHmmss}"') DO @SET ldt=%%#
 			MOVE /Y user.js "user-backup-!ldt!.js" >nul
 		)
 		REN user.js.new user.js

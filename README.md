@@ -37,6 +37,7 @@ Also be aware that this `user.js` is made specifically for Thunderbird and is on
 
 ### 🟦 Related Projects
 
+* [Dove](https://codeberg.org/celenity/Dove)
 * [Privacy Handbuch](https://www.privacy-handbuch.de/handbuch_31p.htm)
 * [Privacy Haters](http://r-36.net/scm/privacy-haters/file/README.md.html)
 * [12bytes's user-overrides.js](https://codeberg.org/12bytes/thunderbird-user.js-supplement)
