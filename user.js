@@ -1501,10 +1501,12 @@ user_pref("mail.chat.notification_info", 2);
 
 /** CALENDAR ***/
 /* 9312: Set calendar timezone to avoid system detection [SETUP-INSTALL]
- * By default, extensive system detection would be performed to find user's current timezone.
- * Setting this preference to "UTC" should disable it.
+ * By default, extensive system detection is performed to find current timezone (if OS supports it).
+ * Disable system detection and set timezone to "UTC".
  * You may also directly set it to your timezone, i.e. "Pacific/Fakaofo"
- * [SETTING] Calendar > Calendar > Timezone ***/
+ * [SETTING] Calendar > Calendar > Set timezone manually / Timezone
+ * [1] https://bugzilla.mozilla.org/show_bug.cgi?id=1606357 ***/
+user_pref("calendar.timezone.useSystemTimezone", false);
 user_pref("calendar.timezone.local", "UTC");  // [DEFAULT: ""]
 /* 9313: Disable calendar service performing event "extraction" from email content ***/
    // user_pref("calendar.extract.service.enabled", false);  // [DEFAULT: false]
