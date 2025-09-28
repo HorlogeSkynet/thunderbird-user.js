@@ -1321,8 +1321,8 @@ user_pref("mail.smtpserver.default.hello_argument", "[127.0.0.1]");
  * [2] http://wiki.cacert.org/ThunderBirdAdvancedConfig
  * ***/
 user_pref("mailnews.display.original_date", false);
-/* 9124: Display the sender's Timezone when set to true ***/
-user_pref("mailnews.display.date_senders_timezone", false);
+/* 9124: Hide the sender's timezone from e-mail date and time ***/
+   // user_pref("mailnews.display.date_senders_timezone", false);
 /* 9125: Display Time Date based on Received Header
  * Thunderbird shows the time when the message was sent, according to the sender. It is possible
  * to make Thunderbird show the time when the message arrived on your mail server, based on the
