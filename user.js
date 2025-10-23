@@ -967,6 +967,7 @@ user_pref("javascript.options.asmjs", false);
  * [2] https://microsoftedge.github.io/edgevr/posts/Super-Duper-Secure-Mode/ ***/
 user_pref("javascript.options.ion", false);
 user_pref("javascript.options.baselinejit", false);
+user_pref("javascript.options.native_regexp", false);
 user_pref("javascript.options.jit_trustedprincipals", true); // [FF75+] [HIDDEN PREF]
 /* 5506: disable WebAssembly [FF52+]
  * Vulnerabilities [1] have increasingly been found, including those known and fixed
