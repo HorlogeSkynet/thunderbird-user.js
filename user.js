@@ -1560,6 +1560,9 @@ user_pref("_user.js.parrot", "9400 syntax error: this parrot is talking in codes
  * Whenever RNP fails to decrypt a message, Thunderbird will tray against system GnuPG
  * [1] https://wiki.mozilla.org/Thunderbird:OpenPGP:Smartcards#Allow_the_use_of_external_GnuPG ***/
 user_pref("mail.openpgp.allow_external_gnupg", true);  // [HIDDEN PREF]
+/* 9410: Allow loading of "untested" versions of GPGME (i.e. v2/45 ABI)
+ * [1] https://bugzilla.mozilla.org/show_bug.cgi?id=1967121 ***/
+user_pref("mail.openpgp.load_untested_gpgme_version", "45");  // [TB148+] [TB140.8.0+]
 
 /*** [SECTION 9999]: DEPRECATED / RENAMED ***/
 user_pref("_user.js.parrot", "9999 syntax error: the parrot's shuffled off 'is mortal coil!");
