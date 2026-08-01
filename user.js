@@ -1449,10 +1449,16 @@ user_pref("mailnews.display.disallow_mime_handlers", 3);
  * (0=Display the HTML normally (default), 1=Convert it to text and then back again
  * 2=Display the HTML source, 3=Sanitize the HTML, 4=Display all body parts)
  * (in trunk builds later than 2011-07-23)
+ *
+ * drop_media=true : control whether <img>, <video> and <audio> tags are dropped
+ * drop_non_css_presentation=true : control whether <font>, <center>, align='...', etc. are dropped
+ *
  * [1] https://bugzilla.mozilla.org/show_bug.cgi?id=602718
  * [2] https://hg.mozilla.org/comm-central/rev/c1ef44a22eb2
  * [3] https://www.bucksch.org/1/projects/mozilla/108153/ ***/
 user_pref("mailnews.display.html_as", 3);
+   // user_pref("mailnews.display.html_sanitizer.drop_media", true);
+   // user_pref("mailnews.display.html_sanitizer.drop_non_css_presentation", true);
 user_pref("mail.html_sanitize.drop_conditional_css", true); // [DEFAULT: true]
 /* 9216: Prefer to view as plaintext or HTML [SETUP-FEATURE]
  * true=Display a message as plain text when there is both a HTML and a plain
