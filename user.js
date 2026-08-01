@@ -973,6 +973,10 @@ user_pref("keyword.enabled", false);
  * many users could suffer from this we keep this it disabled, feel free to switch it on if yours
  * supports it. */
    // user_pref("mailnews.oauth.usePrivateBrowser", true);
+/* 5902: Prefer system browser for OAuth instead of Thunderbird ***/
+user_pref("mailnews.oauth.useExternalBrowser", true); // [DEFAULT: true]
+/* 5903: Prefer "net.thunderbird:" URL scheme instead of "localhost" address for OAuth redirection ***/
+user_pref("mailnews.oauth.useSchemeRedirect", true);  // [DEFAULT: true]
 
 /*** [SECTION 5500]: OPTIONAL HARDENING
    Thunderbird-User.JS maintainer here :
