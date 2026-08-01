@@ -1279,6 +1279,8 @@ user_pref("browser.newtabpage.activity-stream.asrouter.userprefs.cfr.addons", fa
 user_pref("browser.newtabpage.activity-stream.asrouter.userprefs.cfr.features", false);
 /* 9090: disable return receipt sending unconditionally ***/
    // user_pref("mail.mdn.report.enabled", false);
+/* 9091: disable "special folder" name localization [TB153+] ***/
+   // user_pref("mail.useLocalizedFolderNames", false); [RESTART]
 /* 9099: e-mail custom headers (examples) ***/
    // user_pref("mail.compose.other.header", "X-Custom-Header,X-Another-Custom-Header"); // corresponding values can be set in compose window ("double-arrow" drop-down)
    // user_pref("mail.identity.id1.headers", "References, InReplyTo");
