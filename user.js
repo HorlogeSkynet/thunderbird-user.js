@@ -384,6 +384,11 @@ user_pref("network.http.microsoft-entra-sso.enabled", true);
 /* 0910: enforce no direct attestation in passkeys [FF144+]
  * [1] https://bugzilla.mozilla.org/show_bug.cgi?id=1981587 ***/
 user_pref("security.webauthn.always_allow_direct_attestation", false); // [DEFAULT: false]
+/* 0990: disable "Saved Passwords..." button to prevent direct passwords reveal through settings
+ * [WARNING] This DOES NOT prevent passwords access through about:logins or other means
+ * [1] https://support.mozilla.org/en-US/kb/customizing-firefox-using-autoconfig#w_disabling-ui-elements
+ * [2] https://bugzilla.mozilla.org/show_bug.cgi?id=274889 ***/
+user_pref("pref.privacy.disable_button.view_passwords", true); // [HIDDEN PREF] [RESTART]
 
 /*** [SECTION 1000]: DISK AVOIDANCE ***/
 user_pref("_user.js.parrot", "1000 syntax error: the parrot's gone to meet 'is maker!");
@@ -1331,10 +1336,9 @@ user_pref("mail.provider.enabled", false);
 /* 9112: Disable "Filelink for Large Attachments" feature
  * [1] https://support.thunderbird.net/kb/filelink-large-attachments ***/
 user_pref("mail.cloud_files.enabled", false);
-/* 9113: Don't hide cookies and passwords related (advanced?) buttons ***/
+/* 9113: Don't hide cookies related (advanced?) buttons ***/
 user_pref("pref.privacy.disable_button.view_cookies", false);
 user_pref("pref.privacy.disable_button.cookie_exceptions", false);
-user_pref("pref.privacy.disable_button.view_passwords", false);
 
 /** HEADERS ***/
 /* 9120:
