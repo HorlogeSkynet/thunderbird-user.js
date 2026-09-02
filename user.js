@@ -470,6 +470,9 @@ user_pref("security.pki.crlite_mode", 2);
    // user_pref("security.osclientcerts.autoload", true);
 
 /** MIXED CONTENT ***/
+/* 1240: disable insecure active content on https pages
+ * [1] https://gitlab.torproject.org/tpo/applications/tor-browser/-/issues/21323 ***/
+user_pref("security.mixed_content.block_active_content", true);
 /* 1241: disable insecure passive content (such as images) on https pages ***/
 user_pref("security.mixed_content.block_display_content", true); // Defense-in-depth (see 1244)
 /* 1244: enable HTTPS-Only mode in all windows
